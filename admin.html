@@ -3,17 +3,19 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Lenovo Квиз — Admin</title>
+<title>Lenovo Квиз — Админ</title>
 <style>
-  :root{ --red:#E2231A; --border:#e5e7eb; --muted:#6b7280; --bg:#fff; --text:#111827; }
+  :root{ --red:#E2231A; --border:#e5e7eb; --muted:#6b7280; --text:#111827; --bg:#fff; }
   *{box-sizing:border-box} body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--text);background:var(--bg)}
   header{position:sticky;top:0;background:#fff;border-bottom:1px solid var(--border);padding:12px 16px}
-  header .row{display:flex;gap:12px;align-items:center;justify-content:space-between;max-width:1080px;margin:0 auto}
+  header .row{display:flex;gap:12px;align-items:center;justify-content:space-between;max-width:1100px;margin:0 auto}
   h1{font-size:18px;margin:0}
-  main{max-width:1080px;margin:0 auto;padding:16px}
-  .card{border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:16px}
+  main{max-width:1100px;margin:0 auto;padding:16px;display:grid;gap:16px}
+  .card{border:1px solid var(--border);border-radius:12px;padding:16px}
   .grid{display:grid;gap:12px}
-  @media(min-width:900px){ .grid-2{grid-template-columns:1fr 1fr} }
+  .grid-2{grid-template-columns:1fr}
+  .grid-3{grid-template-columns:1fr}
+  @media(min-width:960px){ .grid-2{grid-template-columns:1fr 1fr} .grid-3{grid-template-columns:repeat(3,1fr)} }
   label{font-weight:600;font-size:14px}
   input, textarea{width:100%;padding:10px;border:1px solid var(--border);border-radius:8px}
   textarea{min-height:80px;resize:vertical}
@@ -21,10 +23,16 @@
   .btn.primary{background:var(--red);color:#fff;border:0}
   .row-btns{display:flex;gap:8px;flex-wrap:wrap}
   .small{font-size:12px;color:var(--muted)}
-  .ans-row{display:flex;gap:8px;margin-top:8px}
-  .ans-row input{flex:1}
-  .pill{display:inline-block;background:#f8fafc;border:1px solid var(--border);border-radius:999px;padding:6px 10px;font-size:12px;margin-bottom:8px}
   .q-block{border:1px dashed var(--border);border-radius:10px;padding:12px;margin:10px 0}
+  .ans-row{display:flex;gap:8px;align-items:center;margin-top:8px}
+  .pill{display:inline-block;background:#f8fafc;border:1px solid var(--border);border-radius:999px;padding:6px 10px;font-size:12px;margin-bottom:8px}
+  .icon-picker{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;border:1px solid var(--border);padding:8px;border-radius:10px;max-height:240px;overflow:auto}
+  .icon-btn{border:1px solid var(--border);padding:8px;border-radius:10px;background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center}
+  .icon-btn svg{width:22px;height:22px}
+  .icon-active{outline:2px solid var(--red)}
+  .inline-split{display:flex;gap:8px;align-items:center}
+  .preview{display:flex;gap:10px;align-items:center;margin-top:8px}
+  .preview img{width:56px;height:56px;border:1px solid var(--border);border-radius:8px;object-fit:cover}
 </style>
 </head>
 <body>
@@ -32,22 +40,68 @@
     <div class="row">
       <h1>Lenovo Квиз — Админ</h1>
       <div class="row-btns">
-        <button id="btnLoad" class="btn">Вчитај од localStorage</button>
-        <button id="btnSave" class="btn primary">Зачувај во localStorage</button>
+        <button id="btnLoad" class="btn">Вчитај</button>
+        <button id="btnSave" class="btn primary">Зачувај</button>
         <button id="btnExport" class="btn">Export JSON</button>
-        <label class="btn"><input id="fileImport" type="file" accept="application/json" style="display:none">Import JSON</label>
+        <label class="btn">
+          Import JSON <input id="fileImport" type="file" accept="application/json" style="display:none">
+        </label>
       </div>
     </div>
   </header>
 
   <main>
     <div class="card">
-      <div class="pill">Општо</div>
+      <div class="pill">Лого (header)</div>
       <div class="grid grid-2">
         <div>
+          <label>Лого (URL)</label>
+          <input id="cfg_logo_url" placeholder="https://..." />
+          <div class="small">Ако пополнето, има предност над upload-от.</div>
+        </div>
+        <div>
+          <label>Лого (Upload → base64)</label>
+          <input id="cfg_logo_file" type="file" accept="image/*" />
+          <div class="preview"><img id="preview_logo" alt=""><span class="small">Преглед</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="pill">Hero / Start</div>
+      <div class="grid grid-3">
+        <div>
+          <label>Наслов</label>
+          <input id="cfg_hero_title" placeholder="Откриј го идеалниот Lenovo за тебе" />
+        </div>
+        <div>
+          <label>Поднаслов</label>
+          <input id="cfg_hero_sub" placeholder="Одговори на 8 брзи прашања..." />
+        </div>
+        <div>
+          <label>CTA (Start копче)</label>
+          <input id="cfg_start_cta" placeholder="ПОЧНИ" />
+        </div>
+      </div>
+      <div class="grid grid-2" style="margin-top:8px">
+        <div>
           <label>Hero слика (URL)</label>
-          <input id="cfg_hero" placeholder="https://..." />
-          <div class="small">Се прикажува над насловот на почетната.</div>
+          <input id="cfg_hero_img_url" placeholder="https://..." />
+        </div>
+        <div>
+          <label>Hero слика (Upload → base64)</label>
+          <input id="cfg_hero_img_file" type="file" accept="image/*" />
+          <div class="preview"><img id="preview_hero" alt=""><span class="small">Преглед</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="pill">Завршница</div>
+      <div class="grid grid-2">
+        <div>
+          <label>CTA (финиш копче)</label>
+          <input id="cfg_finish_cta" placeholder="Продолжи кон препорачан модел" />
         </div>
       </div>
     </div>
@@ -58,7 +112,7 @@
         <div>
           <label>Legion URL</label>
           <input id="u_legion" />
-          <label style="margin-top:8px">Legion слика</label>
+          <label style="margin-top:8px">Legion слика (URL или base64)</label>
           <input id="i_legion" />
         </div>
         <div>
@@ -87,27 +141,41 @@
     </div>
 
     <div class="card" id="questionsCard">
-      <div class="pill">Прашања</div>
+      <div class="pill">Прашања + Икони</div>
       <div id="qWrap"></div>
       <div class="row-btns" style="margin-top:10px">
         <button id="addQ" class="btn">Додај прашање</button>
+      </div>
+      <div style="margin-top:12px">
+        <label>Пребарај икони</label>
+        <input id="iconSearch" placeholder="search: game, school, brief, bolt..." />
+        <div id="iconLibrary" class="icon-picker" style="margin-top:8px"></div>
+        <div class="small">Клик на икона за да ја поставиш на последно селектираниот одговор. Или залепи custom SVG во полето „Custom SVG“ кај одговорот.</div>
       </div>
     </div>
 
     <div class="card">
       <div class="row-btns">
         <button id="btnSave2" class="btn primary">Зачувај</button>
-        <button id="btnReset" class="btn">Reset на фабрички (брише локални)</button>
+        <button id="btnReset" class="btn">Reset (брише локални)</button>
       </div>
       <div class="small" style="margin-top:8px">
-        Се зачувува како <strong>lenovoQuizConfig</strong> во localStorage. На <code>/</code> (index.html) се вчитува автоматски ако постои.
+        Се зачувува како <strong>lenovoQuizConfig</strong> во localStorage. Homepage (`index.html`) автоматски го вчитува ако постои.
       </div>
     </div>
   </main>
 
 <script>
+/* ===== Default Config ===== */
 const DEFAULT = {
-  hero: "https://static.beebom.com/wp-content/uploads/2018/04/lenovi-thinkpad-x1.jpg?w=750&quality=75",
+  logo: { url: "https://cdn.worldvectorlogo.com/logos/lenovo-2.svg", data: "" }, // url приоритет
+  hero: {
+    title: "Откриј го идеалниот Lenovo за тебе",
+    sub: "Одговори на 8 брзи прашања за 30 секунди и добиј директна препорака.",
+    cta: "ПОЧНИ",
+    image: { url: "https://static.beebom.com/wp-content/uploads/2018/04/lenovi-thinkpad-x1.jpg?w=750&quality=75", data: "" }
+  },
+  finish: { cta: "Продолжи кон препорачан модел" },
   productUrls: {
     legion: "https://kupilenovo.mk/categories/_laptops/83F500DJRM-Legion-Legion-Pro-7-16IAX10H-Eclipse-Black---Ultra-9-275HX,-64GB,-2TB-NVMe,-RTX-5080-16GB,-16-,-DOS",
     thinkbook14: "REPLACE_WITH_THINKBOOK_14_G7_URL",
@@ -122,75 +190,127 @@ const DEFAULT = {
     v15: "https://via.placeholder.com/300x200?text=Lenovo+V15+G4"
   },
   questions: [
-    { title:"П1. За што ти е најпотребен лаптопот?", answers:["Гејминг","Училиште/Факултет","Работа"], condition:null },
-    { title:"П2. Што ти е најважно во моментов?", answers:["Максимални перформанси","Удобност за цел ден","Најдобра вредност за буџетот"], condition:null },
-    { title:"П3. Каков екран ти одговара?", answers:["Голем и имерзивен 16″","Стандарден 15–16″","Компактен и лесен 14″"], condition:null },
-    { title:"П4. Твојот ден најчесто изгледа вака:", answers:["Долги фокус-сесии на биро","Се движам меѓу предавања и кафулиња","Низа повици, документи и табели"], condition:null },
-    { title:"П5. За работа — што ти значи повеќе?", answers:["Премиум изработка, тастатура и моќ за тежок мултитаск","Најдобра вредност што ја завршува работата"], condition:"work" },
-    { title:"П6. Каде најчесто ќе го користиш?", answers:["Дома или гејминг-сетап","Кампус и кафулиња","Канцеларија и средби со клиенти"], condition:null },
-    { title:"П7. Избери реченица со која се поистоветуваш:", answers:["Сакам нешто незапирливо","Сакам нешто лесно и сигурно","Сакам нешто професионално и доверливо","Сакам паметна вредност"], condition:null },
+    { title:"П1. За што ти е најпотребен лаптопот?", answers:[
+      {text:"Гејминг", icon:"game", customSvg:""},
+      {text:"Училиште/Факултет", icon:"school", customSvg:""},
+      {text:"Работа", icon:"brief", customSvg:""}
+    ], condition:null },
+    { title:"П2. Што ти е најважно во моментов?", answers:[
+      {text:"Максимални перформанси", icon:"bolt", customSvg:""},
+      {text:"Удобност за цел ден", icon:"comfy", customSvg:""},
+      {text:"Најдобра вредност за буџетот", icon:"value", customSvg:""}
+    ], condition:null },
+    { title:"П3. Каков екран ти одговара?", answers:[
+      {text:"Голем и имерзивен 16″", icon:"display16", customSvg:""},
+      {text:"Стандарден 15–16″", icon:"display15", customSvg:""},
+      {text:"Компактен и лесен 14″", icon:"display14", customSvg:""}
+    ], condition:null },
+    { title:"П4. Твојот ден најчесто изгледа вака:", answers:[
+      {text:"Долги фокус-сесии на биро", icon:"desk", customSvg:""},
+      {text:"Се движам меѓу предавања и кафулиња", icon:"campus", customSvg:""},
+      {text:"Низа повици, документи и табели", icon:"sheets", customSvg:""}
+    ], condition:null },
+    { title:"П5. За работа — што ти значи повеќе?", answers:[
+      {text:"Премиум изработка, тастатура и моќ за тежок мултитаск", icon:"trophy", customSvg:""},
+      {text:"Најдобра вредност што ја завршува работата", icon:"bulb", customSvg:""}
+    ], condition:"work" },
+    { title:"П6. Каде најчесто ќе го користиш?", answers:[
+      {text:"Дома или гејминг-сетап", icon:"home", customSvg:""},
+      {text:"Кампус и кафулиња", icon:"campus", customSvg:""},
+      {text:"Канцеларија и средби со клиенти", icon:"office", customSvg:""}
+    ], condition:null },
+    { title:"П7. Избери реченица со која се поистоветуваш:", answers:[
+      {text:"Сакам нешто незапирливо", icon:"rocket", customSvg:""},
+      {text:"Сакам нешто лесно и сигурно", icon:"check", customSvg:""},
+      {text:"Сакам нешто професионално и доверливо", icon:"toolbox", customSvg:""},
+      {text:"Сакам паметна вредност", icon:"value", customSvg:""}
+    ], condition:null },
     { title:"Последен чекор — остави контакт за препораката", answers:[], condition:"lead" }
   ]
 };
 
+/* ===== Simple Icon Library (editable list) ===== */
+const ICONS = {
+  game:'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M6 8h12a4 4 0 0 1 4 4v3a3 3 0 1 1-6 0h-8a3 3 0 1 1-6 0v-3a4 4 0 0 1 4-4Zm2 3H6v2H4v2h2v2h2v-2h2v-2H8v-2Z"/></svg>',
+  school:'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 3 1 9l11 6 10-5V9L12 3Zm0 13L3.7 11 12 7l8.3 4L12 16Z"/></svg>',
+  brief:'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M9 3h6a2 2 0 0 1 2 2v2h3a2 2 0 0 1 2 2v9a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V9a2 2 0 0 1 2-2h3Zm0 4h6V5H9v2Z"/></svg>',
+  bolt:'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M13 2 3 14h7l-1 8 11-12h-7l0-8Z"/></svg>',
+  comfy:'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M4 12h16a2 2 0 0 1 2 2v6h-2v-2H4v2H2v-6a2 2 0 0 1 2-2Z"/></svg>',
+  value:'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 1 0 .001 20.001A10 10 0 0 0 12 2Zm1 5h-2v2H8v2h3v4H9v2h3v2h2v-2h1v-2h-1v-4h3V9h-3V7Z"/></svg>',
+  display16:'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M3 5h18v10H3zM8 19h8v-2H8z"/></svg>',
+  display15:'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M4 6h16v9H4zM9 19h6v-2H9z"/></svg>',
+  display14:'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M5 7h14v8H5zM10 19h4v-2h-4z"/></svg>',
+  desk:'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M2 10h20v4h-2v6h-2v-6H6v6H4v-6H2v-4Z"/></svg>',
+  campus:'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M2 10 12 5l10 5-10 5-10-5Zm3 5h14v4H5v-4Z"/></svg>',
+  sheets:'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M7 3h10a2 2 0 0 1 2 2v14l-5-3-5 3V5a2 2 0 0 1 2-2Z"/></svg>',
+  trophy:'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M4 4h16v3h2a5 5 0 0 1-5 5h-2a4 4 0 0 1-8 0H5A5 5 0 0 1 3 7h1V4Zm6 12h4v2h-4v-2Z"/></svg>',
+  bulb:'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a7 7 0 0 1 4 13v3h-8v-3a7 7 0 0 1 4-13Zm-2 18h4v2h-4v-2Z"/></svg>',
+  home:'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M3 11 12 4l9 7v8h-6v-5H9v5H3v-8Z"/></svg>',
+  office:'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M4 3h8v18H4zM14 7h6v14h-6z"/></svg>',
+  rocket:'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2c4 0 7 3 7 7l-4 4-3-1-1-3 4-4C14 3 12 2 12 2ZM5 19l2-5 3 3-5 2Z"/></svg>',
+  check:'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>',
+  toolbox:'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M7 7V5a2 2 0 0 1 2-2h6a2 2 0  1 1 2 2v2h3a2 2 0 0 1 2 2v9H2V9a2 2 0 0 1 2-2h3Zm2 0h6V5H9v2Z"/></svg>',
+  target:'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 1 0 10 10h-2a8 8 0  1 1-8-8V2Zm0 4a6 6 0 1 0 6 6h-2a4 4 0 1 1-4-4V6Z"/></svg>'
+};
+
 function qs(id){ return document.getElementById(id); }
 
+function toDataUrl(file, cb){
+  const r = new FileReader();
+  r.onload = ()=> cb(r.result);
+  r.readAsDataURL(file);
+}
+
+/* render questions */
 function renderQuestions(list){
   const wrap = qs('qWrap'); wrap.innerHTML = '';
-  list.forEach((q, idx)=>{
+  list.forEach((q, qi)=>{
     const el = document.createElement('div');
     el.className = 'q-block';
     el.innerHTML = `
-      <label>Наслов (П${idx+1})</label>
-      <input data-type="title" data-idx="${idx}" value="${q.title.replace(/"/g,'&quot;')}" />
+      <label>Наслов (П${qi+1})</label>
+      <input data-type="qtitle" data-qi="${qi}" value="${q.title.replace(/"/g,'&quot;')}" />
       <div class="small">Condition: ${q.condition ? q.condition : '—'}</div>
       <div class="small">Одговори:</div>
-      <div data-answers="${idx}"></div>
+      <div data-answers="${qi}"></div>
       <div class="row-btns" style="margin-top:8px">
-        <button class="btn" data-add="${idx}">Додај одговор</button>
-        ${idx<list.length-1?'<button class="btn" data-down="'+idx+'">Помести надолу</button>':''}
-        ${idx>0?'<button class="btn" data-up="'+idx+'">Помести нагоре</button>':''}
-        ${q.condition!=="lead" ? '<button class="btn" data-del="'+idx+'">Избриши прашање</button>' : ''}
+        <button class="btn" data-add="${qi}">Додај одговор</button>
+        ${qi<list.length-1?'<button class="btn" data-down="'+qi+'">Помести надолу</button>':''}
+        ${qi>0?'<button class="btn" data-up="'+qi+'">Помести нагоре</button>':''}
+        ${q.condition!=="lead" ? '<button class="btn" data-del="'+qi+'">Избриши прашање</button>' : ''}
       </div>
     `;
     wrap.appendChild(el);
-    const answersHost = el.querySelector(`[data-answers="${idx}"]`);
-    q.answers.forEach((a, aIdx)=>{
+    const host = el.querySelector(`[data-answers="${qi}"]`);
+    q.answers.forEach((a, ai)=>{
       const row = document.createElement('div');
       row.className = 'ans-row';
       row.innerHTML = `
-        <input data-type="answer" data-idx="${idx}" data-aidx="${aIdx}" value="${a.replace(/"/g,'&quot;')}"/>
-        <button class="btn" data-del-answer="${idx}:${aIdx}">Избриши</button>
+        <input data-type="atext" data-qi="${qi}" data-ai="${ai}" value="${a.text.replace(/"/g,'&quot;')}" />
+        <div class="inline-split">
+          <input data-type="aicon" data-qi="${qi}" data-ai="${ai}" placeholder="икона key или празно" value="${a.icon||''}" style="width:160px" />
+          <input data-type="asvg" data-qi="${qi}" data-ai="${ai}" placeholder="Custom SVG (опционално)" value="${(a.customSvg||'').replace(/"/g,'&quot;')}" style="width:260px" />
+        </div>
+        <button class="btn" data-del-answer="${qi}:${ai}">Избриши</button>
       `;
-      answersHost.appendChild(row);
+      host.appendChild(row);
     });
   });
 }
 
-function collect(){
-  const hero = qs('cfg_hero').value.trim();
-  const cfg = {
-    hero,
-    productUrls: {
-      legion: qs('u_legion').value.trim(),
-      thinkbook14: qs('u_thinkbook14').value.trim(),
-      thinkpadE16: qs('u_thinkpadE16').value.trim(),
-      v15: qs('u_v15').value.trim(),
-      fallback: qs('u_fallback').value.trim()
-    },
-    productImages: {
-      legion: qs('i_legion').value.trim(),
-      thinkbook14: qs('i_thinkbook14').value.trim(),
-      thinkpadE16: qs('i_thinkpadE16').value.trim(),
-      v15: qs('i_v15').value.trim()
-    },
-    questions: window._LIST
-  };
-  return cfg;
-}
-
+/* fill & collect */
 function fill(cfg){
-  qs('cfg_hero').value = cfg.hero || '';
+  qs('cfg_logo_url').value = cfg.logo?.url || '';
+  qs('preview_logo').src = cfg.logo?.data || cfg.logo?.url || '';
+
+  qs('cfg_hero_title').value = cfg.hero?.title || '';
+  qs('cfg_hero_sub').value = cfg.hero?.sub || '';
+  qs('cfg_start_cta').value = cfg.hero?.cta || '';
+  qs('cfg_hero_img_url').value = cfg.hero?.image?.url || '';
+  qs('preview_hero').src = cfg.hero?.image?.data || cfg.hero?.image?.url || '';
+
+  qs('cfg_finish_cta').value = cfg.finish?.cta || '';
+
   qs('u_legion').value = cfg.productUrls.legion || '';
   qs('u_thinkbook14').value = cfg.productUrls.thinkbook14 || '';
   qs('u_thinkpadE16').value = cfg.productUrls.thinkpadE16 || '';
@@ -200,59 +320,103 @@ function fill(cfg){
   qs('i_thinkbook14').value = cfg.productImages.thinkbook14 || '';
   qs('i_thinkpadE16').value = cfg.productImages.thinkpadE16 || '';
   qs('i_v15').value = cfg.productImages.v15 || '';
-  window._LIST = cfg.questions.map(q=>({ title:q.title, answers:[...q.answers], condition:q.condition||null }));
-  renderQuestions(window._LIST);
+
+  window._CFG = JSON.parse(JSON.stringify(cfg));
+  renderQuestions(window._CFG.questions);
+  renderIconLibrary('');
+}
+function collect(){
+  const cfg = JSON.parse(JSON.stringify(window._CFG));
+  cfg.logo.url = qs('cfg_logo_url').value.trim();
+  cfg.hero.title = qs('cfg_hero_title').value.trim();
+  cfg.hero.sub = qs('cfg_hero_sub').value.trim();
+  cfg.hero.cta = qs('cfg_start_cta').value.trim();
+  cfg.hero.image.url = qs('cfg_hero_img_url').value.trim();
+  cfg.finish.cta = qs('cfg_finish_cta').value.trim();
+
+  cfg.productUrls.legion = qs('u_legion').value.trim();
+  cfg.productUrls.thinkbook14 = qs('u_thinkbook14').value.trim();
+  cfg.productUrls.thinkpadE16 = qs('u_thinkpadE16').value.trim();
+  cfg.productUrls.v15 = qs('u_v15').value.trim();
+  cfg.productUrls.fallback = qs('u_fallback').value.trim();
+
+  cfg.productImages.legion = qs('i_legion').value.trim();
+  cfg.productImages.thinkbook14 = qs('i_thinkbook14').value.trim();
+  cfg.productImages.thinkpadE16 = qs('i_thinkpadE16').value.trim();
+  cfg.productImages.v15 = qs('i_v15').value.trim();
+  return cfg;
 }
 
-function save(){
-  const cfg = collect();
-  localStorage.setItem('lenovoQuizConfig', JSON.stringify(cfg));
-  alert('Зачувано ✅');
-}
-
+/* save/load/export/import */
+function save(){ localStorage.setItem('lenovoQuizConfig', JSON.stringify(collect())); alert('Зачувано ✅'); }
 function load(){
   const raw = localStorage.getItem('lenovoQuizConfig');
-  if(!raw){ alert('Нема зачувана конфигурација. Вчитав фабричка.'); fill(DEFAULT); return; }
-  try{ fill(JSON.parse(raw)); }catch(e){ alert('Грешка при читање конфигурација. Се вчитува фабричка.'); fill(DEFAULT); }
+  if(!raw) { fill(DEFAULT); alert('Нема локална конфигурација — вчитана фабричка.'); return; }
+  try{ fill(JSON.parse(raw)); }catch(e){ fill(DEFAULT); alert('Грешка при читање — вчитана фабричка.'); }
 }
-
 function exportJSON(){
   const blob = new Blob([JSON.stringify(collect(), null, 2)], {type:'application/json'});
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'lenovoQuizConfig.json';
-  a.click();
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'lenovoQuizConfig.json'; a.click();
 }
-
 function importJSON(file){
   const r = new FileReader();
-  r.onload = () => {
-    try{
-      const cfg = JSON.parse(r.result);
-      fill(cfg);
-      localStorage.setItem('lenovoQuizConfig', JSON.stringify(cfg));
-      alert('Увезено и зачувано ✅');
-    }catch(e){ alert('Невалиден JSON'); }
-  };
+  r.onload = ()=>{ try{ const cfg = JSON.parse(r.result); fill(cfg); localStorage.setItem('lenovoQuizConfig', JSON.stringify(cfg)); alert('Увезено ✅'); }catch(e){ alert('Невалиден JSON'); } };
   r.readAsText(file);
 }
 
-/* boot */
-window._LIST = DEFAULT.questions.map(q=>({ title:q.title, answers:[...q.answers], condition:q.condition||null }));
-renderQuestions(window._LIST);
-fill(DEFAULT);
+/* icon library */
+let _currentIconTarget = null; // {qi, ai}
+function renderIconLibrary(filter){
+  const lib = qs('iconLibrary'); lib.innerHTML = '';
+  const keys = Object.keys(ICONS).filter(k => !filter || k.includes(filter.toLowerCase()));
+  keys.forEach(k=>{
+    const btn = document.createElement('button');
+    btn.className = 'icon-btn';
+    btn.innerHTML = ICONS[k];
+    btn.title = k;
+    btn.onclick = ()=>{
+      if(!_currentIconTarget){ alert('Избери поле „икона key“ на некој одговор за да ја залепиш.'); return; }
+      const {qi, ai} = _currentIconTarget;
+      window._CFG.questions[qi].answers[ai].icon = k;
+      // визуелна потврда
+      [...lib.children].forEach(c=>c.classList.remove('icon-active'));
+      btn.classList.add('icon-active');
+      // апдејт во input
+      const input = document.querySelector(`input[data-type="aicon"][data-qi="${qi}"][data-ai="${ai}"]`);
+      if(input) input.value = k;
+    };
+    lib.appendChild(btn);
+  });
+}
 
 /* events */
+document.getElementById('btnSave').onclick = save;
+document.getElementById('btnSave2').onclick = save;
+document.getElementById('btnLoad').onclick = load;
+document.getElementById('btnExport').onclick = exportJSON;
+document.getElementById('fileImport').onchange = (e)=> importJSON(e.target.files[0]);
+
+// file to base64
+qs('cfg_logo_file').onchange = (e)=>{
+  const f = e.target.files[0]; if(!f) return;
+  toDataUrl(f, data=>{ window._CFG.logo.data = data; qs('preview_logo').src = data; });
+};
+qs('cfg_hero_img_file').onchange = (e)=>{
+  const f = e.target.files[0]; if(!f) return;
+  toDataUrl(f, data=>{ window._CFG.hero.image.data = data; qs('preview_hero').src = data; });
+};
+
+// dynamic inputs for questions
 document.addEventListener('input', (e)=>{
   const el = e.target;
-  if(el.dataset.type === 'title'){
-    const i = Number(el.dataset.idx); window._LIST[i].title = el.value;
-  }
-  if(el.dataset.type === 'answer'){
-    const i = Number(el.dataset.idx), a = Number(el.dataset.aidx);
-    window._LIST[i].answers[a] = el.value;
-  }
+  const qi = Number(el.dataset.qi), ai = Number(el.dataset.ai);
+  if(el.dataset.type === 'qtitle'){ window._CFG.questions[qi].title = el.value; }
+  if(el.dataset.type === 'atext'){ window._CFG.questions[qi].answers[ai].text = el.value; }
+  if(el.dataset.type === 'aicon'){ _currentIconTarget = {qi, ai}; window._CFG.questions[qi].answers[ai].icon = el.value.trim(); }
+  if(el.dataset.type === 'asvg'){ window._CFG.questions[qi].answers[ai].customSvg = el.value; }
+  if(el.id==='iconSearch'){ renderIconLibrary(el.value.trim()); }
 });
+
 document.addEventListener('click', (e)=>{
   const a = e.target.dataset.add;
   const del = e.target.dataset.del;
@@ -260,18 +424,15 @@ document.addEventListener('click', (e)=>{
   const down = e.target.dataset.down;
   const delAns = e.target.dataset.delAnswer;
 
-  if(a){ const i = Number(a); window._LIST[i].answers.push('Нов одговор'); renderQuestions(window._LIST); }
-  if(typeof del !== 'undefined'){ const i = Number(del); window._LIST.splice(i,1); renderQuestions(window._LIST); }
-  if(up){ const i = Number(up); const t = window._LIST[i]; window._LIST.splice(i,1); window._LIST.splice(i-1,0,t); renderQuestions(window._LIST); }
-  if(down){ const i = Number(down); const t = window._LIST[i]; window._LIST.splice(i,1); window._LIST.splice(i+1,0,t); renderQuestions(window._LIST); }
-  if(delAns){ const [qi, ai] = delAns.split(':').map(Number); window._LIST[qi].answers.splice(ai,1); renderQuestions(window._LIST); }
+  if(a){ const i = Number(a); window._CFG.questions[i].answers.push({text:'Нов одговор', icon:'', customSvg:''}); renderQuestions(window._CFG.questions); }
+  if(typeof del !== 'undefined'){ const i = Number(del); window._CFG.questions.splice(i,1); renderQuestions(window._CFG.questions); }
+  if(up){ const i = Number(up); const t = window._CFG.questions[i]; window._CFG.questions.splice(i,1); window._CFG.questions.splice(i-1,0,t); renderQuestions(window._CFG.questions); }
+  if(down){ const i = Number(down); const t = window._CFG.questions[i]; window._CFG.questions.splice(i,1); window._CFG.questions.splice(i+1,0,t); renderQuestions(window._CFG.questions); }
+  if(delAns){ const [qi, ai] = delAns.split(':').map(Number); window._CFG.questions[qi].answers.splice(ai,1); renderQuestions(window._CFG.questions); }
 });
 
-document.getElementById('btnSave').onclick = save;
-document.getElementById('btnSave2').onclick = save;
-document.getElementById('btnLoad').onclick = load;
-document.getElementById('btnExport').onclick = exportJSON;
-document.getElementById('fileImport').onchange = (e)=> importJSON(e.target.files[0]);
+// boot
+fill(DEFAULT);
 </script>
 </body>
 </html>
