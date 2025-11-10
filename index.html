@@ -28,7 +28,7 @@
   .intro-card{
     background:var(--card); border:1px solid var(--border); border-radius:var(--radius);
     box-shadow:var(--shadow); width:min(820px,100%); padding:22px;
-    text-align:center; margin:0 auto; /* центар */
+    text-align:center; margin:0 auto;
   }
   h1{font-size:24px;margin:8px 0 6px}
   .sub{color:var(--muted);margin:0 0 18px;font-size:14px}
@@ -56,7 +56,7 @@
   .grid-2{grid-template-columns:1fr}
   @media(min-width:720px){ .grid-2{grid-template-columns:repeat(2,1fr)} }
 
-  /* hero image — гарантиран центар */
+  /* hero image center */
   .hero-img{
     width:100%; max-width:780px; margin:0 auto 14px auto;
     border-radius:14px; overflow:hidden; border:1px solid var(--border);
@@ -69,7 +69,7 @@
   .preview .meta{font-size:14px}
   .preview .meta .name{font-weight:700}
 
-  /* подигање (како што договоривме) */
+  /* подигање на картиците */
   @media (min-height: 520px) {
     #startCard, #quizCard { transform: translateY(-180px); }
   }
@@ -123,15 +123,350 @@
   </form>
 
 <script>
-/* (истата логика како твојата последна стабилна верзија — скратено за простор) */
-/* ... СИТЕ функции и конфиг се исти како претходниот „финален“ index.html што ти го дадов,
-   само CSS центрирањето е подобрено и не се менува ништо околу прашања/скор/редирект. */
+/* ====== ДЕФОЛТ ПАДНИ РЕШЕНИЈА (ќе се прегазат со конфиг ако постои) ====== */
+const DEFAULT_CFG = {
+  logo: { url: "https://cdn.worldvectorlogo.com/logos/lenovo-2.svg", data: "" },
+  hero: {
+    title: "Откриј го идеалниот Lenovo за тебе",
+    sub: "Одговори на 8 брзи прашања за 30 секунди и добиј директна препорака.",
+    cta: "ПОЧНИ",
+    image: { url: "https://static.beebom.com/wp-content/uploads/2018/04/lenovi-thinkpad-x1.jpg?w=750&quality=75", data: "" }
+  },
+  finish: { cta: "Продолжи кон препорачан модел" },
+  productUrls: {
+    legion: "https://kupilenovo.mk/categories/_laptops/83F500DJRM-Legion-Legion-Pro-7-16IAX10H-Eclipse-Black---Ultra-9-275HX,-64GB,-2TB-NVMe,-RTX-5080-16GB,-16-,-DOS",
+    thinkbook14: "REPLACE_WITH_THINKBOOK_14_G7_URL",
+    thinkpadE16: "https://kupilenovo.mk/categories/_laptops/21SR004GRI-Lenovo-ThinkPad-E16-Gen-3-Black---Ultra-7-255H,-16GB,-1TB,-16-,-DOS",
+    v15: "REPLACE_WITH_V15_G4_ABP_URL",
+    fallback: "REPLACE_WITH_LOW_PRICE_CATEGORY_URL"
+  },
+  productImages: {
+    legion: "https://kupilenovo.mk/2025/07/10/Legion_Pro_7_16IAX10H_CT1_01.jpg",
+    thinkbook14: "https://via.placeholder.com/300x200?text=ThinkBook+14+G7",
+    thinkpadE16: "https://kupilenovo.mk/2024/11/29/ThinkPad_E16_Gen_2_AMD_CT1_01.jpg",
+    v15: "https://via.placeholder.com/300x200?text=Lenovo+V15+G4"
+  },
+  questions: [
+    { title:"П1. За што ти е најпотребен лаптопот?", answers:[
+      {text:"Гејминг", iconKey:"game", customSvg:""},
+      {text:"Училиште/Факултет", iconKey:"school", customSvg:""},
+      {text:"Работа", iconKey:"brief", customSvg:""}
+    ], condition:null },
+    { title:"П2. Што ти е најважно во моментов?", answers:[
+      {text:"Максимални перформанси", iconKey:"bolt", customSvg:""},
+      {text:"Удобност за цел ден", iconKey:"comfy", customSvg:""},
+      {text:"Најдобра вредност за буџетот", iconKey:"value", customSvg:""}
+    ], condition:null },
+    { title:"П3. Каков екран ти одговара?", answers:[
+      {text:"Голем и имерзивен 16″", iconKey:"display16", customSvg:""},
+      {text:"Стандарден 15–16″", iconKey:"display15", customSvg:""},
+      {text:"Компактен и лесен 14″", iconKey:"display14", customSvg:""}
+    ], condition:null },
+    { title:"П4. Твојот ден најчесто изгледа вака:", answers:[
+      {text:"Долги фокус-сесии на биро", iconKey:"desk", customSvg:""},
+      {text:"Се движам меѓу предавања и кафулиња", iconKey:"campus", customSvg:""},
+      {text:"Низа повици, документи и табели", iconKey:"sheets", customSvg:""}
+    ], condition:null },
+    { title:"П5. За работа — што ти значи повеќе?", answers:[
+      {text:"Премиум изработка, тастатура и моќ за тежок мултитаск", iconKey:"trophy", customSvg:""},
+      {text:"Најдобра вредност што ја завршува работата", iconKey:"bulb", customSvg:""}
+    ], condition:"work" },
+    { title:"П6. Каде најчесто ќе го користиш?", answers:[
+      {text:"Дома или гејминг-сетап", iconKey:"home", customSvg:""},
+      {text:"Кампус и кафулиња", iconKey:"campus", customSvg:""},
+      {text:"Канцеларија и средби со клиенти", iconKey:"office", customSvg:""}
+    ], condition:null },
+    { title:"П7. Избери реченица со која се поистоветуваш:", answers:[
+      {text:"Сакам нешто незапирливо", iconKey:"rocket", customSvg:""},
+      {text:"Сакам нешто лесно и сигурно", iconKey:"check", customSvg:""},
+      {text:"Сакам нешто професионално и доверливо", iconKey:"toolbox", customSvg:""},
+      {text:"Сакам паметна вредност", iconKey:"value", customSvg:""}
+    ], condition:null },
+    { title:"Последен чекор — остави контакт за препораката", answers:[], condition:"lead" }
+  ]
+};
 
-/* За краткост, тука е истата JS логика од последната верзија (скратено),
-   ако ти треба копи/пасте цел JS блок пак, ќе ти пратам без скратување. */
+/* Локални икони исто како во админ */
+const ICONS_LOCAL = {
+  game:'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M6 8h12a4 4 0 0 1 4 4v3a3 3 0 1 1-6 0h-8a3 3 0 1 1-6 0v-3a4 4 0 0 1 4-4Zm2 3H6v2H4v2h2v2h2v-2h2v-2H8v-2Z"/></svg>',
+  school:'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 3 1 9l11 6 10-5V9L12 3Zm0 13L3.7 11 12 7l8.3 4L12 16Z"/></svg>',
+  brief:'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M9 3h6a2 2 0 0 1 2 2v2h3a2 2 0 0 1 2 2v9a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V9a2 2 0 0 1 2-2h3Zm0 4h6V5H9v2Z"/></svg>',
+  bolt:'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M13 2 3 14h7l-1 8 11-12h-7l0-8Z"/></svg>',
+  comfy:'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M4 12h16a2 2 0 0 1 2 2v6h-2v-2H4v2H2v-6a2 2 0 0 1 2-2Z"/></svg>',
+  value:'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 1 0 .001 20.001A10 10 0 0 0 12 2Zm1 5h-2v2H8v2h3v4H9v2h3v2h2v-2h1v-2h-1v-4h3V9h-3V7Z"/></svg>',
+  display16:'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M3 5h18v10H3zM8 19h8v-2H8z"/></svg>',
+  display15:'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M4 6h16v9H4zM9 19h6v-2H9z"/></svg>',
+  display14:'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M5 7h14v8H5zM10 19h4v-2h-4z"/></svg>',
+  desk:'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M2 10h20v4h-2v6h-2v-6H6v6H4v-6H2v-4Z"/></svg>',
+  campus:'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M2 10 12 5l10 5-10 5-10-5Zm3 5h14v4H5v-4Z"/></svg>',
+  sheets:'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M7 3h10a2 2 0 0 1 2 2v14l-5-3-5 3V5a2 2 0  1 1 2-2Z"/></svg>',
+  trophy:'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M4 4h16v3h2a5 5 0 0 1-5 5h-2a4 4 0 0 1-8 0H5A5 5 0 0 1 3 7h1V4Zm6 12h4v2h-4v-2Z"/></svg>',
+  bulb:'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a7 7 0  0 1 4 13v3h-8v-3a7 7 0 0 1 4-13Zm-2 18h4v2h-4v-2Z"/></svg>',
+  home:'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M3 11 12 4l9 7v8h-6v-5H9v5H3v-8Z"/></svg>',
+  office:'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M4 3h8v18H4zM14 7h6v14h-6z"/></svg>',
+  rocket:'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2c4 0 7 3 7 7л-4 4-3-1-1-3 4-4C14 3 12 2 12 2ZМ5 19л2-5 3 3-5 2Z"/></svg>',
+  check:'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>',
+  toolbox:'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M7 7V5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2h3a2 2 0 0 1 2 2v9H2V9a2 2 0 0 1 2-2h3Zm2 0h6V5H9v2Z"/></svg>',
+  target:'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 1 0 10 10h-2a8 8 0 1 1-8-8V2Zm0 4a6 6 0 1 0 6 6h-2a4 4 0 1 1-4-4V6Z"/></svg>'
+};
 
-/* ==== ПАСТЕЈ ГО ТУКА ТОЧНО ОНОЈ JS ОД ТВОЈАТА НАЈДОБРА ВЕРЗИЈА (со CTA на крај, 2s редирект) ==== */
+/* ====== ГЛОБАЛНА СОСТОЈБА ====== */
+let CFG = JSON.parse(JSON.stringify(DEFAULT_CFG));
+const PRODUCT_URLS = ()=>CFG.productUrls;
+const PRODUCT_IMAGES = ()=>CFG.productImages;
+
+/* ====== ВЧИТУВАЊЕ НА КОНФИГ ОД localStorage ====== */
+function loadConfigFromLocalStorage(){
+  try{
+    const raw = localStorage.getItem('lenovoQuizConfig');
+    if(!raw) return;
+    const fromLS = JSON.parse(raw);
+
+    // спој со дефаулт за да не недостигаат полиња
+    CFG = deepMerge(DEFAULT_CFG, fromLS);
+
+    // примени на UI
+    const logo = (CFG.logo?.data || CFG.logo?.url || '').trim();
+    if(logo) document.getElementById('logoImg').src = logo;
+
+    document.getElementById('heroTitle').textContent = CFG.hero?.title || DEFAULT_CFG.hero.title;
+    document.getElementById('heroSub').textContent = CFG.hero?.sub || DEFAULT_CFG.hero.sub;
+    document.getElementById('startCta').textContent = CFG.hero?.cta || DEFAULT_CFG.hero.cta;
+    const heroImg = (CFG.hero?.image?.data || CFG.hero?.image?.url || '').trim();
+    if(heroImg) document.getElementById('heroImage').src = heroImg;
+
+  }catch(e){ console.warn('Config read error', e); }
+}
+function deepMerge(base, patch){
+  if(Array.isArray(base)){
+    // за прашања земи patch ако постои; во рендер ќе читаме оттаму
+    return Array.isArray(patch) ? patch : base;
+  }else if(typeof base==='object' && base){
+    const out = {...base};
+    for(const k of Object.keys(patch||{})){
+      if(typeof patch[k]==='object' && patch[k] && !Array.isArray(patch[k])){
+        out[k] = deepMerge(base[k]||{}, patch[k]);
+      }else{
+        out[k] = patch[k];
+      }
+    }
+    return out;
+  }
+  return patch===undefined ? base : patch;
+}
+
+/* ====== КВИЗ РЕНДЕР ====== */
+/* Ова е истата логика како претходно: 8 прашања, Q5 по услов, скоринг, превод на икони, 2s редирект. */
+
+const scores = { legion:0, thinkbook14:0, thinkpadE16:0, v15:0 };
+let primaryLane = null;
+let currentStep = 0; // ќе броиме само видливи чекори без "од N"
+const quizEl = document.getElementById('quiz');
+const barEl = document.getElementById('bar');
+const quizCard = document.getElementById('quizCard');
+const startBtn = document.getElementById('startBtn');
+
+function startQuiz(){
+  currentStep = 0;
+  document.getElementById('startCard').classList.add('hidden');
+  quizCard.classList.remove('hidden');
+  renderStep();
+}
+
+function visibleQuestions(){
+  const arr = [];
+  for(const q of CFG.questions){
+    if(q.condition === 'lead'){ continue; } // контакт е последен посебен чекор
+    if(q.condition === 'work' && primaryLane !== 'work'){ continue; }
+    arr.push(q);
+  }
+  return arr;
+}
+
+function renderStep(){
+  const list = visibleQuestions();
+  const total = list.length + 1; // +1 за контакт
+  barEl.style.width = Math.min(100, Math.round((currentStep/total)*100)) + '%';
+
+  if(currentStep < list.length){
+    const q = list[currentStep];
+    // чекор X
+    const stepLabel = `Чекор ${currentStep+1}`;
+    quizEl.innerHTML = `
+      <div class="pill">${stepLabel}</div>
+      <div class="q-title">${q.title}</div>
+      <div class="answers">
+        ${q.answers.map((a,i)=>`
+          <button class="btn" data-ans="${i}">
+            <span class="icon">${a.customSvg ? a.customSvg : (ICONS_LOCAL[a.iconKey]||'')}</span>
+            <span>${a.text}</span>
+          </button>
+        `).join('')}
+      </div>
+    `;
+    quizEl.querySelectorAll('[data-ans]').forEach(btn=>{
+      btn.onclick = ()=> onAnswer(q, parseInt(btn.dataset.ans,10));
+    });
+  }else{
+    renderContact(); // последен чекор
+  }
+}
+
+function onAnswer(q, idx){
+  const a = q.answers[idx]?.text || '';
+  // скоринг според описот
+  if(q.title.includes('П1')){
+    if(a.includes('Гејминг')){ primaryLane='gaming'; scores.legion+=5; }
+    if(a.includes('Училиште') || a.includes('Факултет')){ primaryLane='school'; scores.thinkbook14+=5; }
+    if(a.includes('Работа')){ primaryLane='work'; scores.thinkpadE16+=3; scores.v15+=3; }
+  }
+  if(q.title.includes('П2')){
+    if(a.includes('перформанси')){ scores.legion+=2; scores.thinkpadE16+=1; }
+    if(a.includes('Удобност')){ scores.thinkbook14+=1; scores.thinkpadE16+=1; }
+    if(a.includes('вредност')){ scores.v15+=2; }
+  }
+  if(q.title.includes('П3')){
+    if(a.includes('16')){ scores.legion+=1; scores.thinkpadE16+=1; }
+    if(a.includes('Стандарден')){ scores.v15+=1; scores.thinkpadE16+=1; }
+    if(a.includes('14')){ scores.thinkbook14+=2; }
+  }
+  if(q.title.includes('П4')){
+    if(a.includes('Долги')){ scores.legion+=1; scores.thinkpadE16+=1; }
+    if(a.includes('предавања') || a.includes('кафулиња')){ scores.thinkbook14+=2; }
+    if(a.includes('табели') || a.includes('документи')){ scores.thinkpadE16+=2; scores.v15+=1; }
+  }
+  if(q.title.includes('П5')){
+    if(a.includes('Премиум')){ scores.thinkpadE16+=4; }
+    if(a.includes('вредност')){ scores.v15+=4; }
+  }
+  if(q.title.includes('П6')){
+    if(a.includes('гејминг')){ scores.legion+=1; }
+    if(a.includes('Кампус')){ scores.thinkbook14+=1; }
+    if(a.includes('Канцеларија')){ scores.thinkpadE16+=1; scores.v15+=1; }
+  }
+  if(q.title.includes('П7')){
+    if(a.includes('незапирливо')){ scores.legion+=1; }
+    if(a.includes('лесно и сигурно')){ scores.thinkbook14+=1; }
+    if(a.includes('професионално')){ scores.thinkpadE16+=1; }
+    if(a.includes('паметна вредност')){ scores.v15+=1; }
+  }
+
+  currentStep++;
+  renderStep();
+}
+
+function renderContact(){
+  barEl.style.width = '100%';
+  const winner = decideWinner();
+  const persona = primaryLane === "gaming" ? "gamer" : (primaryLane === "school" ? "student" : "work");
+
+  const img = PRODUCT_IMAGES()[winner] || '';
+  const nameMap = {
+    legion: "Legion Pro 7 16IAX10H",
+    thinkbook14: "ThinkBook 14 G7 IML",
+    thinkpadE16: "ThinkPad E16 Gen 3",
+    v15: "Lenovo V15 G4 ABP"
+  };
+  const nice = nameMap[winner] || "Lenovo";
+
+  quizEl.innerHTML = `
+    <div class="pill">Резултат</div>
+    <div class="q-title">Твојот најсоодветен модел е: <strong>${nice}</strong></div>
+    <div class="preview">
+      ${img ? `<img src="${img}" alt="${nice}">` : ``}
+      <div class="meta">
+        <div class="name">${nice}</div>
+        <div class="small">Пополнете контакт за да продолжите кон производот.</div>
+      </div>
+    </div>
+
+    <div class="answers" style="margin-top:14px">
+      <div class="row">
+        <div class="field"><label>Име и презиме</label><input id="q8_name" type="text" placeholder="Име и презиме"></div>
+        <div class="field"><label>Email</label><input id="q8_email" type="email" placeholder="name@example.com"></div>
+      </div>
+      <div class="row">
+        <div class="field"><label>Телефон <span class="small">(опционално)</span></label><input id="q8_phone" type="tel" placeholder="+389..."></div>
+      </div>
+      <label class="consent"><input id="q8_consent" type="checkbox"> Се согласувам да бидам контактиран во врска со мојата препорака, цени и понуди.</label>
+      <div class="error" id="err">Внесете валидно име и email и штиклирајте согласност.</div>
+      <button class="btn primary" id="finishBtn">Продолжи кон препорачан модел</button>
+    </div>
+  `;
+
+  document.getElementById('finishBtn').onclick = ()=> submitAndRedirect(winner, persona);
+}
+
+function decideWinner(){
+  // lane boost
+  if(primaryLane === "school"){ scores.thinkbook14 += 10; }
+  if(primaryLane === "gaming"){ scores.legion += 10; }
+  if(primaryLane === "work"){ scores.thinkpadE16 += 1; scores.v15 += 1; }
+
+  // највисок скор со tie-break: Legion > ThinkPad E16 > V15 > ThinkBook14
+  const order = ["legion","thinkpadE16","v15","thinkbook14"];
+  let winner = order[0];
+  order.forEach(k=>{ if(scores[k] > scores[winner]) winner = k; });
+
+  // специјални правила за израмнување
+  if(primaryLane === "work" && scores.thinkpadE16 === scores.v15){
+    winner = "thinkpadE16";
+  }
+  return winner;
+}
+
+function getParam(name){ const p = new URLSearchParams(location.search); return p.get(name) || ""; }
+function buildUTM(outcome, persona){
+    const src = getParam("utm_source") || "meta";
+    const med = getParam("utm_medium") || "paid";
+    return `utm_source=${encodeURIComponent(src)}&utm_medium=${encodeURIComponent(med)}&utm_campaign=quiz&utm_content=outcome_${outcome}&utm_term=persona_${persona}`;
+}
+
+async function submitAndRedirect(winner, persona){
+  const name = document.getElementById('q8_name').value.trim();
+  const email = document.getElementById('q8_email').value.trim();
+  const phone = document.getElementById('q8_phone').value.trim();
+  const consent = document.getElementById('q8_consent').checked;
+
+  // телефон е опционален
+  const err = document.getElementById('err');
+  if(!name || !email || !consent){
+    err.style.display = 'block'; return;
+  } else { err.style.display = 'none'; }
+
+  // подготви Netlify form скриено
+  document.getElementById('nf_full_name').value = name;
+  document.getElementById('nf_email').value = email;
+  document.getElementById('nf_phone').value = phone;
+  document.getElementById('nf_consent').value = consent ? 'yes' : 'no';
+  document.getElementById('nf_legion').value = String(scores.legion);
+  document.getElementById('nf_thinkbook14').value = String(scores.thinkbook14);
+  document.getElementById('nf_thinkpadE16').value = String(scores.thinkpadE16);
+  document.getElementById('nf_v15').value = String(scores.v15);
+  document.getElementById('nf_lane').value = primaryLane || '';
+  document.getElementById('nf_outcome').value = winner;
+  document.getElementById('nf_persona').value = persona;
+  document.getElementById('nf_page').value = location.href;
+  // испрати форма во позадина
+  try{ document.getElementById('nf_submit').click(); }catch(e){}
+
+  // прикажи потврдa и почекај 2s па редирект
+  const urlBase = PRODUCT_URLS()[winner] || PRODUCT_URLS().fallback;
+  const utm = buildUTM(winner, persona);
+  const finalUrl = urlBase + (urlBase.includes("?") ? "&" : "?") + utm;
+
+  const cta = document.getElementById('finishBtn');
+  cta.disabled = true;
+  cta.textContent = CFG.finish?.cta || "Продолжи кон препорачан модел";
+
+  setTimeout(()=>{ window.location.href = finalUrl; }, 2000);
+}
+
+/* ====== INIT ====== */
+document.addEventListener('DOMContentLoaded', ()=>{
+  loadConfigFromLocalStorage();       // ← важно
+  document.getElementById('startBtn').onclick = startQuiz;
+});
 </script>
-<!-- За да не правиме грешки: ако сакаш, ќе ти го вратам цел JS блок интегриран (без „скратено“). -->
 </body>
 </html>
