@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="mk">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lenovo Квиз — Admin</title>
+<style>
+  :root{ --red:#E2231A; --border:#e5e7eb; --muted:#6b7280; --bg:#fff; --text:#111827; }
+  *{box-sizing:border-box} body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--text);background:var(--bg)}
+  header{position:sticky;top:0;background:#fff;border-bottom:1px solid var(--border);padding:12px 16px}
+  header .row{display:flex;gap:12px;align-items:center;justify-content:space-between;max-width:1080px;margin:0 auto}
+  h1{font-size:18px;margin:0}
+  main{max-width:1080px;margin:0 auto;padding:16px}
+  .card{border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:16px}
+  .grid{display:grid;gap:12px}
+  @media(min-width:900px){ .grid-2{grid-template-columns:1fr 1fr} }
+  label{font-weight:600;font-size:14px}
+  input, textarea{width:100%;padding:10px;border:1px solid var(--border);border-radius:8px}
+  textarea{min-height:80px;resize:vertical}
+  .btn{background:#fff;border:1px solid var(--border);padding:10px 14px;border-radius:999px;cursor:pointer}
+  .btn.primary{background:var(--red);color:#fff;border:0}
+  .row-btns{display:flex;gap:8px;flex-wrap:wrap}
+  .small{font-size:12px;color:var(--muted)}
+  .ans-row{display:flex;gap:8px;margin-top:8px}
+  .ans-row input{flex:1}
+  .pill{display:inline-block;background:#f8fafc;border:1px solid var(--border);border-radius:999px;padding:6px 10px;font-size:12px;margin-bottom:8px}
+  .q-block{border:1px dashed var(--border);border-radius:10px;padding:12px;margin:10px 0}
+</style>
+</head>
+<body>
+  <header>
+    <div class="row">
+      <h1>Lenovo Квиз — Админ</h1>
+      <div class="row-btns">
+        <button id="btnLoad" class="btn">Вчитај од localStorage</button>
+        <button id="btnSave" class="btn primary">Зачувај во localStorage</button>
+        <button id="btnExport" class="btn">Export JSON</button>
+        <label class="btn"><input id="fileImport" type="file" accept="application/json" style="display:none">Import JSON</label>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="card">
+      <div class="pill">Општо</div>
+      <div class="grid grid-2">
+        <div>
+          <label>Hero слика (URL)</label>
+          <input id="cfg_hero" placeholder="https://..." />
+          <div class="small">Се прикажува над насловот на почетната.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="pill">Производи</div>
+      <div class="grid grid-2">
+        <div>
+          <label>Legion URL</label>
+          <input id="u_legion" />
+          <label style="margin-top:8px">Legion слика</label>
+          <input id="i_legion" />
+        </div>
+        <div>
+          <label>ThinkBook 14 G7 URL</label>
+          <input id="u_thinkbook14" />
+          <label style="margin-top:8px">ThinkBook 14 G7 слика</label>
+          <input id="i_thinkbook14" />
+        </div>
+        <div>
+          <label>ThinkPad E16 URL</label>
+          <input id="u_thinkpadE16" />
+          <label style="margin-top:8px">ThinkPad E16 слика</label>
+          <input id="i_thinkpadE16" />
+        </div>
+        <div>
+          <label>V15 G4 URL</label>
+          <input id="u_v15" />
+          <label style="margin-top:8px">V15 G4 слика</label>
+          <input id="i_v15" />
+        </div>
+        <div>
+          <label>Fallback (категорија ниска цена)</label>
+          <input id="u_fallback" />
+        </div>
+      </div>
+    </div>
+
+    <div class="card" id="questionsCard">
+      <div class="pill">Прашања</div>
+      <div id="qWrap"></div>
+      <div class="row-btns" style="margin-top:10px">
+        <button id="addQ" class="btn">Додај прашање</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="row-btns">
+        <button id="btnSave2" class="btn primary">Зачувај</button>
+        <button id="btnReset" class="btn">Reset на фабрички (брише локални)</button>
+      </div>
+      <div class="small" style="margin-top:8px">
+        Се зачувува како <strong>lenovoQuizConfig</strong> во localStorage. На <code>/</code> (index.html) се вчитува автоматски ако постои.
+      </div>
+    </div>
+  </main>
+
+<script>
+const DEFAULT = {
+  hero: "https://static.beebom.com/wp-content/uploads/2018/04/lenovi-thinkpad-x1.jpg?w=750&quality=75",
+  productUrls: {
+    legion: "https://kupilenovo.mk/categories/_laptops/83F500DJRM-Legion-Legion-Pro-7-16IAX10H-Eclipse-Black---Ultra-9-275HX,-64GB,-2TB-NVMe,-RTX-5080-16GB,-16-,-DOS",
+    thinkbook14: "REPLACE_WITH_THINKBOOK_14_G7_URL",
+    thinkpadE16: "https://kupilenovo.mk/categories/_laptops/21SR004GRI-Lenovo-ThinkPad-E16-Gen-3-Black---Ultra-7-255H,-16GB,-1TB,-16-,-DOS",
+    v15: "REPLACE_WITH_V15_G4_ABP_URL",
+    fallback: "REPLACE_WITH_LOW_PRICE_CATEGORY_URL"
+  },
+  productImages: {
+    legion: "https://kupilenovo.mk/2025/07/10/Legion_Pro_7_16IAX10H_CT1_01.jpg",
+    thinkbook14: "https://via.placeholder.com/300x200?text=ThinkBook+14+G7",
+    thinkpadE16: "https://kupilenovo.mk/2024/11/29/ThinkPad_E16_Gen_2_AMD_CT1_01.jpg",
+    v15: "https://via.placeholder.com/300x200?text=Lenovo+V15+G4"
+  },
+  questions: [
+    { title:"П1. За што ти е најпотребен лаптопот?", answers:["Гејминг","Училиште/Факултет","Работа"], condition:null },
+    { title:"П2. Што ти е најважно во моментов?", answers:["Максимални перформанси","Удобност за цел ден","Најдобра вредност за буџетот"], condition:null },
+    { title:"П3. Каков екран ти одговара?", answers:["Голем и имерзивен 16″","Стандарден 15–16″","Компактен и лесен 14″"], condition:null },
+    { title:"П4. Твојот ден најчесто изгледа вака:", answers:["Долги фокус-сесии на биро","Се движам меѓу предавања и кафулиња","Низа повици, документи и табели"], condition:null },
+    { title:"П5. За работа — што ти значи повеќе?", answers:["Премиум изработка, тастатура и моќ за тежок мултитаск","Најдобра вредност што ја завршува работата"], condition:"work" },
+    { title:"П6. Каде најчесто ќе го користиш?", answers:["Дома или гејминг-сетап","Кампус и кафулиња","Канцеларија и средби со клиенти"], condition:null },
+    { title:"П7. Избери реченица со која се поистоветуваш:", answers:["Сакам нешто незапирливо","Сакам нешто лесно и сигурно","Сакам нешто професионално и доверливо","Сакам паметна вредност"], condition:null },
+    { title:"Последен чекор — остави контакт за препораката", answers:[], condition:"lead" }
+  ]
+};
+
+function qs(id){ return document.getElementById(id); }
+
+function renderQuestions(list){
+  const wrap = qs('qWrap'); wrap.innerHTML = '';
+  list.forEach((q, idx)=>{
+    const el = document.createElement('div');
+    el.className = 'q-block';
+    el.innerHTML = `
+      <label>Наслов (П${idx+1})</label>
+      <input data-type="title" data-idx="${idx}" value="${q.title.replace(/"/g,'&quot;')}" />
+      <div class="small">Condition: ${q.condition ? q.condition : '—'}</div>
+      <div class="small">Одговори:</div>
+      <div data-answers="${idx}"></div>
+      <div class="row-btns" style="margin-top:8px">
+        <button class="btn" data-add="${idx}">Додај одговор</button>
+        ${idx<list.length-1?'<button class="btn" data-down="'+idx+'">Помести надолу</button>':''}
+        ${idx>0?'<button class="btn" data-up="'+idx+'">Помести нагоре</button>':''}
+        ${q.condition!=="lead" ? '<button class="btn" data-del="'+idx+'">Избриши прашање</button>' : ''}
+      </div>
+    `;
+    wrap.appendChild(el);
+    const answersHost = el.querySelector(`[data-answers="${idx}"]`);
+    q.answers.forEach((a, aIdx)=>{
+      const row = document.createElement('div');
+      row.className = 'ans-row';
+      row.innerHTML = `
+        <input data-type="answer" data-idx="${idx}" data-aidx="${aIdx}" value="${a.replace(/"/g,'&quot;')}"/>
+        <button class="btn" data-del-answer="${idx}:${aIdx}">Избриши</button>
+      `;
+      answersHost.appendChild(row);
+    });
+  });
+}
+
+function collect(){
+  const hero = qs('cfg_hero').value.trim();
+  const cfg = {
+    hero,
+    productUrls: {
+      legion: qs('u_legion').value.trim(),
+      thinkbook14: qs('u_thinkbook14').value.trim(),
+      thinkpadE16: qs('u_thinkpadE16').value.trim(),
+      v15: qs('u_v15').value.trim(),
+      fallback: qs('u_fallback').value.trim()
+    },
+    productImages: {
+      legion: qs('i_legion').value.trim(),
+      thinkbook14: qs('i_thinkbook14').value.trim(),
+      thinkpadE16: qs('i_thinkpadE16').value.trim(),
+      v15: qs('i_v15').value.trim()
+    },
+    questions: window._LIST
+  };
+  return cfg;
+}
+
+function fill(cfg){
+  qs('cfg_hero').value = cfg.hero || '';
+  qs('u_legion').value = cfg.productUrls.legion || '';
+  qs('u_thinkbook14').value = cfg.productUrls.thinkbook14 || '';
+  qs('u_thinkpadE16').value = cfg.productUrls.thinkpadE16 || '';
+  qs('u_v15').value = cfg.productUrls.v15 || '';
+  qs('u_fallback').value = cfg.productUrls.fallback || '';
+  qs('i_legion').value = cfg.productImages.legion || '';
+  qs('i_thinkbook14').value = cfg.productImages.thinkbook14 || '';
+  qs('i_thinkpadE16').value = cfg.productImages.thinkpadE16 || '';
+  qs('i_v15').value = cfg.productImages.v15 || '';
+  window._LIST = cfg.questions.map(q=>({ title:q.title, answers:[...q.answers], condition:q.condition||null }));
+  renderQuestions(window._LIST);
+}
+
+function save(){
+  const cfg = collect();
+  localStorage.setItem('lenovoQuizConfig', JSON.stringify(cfg));
+  alert('Зачувано ✅');
+}
+
+function load(){
+  const raw = localStorage.getItem('lenovoQuizConfig');
+  if(!raw){ alert('Нема зачувана конфигурација. Вчитав фабричка.'); fill(DEFAULT); return; }
+  try{ fill(JSON.parse(raw)); }catch(e){ alert('Грешка при читање конфигурација. Се вчитува фабричка.'); fill(DEFAULT); }
+}
+
+function exportJSON(){
+  const blob = new Blob([JSON.stringify(collect(), null, 2)], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'lenovoQuizConfig.json';
+  a.click();
+}
+
+function importJSON(file){
+  const r = new FileReader();
+  r.onload = () => {
+    try{
+      const cfg = JSON.parse(r.result);
+      fill(cfg);
+      localStorage.setItem('lenovoQuizConfig', JSON.stringify(cfg));
+      alert('Увезено и зачувано ✅');
+    }catch(e){ alert('Невалиден JSON'); }
+  };
+  r.readAsText(file);
+}
+
+/* boot */
+window._LIST = DEFAULT.questions.map(q=>({ title:q.title, answers:[...q.answers], condition:q.condition||null }));
+renderQuestions(window._LIST);
+fill(DEFAULT);
+
+/* events */
+document.addEventListener('input', (e)=>{
+  const el = e.target;
+  if(el.dataset.type === 'title'){
+    const i = Number(el.dataset.idx); window._LIST[i].title = el.value;
+  }
+  if(el.dataset.type === 'answer'){
+    const i = Number(el.dataset.idx), a = Number(el.dataset.aidx);
+    window._LIST[i].answers[a] = el.value;
+  }
+});
+document.addEventListener('click', (e)=>{
+  const a = e.target.dataset.add;
+  const del = e.target.dataset.del;
+  const up = e.target.dataset.up;
+  const down = e.target.dataset.down;
+  const delAns = e.target.dataset.delAnswer;
+
+  if(a){ const i = Number(a); window._LIST[i].answers.push('Нов одговор'); renderQuestions(window._LIST); }
+  if(typeof del !== 'undefined'){ const i = Number(del); window._LIST.splice(i,1); renderQuestions(window._LIST); }
+  if(up){ const i = Number(up); const t = window._LIST[i]; window._LIST.splice(i,1); window._LIST.splice(i-1,0,t); renderQuestions(window._LIST); }
+  if(down){ const i = Number(down); const t = window._LIST[i]; window._LIST.splice(i,1); window._LIST.splice(i+1,0,t); renderQuestions(window._LIST); }
+  if(delAns){ const [qi, ai] = delAns.split(':').map(Number); window._LIST[qi].answers.splice(ai,1); renderQuestions(window._LIST); }
+});
+
+document.getElementById('btnSave').onclick = save;
+document.getElementById('btnSave2').onclick = save;
+document.getElementById('btnLoad').onclick = load;
+document.getElementById('btnExport').onclick = exportJSON;
+document.getElementById('fileImport').onchange = (e)=> importJSON(e.target.files[0]);
+</script>
+</body>
+</html>
