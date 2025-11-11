@@ -49,7 +49,7 @@
   .btn.primary{display:inline-flex;align-items:center;justify-content:center;text-align:center;background:var(--lenovo-red);color:#fff;border:0}
   .row{display:flex;gap:12px;flex-wrap:wrap}
   .field{flex:1 1 220px;display:flex;flex-direction:column;gap:6px}
-  input[type="text"],input[type="email"],input[type="tel"]{background:#fff;border:1px solid var(--border);color:var(--text);border-radius:10px;padding:12px 12px;font-size:15px}
+  input[type="text"],input[type="email"],input[type="tel"]{background:#fff;border:1px solid var(--border);color:#var(--text);border-radius:10px;padding:12px 12px;font-size:15px}
   label.consent{display:flex;align-items:flex-start;gap:10px;color:#374151;font-size:14px;margin:8px 0 10px}
   input[type="checkbox"]{transform:translateY(2px)}
   .error{color:#dc2626;font-size:13px;margin-top:4px;display:none}
@@ -105,7 +105,7 @@
     </div>
   </main>
 
-  <!-- Netlify Forms (hidden) - keeps your old setup intact, not required for Sheets -->
+  <!-- Netlify Forms (hidden) -->
   <form name="quiz-lead" method="POST" data-netlify="true" class="hidden" id="netlifyForm">
     <input type="hidden" name="form-name" value="quiz-lead" />
     <input type="hidden" name="full_name" id="nf_full_name" />
@@ -124,7 +124,7 @@
   </form>
 
 <script>
-/* ====== DEFAULT CONFIG (URLs updated per your mapping) ====== */
+/* ====== DEFAULT CONFIG ====== */
 const DEFAULT_CFG = {
   logo: { url: "https://cdn.worldvectorlogo.com/logos/lenovo-2.svg", data: "" },
   hero: {
@@ -138,7 +138,7 @@ const DEFAULT_CFG = {
     legion: "https://kupilenovo.mk/categories/_laptops/83F500DJRM-Legion-Legion-Pro-7-16IAX10H-Eclipse-Black---Ultra-9-275HX,-64GB,-2TB-NVMe,-RTX-5080-16GB,-16-,-DOS",
     thinkbook14: "https://kupilenovo.mk/categories/_laptops/21MR004HRM-Lenovo-ThinkBook-14-G7-IML-Arctic-Grey----Ultra-7-155H,-32GB,-512GB-SSD,-14-,-DOS",
     thinkpadE16: "https://kupilenovo.mk/categories/_laptops/21SR004GRI-Lenovo-ThinkPad-E16-Gen-3-Black---Ultra-7-255H,-16GB,-1TB,-16-,-DOS",
-    v15: "https://kupilenovo.mk/categories/_laptops/21MS004TRM--Lenovo-ThinkBook-16-G7-IML-Arctic-Grey---Ultra-5-125U,-16GB,-1TB-NVMe,-16-,-DOS", /* using key v15 for logic, but URL is ThinkBook 16 G7 */
+    v15: "https://kupilenovo.mk/categories/_laptops/21MS004TRM--Lenovo-ThinkBook-16-G7-IML-Arctic-Grey---Ultra-5-125U,-16GB,-1TB-NVMe,-16-,-DOS",
     fallback: "https://kupilenovo.mk/_laptops.nspx?priceRange=9750_31137"
   },
   productImages: {
@@ -147,7 +147,6 @@ const DEFAULT_CFG = {
     thinkpadE16: "https://kupilenovo.mk/2024/11/29/ThinkPad_E16_Gen_2_AMD_CT1_01.jpg",
     v15: "https://via.placeholder.com/300x200?text=ThinkBook+16+G7"
   },
-  /* QUESTIONS — per your list (no icons at all) */
   questions: [
     { title:"П1. За што ти треба лаптопот?", answers:[
       {text:"Видео игри"},
@@ -157,7 +156,7 @@ const DEFAULT_CFG = {
     { title:"П2. Што ти е најважно сега?", answers:[
       {text:"Да е брз и моќен"},
       {text:"Да ми е комотен за работа цел ден"},
-      {text:"Best value for my budget"} /* left in English per your note */
+      {text:"Best value for my budget"}
     ], condition:null },
     { title:"П3. Каков екран ти одговара?", answers:[
       {text:"Голем (16 inch)"},
@@ -229,7 +228,7 @@ function deepMerge(base, patch){
 }
 
 /* QUIZ */
-const scores = { legion:0, thinkbook14:0, thinkpadE16:0, v15:0 }; // v15 key = ThinkBook 16 G7 URL in this setup
+const scores = { legion:0, thinkbook14:0, thinkpadE16:0, v15:0 }; // v15 key used for ThinkBook 16 G7 URL
 let primaryLane = null;
 let currentStep = 0;
 const quizEl = document.getElementById('quiz');
@@ -262,15 +261,16 @@ function renderStep(){
   if(currentStep < list.length){
     const q = list[currentStep];
     const stepLabel = `Чекор ${currentStep+1}`;
+    const answersHtml = q.answers.map((a,i)=> `
+      <button class="btn" data-ans="${i}">
+        <span>${a.text}</span>
+      </button>
+    `).join('');
     quizEl.innerHTML = `
       <div class="pill">${stepLabel}</div>
       <div class="q-title">${q.title}</div>
       <div class="answers">
-        ${q.answers.map((a,i)=>`
-          <button class="btn" data-ans="${i}">
-            <span>${a.text}</span>
-          </button>
-        ).join('')}
+        ${answersHtml}
       </div>
     `;
     quizEl.querySelectorAll('[data-ans]').forEach(btn=>{
@@ -382,9 +382,9 @@ function decideWinner(){
 
 function getParam(name){ const p = new URLSearchParams(location.search); return p.get(name) || ""; }
 function buildUTM(outcome, persona){
-    const src = getParam("utm_source") || "meta";
-    const med = getParam("utm_medium") || "paid";
-    return `utm_source=${encodeURIComponent(src)}&utm_medium=${encodeURIComponent(med)}&utm_campaign=quiz&utm_content=outcome_${outcome}&utm_term=persona_${persona}`;
+  const src = getParam("utm_source") || "meta";
+  const med = getParam("utm_medium") || "paid";
+  return `utm_source=${encodeURIComponent(src)}&utm_medium=${encodeURIComponent(med)}&utm_campaign=quiz&utm_content=outcome_${outcome}&utm_term=persona_${persona}`;
 }
 
 /* ---- Sheets sender (Apps Script) ---- */
@@ -414,7 +414,7 @@ async function submitAndRedirect(winner, persona){
     err.style.display = 'block'; return;
   } else { err.style.display = 'none'; }
 
-  // Fill (optional) Netlify form hidden fields — harmless to keep
+  // optional Netlify hidden form (harmless)
   document.getElementById('nf_full_name').value = name;
   document.getElementById('nf_email').value = email;
   document.getElementById('nf_phone').value = phone;
@@ -428,16 +428,11 @@ async function submitAndRedirect(winner, persona){
   document.getElementById('nf_persona').value = persona;
   document.getElementById('nf_page').value = location.href;
 
-  // Send to Google Sheets (immediate, fire-and-forget)
+  // Send to Google Sheets (fire-and-forget)
   const payload = {
     timestamp: new Date().toISOString(),
-    full_name: name,
-    email,
-    phone,
-    consent: consent ? 'yes' : 'no',
-    lane: (primaryLane || ''),
-    outcome: winner,
-    persona,
+    full_name: name, email, phone, consent: consent ? 'yes' : 'no',
+    lane: (primaryLane || ''), outcome: winner, persona,
     scores_legion: String(scores.legion),
     scores_thinkbook14: String(scores.thinkbook14),
     scores_thinkpadE16: String(scores.thinkpadE16),
@@ -456,7 +451,7 @@ async function submitAndRedirect(winner, persona){
     payload
   );
 
-  // Immediate redirect (no delay)
+  // Immediate redirect
   const urlBase = PRODUCT_URLS()[winner] || PRODUCT_URLS().fallback;
   const utm = buildUTM(winner, persona);
   const finalUrl = urlBase + (urlBase.includes("?") ? "&" : "?") + utm;
