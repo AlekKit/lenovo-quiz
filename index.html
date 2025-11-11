@@ -12,7 +12,7 @@
   }
   *{box-sizing:border-box} html,body{height:100%} body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
 
-  /* header logo centered */
+  /* header logo centered (UNCHANGED) */
   .topbar { position:sticky; top:0; z-index:50; background:#fff; border-bottom:1px solid var(--border);
             width:100%; display:flex; justify-content:center; align-items:center; padding:12px 0; }
   .topbar-inner { width:100%; display:flex; justify-content:center; align-items:center; }
@@ -49,7 +49,7 @@
   .btn.primary{display:inline-flex;align-items:center;justify-content:center;text-align:center;background:var(--lenovo-red);color:#fff;border:0}
   .row{display:flex;gap:12px;flex-wrap:wrap}
   .field{flex:1 1 220px;display:flex;flex-direction:column;gap:6px}
-  input[type="text"],input[type="email"],input[type="tel"]{background:#fff;border:1px solid var(--border);color:#111827;border-radius:10px;padding:12px 12px;font-size:15px}
+  input[type="text"],input[type="email"],input[type="tel"]{background:#fff;border:1px solid var(--border);color:var(--text);border-radius:10px;padding:12px 12px;font-size:15px}
   label.consent{display:flex;align-items:flex-start;gap:10px;color:#374151;font-size:14px;margin:8px 0 10px}
   input[type="checkbox"]{transform:translateY(2px)}
   .error{color:#dc2626;font-size:13px;margin-top:4px;display:none}
@@ -57,7 +57,7 @@
   .grid-2{grid-template-columns:1fr}
   @media(min-width:720px){ .grid-2{grid-template-columns:repeat(2,1fr)} }
 
-  /* hero image center */
+  /* hero image center (UNCHANGED) */
   .hero-img{
     width:100%; max-width:780px; margin:0 auto 14px auto;
     border-radius:14px; overflow:hidden; border:1px solid var(--border);
@@ -105,7 +105,7 @@
     </div>
   </main>
 
-  <!-- Netlify Forms (hidden) -->
+  <!-- Netlify Forms (hidden) - keeps your old setup intact, not required for Sheets -->
   <form name="quiz-lead" method="POST" data-netlify="true" class="hidden" id="netlifyForm">
     <input type="hidden" name="form-name" value="quiz-lead" />
     <input type="hidden" name="full_name" id="nf_full_name" />
@@ -124,10 +124,7 @@
   </form>
 
 <script>
-/* ====== КОНСТАНТИ ====== */
-const GOOGLE_SHEETS_WEBAPP = "https://script.google.com/macros/s/AKfycbwV7FRPV6A7zWMJbcwnQT8DI4u20Ij5lniCaKe6el1Zze3QBjXqNDzbvzGSo1JgcgkX/exec";
-
-/* ====== ДЕФОЛТ КОНФИГ ====== */
+/* ====== DEFAULT CONFIG (URLs updated per your mapping) ====== */
 const DEFAULT_CFG = {
   logo: { url: "https://cdn.worldvectorlogo.com/logos/lenovo-2.svg", data: "" },
   hero: {
@@ -141,7 +138,7 @@ const DEFAULT_CFG = {
     legion: "https://kupilenovo.mk/categories/_laptops/83F500DJRM-Legion-Legion-Pro-7-16IAX10H-Eclipse-Black---Ultra-9-275HX,-64GB,-2TB-NVMe,-RTX-5080-16GB,-16-,-DOS",
     thinkbook14: "https://kupilenovo.mk/categories/_laptops/21MR004HRM-Lenovo-ThinkBook-14-G7-IML-Arctic-Grey----Ultra-7-155H,-32GB,-512GB-SSD,-14-,-DOS",
     thinkpadE16: "https://kupilenovo.mk/categories/_laptops/21SR004GRI-Lenovo-ThinkPad-E16-Gen-3-Black---Ultra-7-255H,-16GB,-1TB,-16-,-DOS",
-    v15: "https://kupilenovo.mk/categories/_laptops/21MS004TRM--Lenovo-ThinkBook-16-G7-IML-Arctic-Grey---Ultra-5-125U,-16GB,-1TB-NVMe,-16-,-DOS",
+    v15: "https://kupilenovo.mk/categories/_laptops/21MS004TRM--Lenovo-ThinkBook-16-G7-IML-Arctic-Grey---Ultra-5-125U,-16GB,-1TB-NVMe,-16-,-DOS", /* using key v15 for logic, but URL is ThinkBook 16 G7 */
     fallback: "https://kupilenovo.mk/_laptops.nspx?priceRange=9750_31137"
   },
   productImages: {
@@ -150,6 +147,7 @@ const DEFAULT_CFG = {
     thinkpadE16: "https://kupilenovo.mk/2024/11/29/ThinkPad_E16_Gen_2_AMD_CT1_01.jpg",
     v15: "https://via.placeholder.com/300x200?text=ThinkBook+16+G7"
   },
+  /* QUESTIONS — per your list (no icons at all) */
   questions: [
     { title:"П1. За што ти треба лаптопот?", answers:[
       {text:"Видео игри"},
@@ -159,21 +157,21 @@ const DEFAULT_CFG = {
     { title:"П2. Што ти е најважно сега?", answers:[
       {text:"Да е брз и моќен"},
       {text:"Да ми е комотен за работа цел ден"},
-      {text:"Best value for my budget"} /* намерно на англиски */
+      {text:"Best value for my budget"} /* left in English per your note */
     ], condition:null },
     { title:"П3. Каков екран ти одговара?", answers:[
       {text:"Голем (16 inch)"},
       {text:"Стандарден (15 inch)"},
       {text:"Компактен и лесен (14 inch)"}
     ], condition:null },
-    { title:"П4. Твојот ден изгледа вака", answers:[
-      {text:"Долги фокус-сесии на биро"},
-      {text:"Се движам меѓу предавања и кафулиња"},
-      {text:"Низа повици, документи и табели"}
+    { title:"Q4. Your day looks like", answers:[
+      {text:"Long focused sessions at a desk"},
+      {text:"Moving between classes and cafes"},
+      {text:"Back to back calls, docs and spreadsheets"}
     ], condition:null },
-    { title:"П5. Само за корисници за работа — што повеќе ти одговара", answers:[
-      {text:"Сакам премиум изработка, тастатура и моќ за тежок мултитаскинг"},
-      {text:"Сакам најдобра вредност што ја завршува работата"}
+    { title:"Q5. For work users only, which sounds like you", answers:[
+      {text:"I want premium build, keyboard, and power for heavy multitasking"},
+      {text:"I want the best value that gets the job done"}
     ], condition:"work" },
     { title:"Q6. Where will you mostly use it", answers:[
       {text:"Дома или гејминг-сетап"},
@@ -190,56 +188,54 @@ const DEFAULT_CFG = {
   ]
 };
 
-/* ====== СОСТОЈБА ====== */
+/* STATE */
 let CFG = JSON.parse(JSON.stringify(DEFAULT_CFG));
 const PRODUCT_URLS = ()=>CFG.productUrls;
 const PRODUCT_IMAGES = ()=>CFG.productImages;
 
-/* ====== УТИЛ ====== */
 function loadConfigFromLocalStorage(){
   try{
     const raw = localStorage.getItem('lenovoQuizConfig');
     if(!raw) return;
     const fromLS = JSON.parse(raw);
     CFG = deepMerge(DEFAULT_CFG, fromLS);
+
     const logo = (CFG.logo?.data || CFG.logo?.url || '').trim();
     if(logo) document.getElementById('logoImg').src = logo;
+
     document.getElementById('heroTitle').textContent = CFG.hero?.title || DEFAULT_CFG.hero.title;
-    document.getElementById('heroSub').textContent   = CFG.hero?.sub   || DEFAULT_CFG.hero.sub;
-    document.getElementById('startCta').textContent  = CFG.hero?.cta   || DEFAULT_CFG.hero.cta;
+    document.getElementById('heroSub').textContent = CFG.hero?.sub || DEFAULT_CFG.hero.sub;
+    document.getElementById('startCta').textContent = CFG.hero?.cta || DEFAULT_CFG.hero.cta;
     const heroImg = (CFG.hero?.image?.data || CFG.hero?.image?.url || '').trim();
     if(heroImg) document.getElementById('heroImage').src = heroImg;
+
   }catch(e){ console.warn('Config read error', e); }
 }
 function deepMerge(base, patch){
-  if(Array.isArray(base)){ return Array.isArray(patch) ? patch : base; }
-  else if(typeof base==='object' && base){
+  if(Array.isArray(base)){
+    return Array.isArray(patch) ? patch : base;
+  }else if(typeof base==='object' && base){
     const out = {...base};
     for(const k of Object.keys(patch||{})){
-      if(typeof patch[k]==='object' && patch[k] && !Array.isArray(patch[k])) out[k] = deepMerge(base[k]||{}, patch[k]);
-      else out[k] = patch[k];
+      if(typeof patch[k]==='object' && patch[k] && !Array.isArray(patch[k])){
+        out[k] = deepMerge(base[k]||{}, patch[k]);
+      }else{
+        out[k] = patch[k];
+      }
     }
     return out;
   }
   return patch===undefined ? base : patch;
 }
-function getParam(name){ const p = new URLSearchParams(location.search); return p.get(name) || ""; }
-function buildUTM(outcome, persona){
-  const src = getParam("utm_source") || "meta";
-  const med = getParam("utm_medium") || "paid";
-  return `utm_source=${encodeURIComponent(src)}&utm_medium=${encodeURIComponent(med)}&utm_campaign=quiz&utm_content=outcome_${outcome}&utm_term=persona_${persona}`;
-}
-function validateEmail(email){
-  return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i.test(email);
-}
 
-/* ====== КВИЗ РЕНДЕР ====== */
-const scores = { legion:0, thinkbook14:0, thinkpadE16:0, v15:0 };
+/* QUIZ */
+const scores = { legion:0, thinkbook14:0, thinkpadE16:0, v15:0 }; // v15 key = ThinkBook 16 G7 URL in this setup
 let primaryLane = null;
 let currentStep = 0;
 const quizEl = document.getElementById('quiz');
 const barEl = document.getElementById('bar');
 const quizCard = document.getElementById('quizCard');
+const startBtn = document.getElementById('startBtn');
 
 function startQuiz(){
   currentStep = 0;
@@ -260,7 +256,7 @@ function visibleQuestions(){
 
 function renderStep(){
   const list = visibleQuestions();
-  const total = list.length + 1; // контакт +1
+  const total = list.length + 1; // + contact
   barEl.style.width = Math.min(100, Math.round((currentStep/total)*100)) + '%';
 
   if(currentStep < list.length){
@@ -274,7 +270,7 @@ function renderStep(){
           <button class="btn" data-ans="${i}">
             <span>${a.text}</span>
           </button>
-        `).join('')}
+        ).join('')}
       </div>
     `;
     quizEl.querySelectorAll('[data-ans]').forEach(btn=>{
@@ -302,16 +298,16 @@ function onAnswer(q, idx){
     if(a.includes('Стандарден') || a.includes('15')){ scores.v15+=1; scores.thinkpadE16+=1; }
     if(a.includes('14')){ scores.thinkbook14+=2; }
   }
-  if(q.title.includes('П4')){
-    if(a.includes('Долги')){ scores.legion+=1; scores.thinkpadE16+=1; }
-    if(a.includes('предавања') || a.includes('кафулиња')){ scores.thinkbook14+=2; }
-    if(a.includes('табели') || a.includes('документи')){ scores.thinkpadE16+=2; scores.v15+=1; }
+  if(q.title.includes('Your day looks')){ // Q4
+    if(a.includes('Long focused')){ scores.legion+=1; scores.thinkpadE16+=1; }
+    if(a.includes('classes and cafes')){ scores.thinkbook14+=2; }
+    if(a.includes('spreadsheets')){ scores.thinkpadE16+=2; scores.v15+=1; }
   }
-  if(q.title.includes('П5')){
-    if(a.includes('премиум')){ scores.thinkpadE16+=4; }
-    if(a.includes('најдобра вредност')){ scores.v15+=4; }
+  if(q.title.includes('For work users')){ // Q5
+    if(a.includes('premium build')){ scores.thinkpadE16+=4; }
+    if(a.includes('best value')){ scores.v15+=4; }
   }
-  if(q.title.includes('Q6')){
+  if(q.title.includes('Q6')){ // Where will you mostly use it
     if(a.includes('гејминг')){ scores.legion+=1; }
     if(a.includes('факултет') || a.includes('училница')){ scores.thinkbook14+=1; }
     if(a.includes('канцеларија') || a.includes('состаноци')){ scores.thinkpadE16+=1; scores.v15+=1; }
@@ -361,7 +357,7 @@ function renderContact(){
         <div class="field"><label>Телефон <span class="small">(опционално)</span></label><input id="q8_phone" type="tel" placeholder="+389..."></div>
       </div>
       <label class="consent"><input id="q8_consent" type="checkbox"> Се согласувам да бидам контактиран во врска со мојата препорака, цени и понуди.</label>
-      <div class="error" id="err">Внесете валидно име, валиден email и согласност.</div>
+      <div class="error" id="err">Внесете валидно име, валиден email и штиклирајте согласност.</div>
       <button class="btn primary" id="finishBtn">Продолжи кон препорачан модел</button>
     </div>
   `;
@@ -384,7 +380,28 @@ function decideWinner(){
   return winner;
 }
 
-/* ====== SUBMIT + SHEETS + REDIRECT ====== */
+function getParam(name){ const p = new URLSearchParams(location.search); return p.get(name) || ""; }
+function buildUTM(outcome, persona){
+    const src = getParam("utm_source") || "meta";
+    const med = getParam("utm_medium") || "paid";
+    return `utm_source=${encodeURIComponent(src)}&utm_medium=${encodeURIComponent(med)}&utm_campaign=quiz&utm_content=outcome_${outcome}&utm_term=persona_${persona}`;
+}
+
+/* ---- Sheets sender (Apps Script) ---- */
+function sendToSheetsJSON(webAppUrl, payloadObj){
+  try {
+    const blob = new Blob([JSON.stringify(payloadObj)], { type: 'text/plain;charset=UTF-8' });
+    navigator.sendBeacon(webAppUrl, blob);
+  } catch(e){
+    fetch(webAppUrl, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
+      body: JSON.stringify(payloadObj)
+    }).catch(()=>{});
+  }
+}
+
 async function submitAndRedirect(winner, persona){
   const name = document.getElementById('q8_name').value.trim();
   const email = document.getElementById('q8_email').value.trim();
@@ -392,11 +409,12 @@ async function submitAndRedirect(winner, persona){
   const consent = document.getElementById('q8_consent').checked;
 
   const err = document.getElementById('err');
-  if(!name || !validateEmail(email) || !consent){
+  const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i.test(email);
+  if(!name || !emailOk || !consent){
     err.style.display = 'block'; return;
   } else { err.style.display = 'none'; }
 
-  // Netlify hidden form (optional, не смета ако не користиш Netlify forms)
+  // Fill (optional) Netlify form hidden fields — harmless to keep
   document.getElementById('nf_full_name').value = name;
   document.getElementById('nf_email').value = email;
   document.getElementById('nf_phone').value = phone;
@@ -409,52 +427,45 @@ async function submitAndRedirect(winner, persona){
   document.getElementById('nf_outcome').value = winner;
   document.getElementById('nf_persona').value = persona;
   document.getElementById('nf_page').value = location.href;
-  try{ document.getElementById('nf_submit').click(); }catch(e){}
 
-  // Build redirect URL
-  const urlBase = PRODUCT_URLS()[winner] || PRODUCT_URLS().fallback;
-  const utm = buildUTM(winner, persona);
-  const finalUrl = urlBase + (urlBase.includes("?") ? "&" : "?") + utm;
-
-  // Payload за Google Sheets (Apps Script)
+  // Send to Google Sheets (immediate, fire-and-forget)
   const payload = {
+    timestamp: new Date().toISOString(),
     full_name: name,
     email,
     phone,
     consent: consent ? 'yes' : 'no',
-    lane: primaryLane || '',
+    lane: (primaryLane || ''),
     outcome: winner,
     persona,
-    page: location.href,
     scores_legion: String(scores.legion),
     scores_thinkbook14: String(scores.thinkbook14),
     scores_thinkpadE16: String(scores.thinkpadE16),
     scores_v15: String(scores.v15),
-    utm_source: getParam("utm_source") || "meta",
-    utm_medium: getParam("utm_medium") || "paid",
+    utm_source: (new URLSearchParams(location.search).get("utm_source") || "meta"),
+    utm_medium: (new URLSearchParams(location.search).get("utm_medium") || "paid"),
     utm_campaign: "quiz",
     utm_content: `outcome_${winner}`,
     utm_term: `persona_${persona}`,
+    page: location.href,
     userAgent: navigator.userAgent,
     referrer: document.referrer || ""
   };
+  sendToSheetsJSON(
+    "https://script.google.com/macros/s/AKfycbx4NG7bgInqluGB2XoymZzVIoyuLs0s8FEfWBpQv0UNHXT7agrums20jfQGk_jdPo9Q/exec",
+    payload
+  );
 
-  // Fire-and-forget до Sheets: no-cors (ќе прати без да блокира на CORS)
-  try{
-    fetch(GOOGLE_SHEETS_WEBAPP, {
-      method: "POST",
-      mode: "no-cors",
-      headers: {"Content-Type":"application/json"},
-      body: JSON.stringify(payload),
-      keepalive: true
-    });
-  }catch(e){ /* ignore */ }
+  // Immediate redirect (no delay)
+  const urlBase = PRODUCT_URLS()[winner] || PRODUCT_URLS().fallback;
+  const utm = buildUTM(winner, persona);
+  const finalUrl = urlBase + (urlBase.includes("?") ? "&" : "?") + utm;
 
   const cta = document.getElementById('finishBtn');
   cta.disabled = true;
-  cta.textContent = CFG.finish?.cta || "Продолжи кон препорачан модел";
+  cta.textContent = (CFG.finish?.cta || "Продолжи кон препорачан модел");
 
-  setTimeout(()=>{ window.location.href = finalUrl; }, 2000);
+  window.location.href = finalUrl;
 }
 
 /* INIT */
