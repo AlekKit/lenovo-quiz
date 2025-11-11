@@ -10,9 +10,10 @@
     --bg:#ffffff; --text:#111827; --muted:#6b7280; --border:#e5e7eb; --card:#ffffff;
     --lenovo-red:#E2231A; --radius:16px; --shadow:0 10px 30px rgba(0,0,0,.06);
   }
-  *{box-sizing:border-box} html,body{height:100%} body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  *{box-sizing:border-box} html,body{height:100%}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
 
-  /* header logo centered */
+  /* header logo centered (НЕ МЕНУВАМ осим центрирање) */
   .topbar { position:sticky; top:0; z-index:50; background:#fff; border-bottom:1px solid var(--border);
             width:100%; display:flex; justify-content:center; align-items:center; padding:12px 0; }
   .topbar-inner { width:100%; display:flex; justify-content:center; align-items:center; }
@@ -21,10 +22,9 @@
   .wrap{max-width:960px;margin:0 auto;padding:20px}
 
   header.hero{background:#fff;}
-  .hero-inner{
-    display:flex; align-items:center; justify-content:center;
-    min-height:38vh; padding:10px;
-  }
+  .hero-inner{ display:flex; align-items:center; justify-content:center; min-height:38vh; padding:10px; }
+
+  /* intro card позиција — НЕ МЕНУВАМ */
   .intro-card{
     background:var(--card); border:1px solid var(--border); border-radius:var(--radius);
     box-shadow:var(--shadow); width:min(820px,100%); padding:22px;
@@ -33,6 +33,7 @@
   @media (max-width: 720px) {
     .intro-card { margin-top: 260px !important; } /* НЕ МЕНУВАМ */
   }
+
   h1{font-size:24px;margin:8px 0 6px}
   .sub{color:var(--muted);margin:0 0 18px;font-size:14px}
   .start-btn{display:inline-flex;align-items:center;gap:10px;background:var(--lenovo-red);color:#fff;border:none;padding:12px 18px;border-radius:999px;cursor:pointer;font-weight:700;letter-spacing:.2px;text-transform:uppercase}
@@ -47,8 +48,9 @@
   .btn{border:1px solid var(--border);background:#fff;color:var(--text);padding:14px 14px;border-radius:12px;font-weight:600;cursor:pointer;text-align:left;display:flex;align-items:center;gap:12px;transition:transform .03s ease, border-color .15s ease, box-shadow .15s ease, background .15s ease}
   .btn:hover{border-color:#c9ced6;box-shadow:0 4px 14px rgba(17,24,39,.06)}
   .btn.primary{display:inline-flex;align-items:center;justify-content:center;text-align:center;background:var(--lenovo-red);color:#fff;border:0}
-  .icon{display:inline-flex;width:22px;height:22px;color:var(--lenovo-red);flex-shrink:0;line-height:0}
-  .icon svg{width:22px;height:22px;display:block}
+  .icon{display:inline-flex;width:22px;height:22px;color:var(--lenovo-red)}
+  .icon svg{width:22px;height:22px}
+
   .row{display:flex;gap:12px;flex-wrap:wrap}
   .field{flex:1 1 220px;display:flex;flex-direction:column;gap:6px}
   input[type="text"],input[type="email"],input[type="tel"]{background:#fff;border:1px solid var(--border);color:#111827;border-radius:10px;padding:12px 12px;font-size:15px}
@@ -59,7 +61,7 @@
   .grid-2{grid-template-columns:1fr}
   @media(min-width:720px){ .grid-2{grid-template-columns:repeat(2,1fr)} }
 
-  /* hero image center */
+  /* hero image center (НЕ МЕНУВАМ) */
   .hero-img{
     width:100%; max-width:780px; margin:0 auto 14px auto;
     border-radius:14px; overflow:hidden; border:1px solid var(--border);
@@ -126,140 +128,89 @@
   </form>
 
 <script>
-/* ====== ДЕФОЛТ КОНФИГ (URL-ови ажурирани според барањето) ====== */
-const DEFAULT_CFG = {
-  logo: { url: "https://cdn.worldvectorlogo.com/logos/lenovo-2.svg", data: "" },
-  hero: {
-    title: "Откриј го идеалниот Lenovo за тебе",
-    sub: "Одговори на неколку брзи прашања за 30 секунди и дознај кој Lenovo е совршен за твоите потреби",
-    cta: "ПОЧНИ",
-    image: { url: "https://static.beebom.com/wp-content/uploads/2018/04/lenovi-thinkpad-x1.jpg?w=750&quality=75", data: "" }
-  },
-  finish: { cta: "Продолжи кон препорачан модел" },
-  productUrls: {
-    legion: "https://kupilenovo.mk/categories/_laptops/83F500DJRM-Legion-Legion-Pro-7-16IAX10H-Eclipse-Black---Ultra-9-275HX,-64GB,-2TB-NVMe,-RTX-5080-16GB,-16-,-DOS",
-    thinkbook14: "https://kupilenovo.mk/categories/_laptops/21MR004HRM-Lenovo-ThinkBook-14-G7-IML-Arctic-Grey----Ultra-7-155H,-32GB,-512GB-SSD,-14-,-DOS",
-    thinkpadE16: "https://kupilenovo.mk/categories/_laptops/21SR004GRI-Lenovo-ThinkPad-E16-Gen-3-Black---Ultra-7-255H,-16GB,-1TB,-16-,-DOS",
-    v15: "https://kupilenovo.mk/categories/_laptops/21MS004TRM--Lenovo-ThinkBook-16-G7-IML-Arctic-Grey---Ultra-5-125U,-16GB,-1TB-NVMe,-16-,-DOS",
-    fallback: "https://kupilenovo.mk/_laptops.nspx?priceRange=9750_31137"
-  },
-  productImages: {
-    legion: "https://kupilenovo.mk/2025/07/10/Legion_Pro_7_16IAX10H_CT1_01.jpg",
-    thinkbook14: "https://via.placeholder.com/300x200?text=ThinkBook+14+G7",
-    thinkpadE16: "https://kupilenovo.mk/2024/11/29/ThinkPad_E16_Gen_2_AMD_CT1_01.jpg",
-    v15: "https://via.placeholder.com/300x200?text=ThinkBook+16+G7"
-  },
-  questions: [
-    { title:"П1. За што ти треба лаптопот?", answers:[
-      {text:"Видео игри", iconKey:"game", customSvg:""},
-      {text:"Факултет/училиште", iconKey:"school", customSvg:""},
-      {text:"Работа", iconKey:"brief", customSvg:""}
-    ], condition:null },
-    { title:"П2. Што ти е најважно сега?", answers:[
-      {text:"Да е брз и моќен", iconKey:"bolt", customSvg:""},
-      {text:"Да ми е комотен за работа цел ден", iconKey:"comfy", customSvg:""},
-      {text:"Best value for my budget", iconKey:"value", customSvg:""}
-    ], condition:null },
-    { title:"П3. Каков екран ти одговара?", answers:[
-      {text:"Голем (16 inch)", iconKey:"display16", customSvg:""},
-      {text:"Стандарден (15 inch)", iconKey:"display15", customSvg:""},
-      {text:"Компактен и лесен (14 inch)", iconKey:"display14", customSvg:""}
-    ], condition:null },
-    { title:"Q4. Your day looks like", answers:[
-      {text:"Long focused sessions at a desk", iconKey:"desk", customSvg:""},
-      {text:"Moving between classes and cafes", iconKey:"campus", customSvg:""},
-      {text:"Back to back calls, docs and spreadsheets", iconKey:"sheets", customSvg:""}
-    ], condition:null },
-    { title:"Q5. For work users only, which sounds like you", answers:[
-      {text:"I want premium build, keyboard, and power for heavy multitasking", iconKey:"trophy", customSvg:""},
-      {text:"I want the best value that gets the job done", iconKey:"bulb", customSvg:""}
-    ], condition:"work" },
-    { title:"Q6. Where will you mostly use it", answers:[
-      {text:"Дома или гејминг-сетап", iconKey:"home", customSvg:""},
-      {text:"На факултет или во училница", iconKey:"campus", customSvg:""},
-      {text:"Во канцеларија или на состаноци со клиенти", iconKey:"office", customSvg:""}
-    ], condition:null },
-    { title:"П7. Што ти звучи најблиску до тебе?", answers:[
-      {text:"I want something that feels unstoppable", iconKey:"rocket", customSvg:""},
-      {text:"I want something that feels light and reliable", iconKey:"check", customSvg:""},
-      {text:"Сакам нешто професионално и стабилно", iconKey:"toolbox", customSvg:""},
-      {text:"I want something that feels smart value", iconKey:"value", customSvg:""}
-    ], condition:null },
-    { title:"Остави контакт да дознаеш повеќе за твојот идеален Леново лаптоп.", answers:[], condition:"lead" }
-  ]
+/* ====== ПРОДУКТ URL-ови (од последните промени) ====== */
+const PRODUCT_URLS = {
+  legion: "https://kupilenovo.mk/categories/_laptops/83F500DJRM-Legion-Legion-Pro-7-16IAX10H-Eclipse-Black---Ultra-9-275HX,-64GB,-2TB-NVMe,-RTX-5080-16GB,-16-,-DOS",
+  thinkbook14: "https://kupilenovo.mk/categories/_laptops/21MR004HRM-Lenovo-ThinkBook-14-G7-IML-Arctic-Grey----Ultra-7-155H,-32GB,-512GB-SSD,-14-,-DOS",
+  thinkpadE16: "https://kupilenovo.mk/categories/_laptops/21SR004GRI-Lenovo-ThinkPad-E16-Gen-3-Black---Ultra-7-255H,-16GB,-1TB,-16-,-DOS",
+  v15: "https://kupilenovo.mk/categories/_laptops/21MS004TRM--Lenovo-ThinkBook-16-G7-IML-Arctic-Grey---Ultra-5-125U,-16GB,-1TB-NVMe,-16-,-DOS",
+  fallback: "https://kupilenovo.mk/_laptops.nspx?priceRange=9750_31137"
+};
+/* Официјални/привремени слики */
+const PRODUCT_IMAGES = {
+  legion: "https://kupilenovo.mk/2025/07/10/Legion_Pro_7_16IAX10H_CT1_01.jpg",
+  thinkbook14: "https://via.placeholder.com/300x200?text=ThinkBook+14+G7",
+  thinkpadE16: "https://kupilenovo.mk/2024/11/29/ThinkPad_E16_Gen_2_AMD_CT1_01.jpg",
+  v15: "https://via.placeholder.com/300x200?text=ThinkBook+16+G7"
+};
+const PRODUCT_COPY = {
+  legion: { name: "Legion Pro 7 16IAX10H", why: "AAA гејминг, 240 Hz OLED 16″, врвен CPU/GPU, 64 GB/2 TB — без компромис." },
+  thinkbook14: { name: "ThinkBook 14 G7 IML", why: "Лесен за училиште/факултет и кафулиња, 14″ 16:10, долга автономија, одлична тастатура." },
+  thinkpadE16: { name: "ThinkPad E16 Gen 3", why: "Бизнис доверливост, повеќе порти, силен процесор, 16″ простор за Excel, презентации и повици." },
+  v15: { name: "ThinkBook 16 G7 IML Arctic Grey", why: "Одличен однос цена/перформанси — идеален за Office, Zoom, е-пошта и CRM." }
 };
 
-/* Локални икони — со xmlns и валидни патеки */
-const ICONS_LOCAL = {
-  game:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M6 8h12a4 4 0 0 1 4 4v3a3 3 0 1 1-6 0H8a3 3 0 1 1-6 0v-3a4 4 0 0 1 4-4Zm2 3H6v2H4v2h2v2h2v-2h2v-2H8v-2Z"/></svg>',
-  school:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M12 3 2 9l10 6 10-6-10-6Zm0 12L5 11l7-3 7 3-7 4Z"/></svg>',
-  brief:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M9 4h6a2 2 0 0 1 2 2v2h2a2 2 0 0 1 2 2v9a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V10a2 2 0 0 1 2-2h2V6a2 2 0 0 1 2-2Zm0 4h6V6H9v2Z"/></svg>',
-  bolt:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M13 2 3 14h7l-1 8 12-14h-7l-1-6Z"/></svg>',
-  comfy:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M4 12h16a2 2 0 0 1 2 2v6h-2v-2H4v2H2v-6a2 2 0 0 1 2-2Z"/></svg>',
-  value:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm1 5h-2v2H8v2h3v4H9v2h3v2h2v-2h1v-2h-1v-4h3V9h-3V7Z"/></svg>',
-  display16:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M3 6h18v10H3zM8 20h8v-2H8z"/></svg>',
-  display15:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M4 6h16v9H4zM9 20h6v-2H9z"/></svg>',
-  display14:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M5 7h14v8H5zM10 20h4v-2h-4z"/></svg>',
-  desk:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M2 10h20v4h-2v6h-2v-6H6v6H4v-6H2v-4Z"/></svg>',
-  campus:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M2 10 12 5l10 5-10 5-10-5Zm3 6h14v4H5v-4Z"/></svg>',
-  sheets:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M7 3h7l5 5v13H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Zm8 2v4h4l-4-4Z"/></svg>',
-  trophy:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M5 4h14v3h2a5 5 0 0 1-5 5h-2a4 4 0 0 1-8 0H5A5 5 0 0 1 3 7h2V4Zm5 12h4v3h-4v-3Z"/></svg>',
-  bulb:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a7 7 0 0 1 4 13v3H8v-3a7 7 0 0 1 4-13Zm-2 16h4v2h-4v-2Z"/></svg>',
-  home:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M3 11 12 4l9 7v9h-6v-5H9v5H3v-9Z"/></svg>',
-  office:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M4 3h8v18H4zM14 7h6v14h-6z"/></svg>',
-  rocket:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2c3.8 0 7 3.2 7 7 0 .6-.1 1.1-.2 1.6L15 14l-4-1-1-4 3.4-3.4C13 4.1 12.6 4 12 4 8.8 4 6 6.8 6 10c0 .7.1 1.3.3 1.9L5 19l7-1.3c.6.2 1.2.3 1.9.3 3.2 0 6-2.8 6-6 0-.6-.1-1-.2-1.5C20.4 7.3 16.9 2 12 2Z"/></svg>',
-  check:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M9 16.2 4.8 12 3.4 13.4 9 19l12-12-1.4-1.4z"/></svg>',
-  toolbox:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M7 7V5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2h3a2 2 0 0 1 2 2v9H2V9a2 2 0 0 1 2-2h3Zm2 0h6V5H9v2Z"/></svg>'
-};
+/* ====== ИКОНИ (вратени од работната верзија) ====== */
+function iconSVG(name){
+  const map = {
+    game: '<svg viewBox="0 0 24 24"><path fill="currentColor" d="M6 8h12a4 4 0 0 1 4 4v3a3 3 0 1 1-6 0h-8a3 3 0 1 1-6 0v-3a4 4 0 0 1 4-4Zm2 3H6v2H4v2h2v2h2v-2h2v-2H8v-2Z"/></svg>',
+    school: '<svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 3 1 9l11 6 10-5V9L12 3Zm0 13L3.7 11 12 7l8.3 4L12 16Z"/></svg>',
+    brief: '<svg viewBox="0 0 24 24"><path fill="currentColor" d="M9 3h6a2 2 0 0 1 2 2v2h3a2 2 0 0 1 2 2v9a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V9a2 2 0 0 1 2-2h3Zm0 4h6V5H9v2Z"/></svg>',
+    bolt: '<svg viewBox="0 0 24 24"><path fill="currentColor" d="M13 2 3 14h7l-1 8 11-12h-7l0-8Z"/></svg>',
+    comfy:'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M4 12h16a2 2 0 0 1 2 2v6h-2v-2H4v2H2v-6a2 2 0 0 1 2-2Z"/></svg>',
+    value:'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 1 0 .001 20.001A10 10 0 0 0 12 2Zm1 5h-2v2H8v2h3v4H9v2h3v2h2v-2h1v-2h-1v-4h3V9h-3V7Z"/></svg>',
+    display16:'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M3 5h18v10H3zM8 19h8v-2H8z"/></svg>',
+    display15:'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M4 6h16v9H4zM9 19h6v-2H9z"/></svg>',
+    display14:'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M5 7h14v8H5zM10 19h4v-2h-4z"/></svg>',
+    desk:'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M2 10h20v4h-2v6h-2v-6H6v6H4v-6H2v-4Z"/></svg>',
+    campus:'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M2 10 12 5l10 5-10 5-10-5Zm3 5h14v4H5v-4Z"/></svg>',
+    sheets:'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M7 3h10a2 2 0 0 1 2 2v14l-5-3-5 3V5a2 2 0 0 1 2-2Z"/></svg>',
+    trophy:'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M4 4h16v3h2a5 5 0 0 1-5 5h-2a4 4 0 0 1-8 0H5A5 5 0 0 1 3 7h1V4Zm6 12h4v2h-4v-2Z"/></svg>',
+    bulb:'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a7 7 0 0 1 4 13v3h-8v-3a7 7 0 0 1 4-13Zm-2 18h4v2h-4v-2Z"/></svg>',
+    home:'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M3 11 12 4l9 7v8h-6v-5H9v5H3v-8Z"/></svg>',
+    office:'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M4 3h8v18H4zM14 7h6v14h-6z"/></svg>',
+    rocket:'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2c4 0 7 3 7 7l-4 4-3-1-1-3 4-4C14 3 12 2 12 2ZM5 19l2-5 3 3-5 2Z"/></svg>',
+    check:'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>',
+    toolbox:'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M7 7V5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2h3a2 2 0 0 1 2 2v9H2V9a2 2 0 0 1 2-2h3Zm2 0h6V5H9v2Z"/></svg>',
+    target:'<svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 1 0 10 10h-2a8 8 0 1 1-8-8V2Zm0 4a6 6 0 1 0 6 6h-2a4 4 0 1 1-4-4V6Z"/></svg>'
+  };
+  return map[name] || map.target;
+}
+function answerIconKey(qId, idx){
+  const map = {
+    1: ["game","school","brief"],
+    2: ["bolt","comfy","value"],
+    3: ["display16","display15","display14"],
+    4: ["desk","campus","sheets"],
+    5: ["trophy","bulb"],
+    6: ["home","campus","office"],
+    7: ["rocket","check","toolbox","target"]
+  };
+  return (map[qId] && map[qId][idx]) || "target";
+}
 
 /* ====== СОСТОЈБА ====== */
-let CFG = JSON.parse(JSON.stringify(DEFAULT_CFG));
-const PRODUCT_URLS = ()=>CFG.productUrls;
-const PRODUCT_IMAGES = ()=>CFG.productImages;
-
-function loadConfigFromLocalStorage(){
-  try{
-    const raw = localStorage.getItem('lenovoQuizConfig');
-    if(!raw) return;
-    const fromLS = JSON.parse(raw);
-    CFG = deepMerge(DEFAULT_CFG, fromLS);
-
-    const logo = (CFG.logo?.data || CFG.logo?.url || '').trim();
-    if(logo) document.getElementById('logoImg').src = logo;
-
-    document.getElementById('heroTitle').textContent = CFG.hero?.title || DEFAULT_CFG.hero.title;
-    document.getElementById('heroSub').textContent = CFG.hero?.sub || DEFAULT_CFG.hero.sub;
-    document.getElementById('startCta').textContent = CFG.hero?.cta || DEFAULT_CFG.hero.cta;
-    const heroImg = (CFG.hero?.image?.data || CFG.hero?.image?.url || '').trim();
-    if(heroImg) document.getElementById('heroImage').src = heroImg;
-
-  }catch(e){ console.warn('Config read error', e); }
-}
-function deepMerge(base, patch){
-  if(Array.isArray(base)){
-    return Array.isArray(patch) ? patch : base;
-  }else if(typeof base==='object' && base){
-    const out = {...base};
-    for(const k of Object.keys(patch||{})){
-      if(typeof patch[k]==='object' && patch[k] && !Array.isArray(patch[k])){
-        out[k] = deepMerge(base[k]||{}, patch[k]);
-      }else{
-        out[k] = patch[k];
-      }
-    }
-    return out;
-  }
-  return patch===undefined ? base : patch;
-}
-
-/* ====== КВИЗ РЕНДЕР ====== */
 const scores = { legion:0, thinkbook14:0, thinkpadE16:0, v15:0 };
 let primaryLane = null;
 let currentStep = 0;
+
+/* ====== ПРАШАЊА (микс МК/EN како што бараше) ====== */
+const QUESTIONS = [
+  { id:1, title:"П1. За што ти треба лаптопот?", answers:["Видео игри","Факултет/училиште","Работа"] },
+  { id:2, title:"П2. Што ти е најважно сега?", answers:["Да е брз и моќен","Да ми е комотен за работа цел ден","Best value for my budget"] },
+  { id:3, title:"П3. Каков екран ти одговара?", answers:["Голем (16 inch)","Стандарден (15 inch)","Компактен и лесен (14 inch)"] },
+  { id:4, title:"Q4. Your day looks like", answers:["Long focused sessions at a desk","Moving between classes and cafes","Back to back calls, docs and spreadsheets"] },
+  { id:5, title:"Q5. For work users only, which sounds like you", answers:["I want premium build, keyboard, and power for heavy multitasking","I want the best value that gets the job done"], condition:()=> primaryLane==="work" },
+  { id:6, title:"Q6. Where will you mostly use it", answers:["Дома или гејминг-сетап","На факултет или во училница","Во канцеларија или на состаноци со клиенти"] },
+  { id:7, title:"П7. Што ти звучи најблиску до тебе?", answers:["I want something that feels unstoppable","I want something that feels light and reliable","Сакам нешто професионално и стабилно","I want something that feels smart value"] },
+  { id:8, title:"Остави контакт да дознаеш повеќе за твојот идеален Леново лаптоп.", lead:true }
+];
+
+/* ====== UI селектори ====== */
 const quizEl = document.getElementById('quiz');
 const barEl = document.getElementById('bar');
 const quizCard = document.getElementById('quizCard');
-const startBtn = document.getElementById('startBtn');
+document.getElementById('startBtn').addEventListener('click', startQuiz, { once:false });
 
 function startQuiz(){
   currentStep = 0;
@@ -267,112 +218,118 @@ function startQuiz(){
   quizCard.classList.remove('hidden');
   renderStep();
 }
-
-function visibleQuestions(){
-  const arr = [];
-  for(const q of CFG.questions){
-    if(q.condition === 'lead'){ continue; }
-    if(q.condition === 'work' && primaryLane !== 'work'){ continue; }
-    arr.push(q);
-  }
-  return arr;
+function visibleQuestions(){ return QUESTIONS.filter(q=>!q.condition || q.condition()); }
+function setProgress(){
+  const list = visibleQuestions();
+  const total = list.length - 1; // без lead
+  const pct = Math.round((Math.min(currentStep, total)/total)*100);
+  barEl.style.width = pct + '%';
 }
 
 function renderStep(){
   const list = visibleQuestions();
-  const total = list.length + 1; // контакт е +1
-  barEl.style.width = Math.min(100, Math.round((currentStep/total)*100)) + '%';
+  setProgress();
 
-  if(currentStep < list.length){
-    const q = list[currentStep];
-    const stepLabel = `Чекор ${currentStep+1}`;
-    quizEl.innerHTML = `
-      <div class="pill">${stepLabel}</div>
-      <div class="q-title">${q.title}</div>
-      <div class="answers">
-        ${q.answers.map((a,i)=>`
-          <button class="btn" data-ans="${i}">
-            <span class="icon">${a.customSvg ? a.customSvg : (ICONS_LOCAL[a.iconKey]||'')}</span>
-            <span>${a.text}</span>
-          </button>
-        `).join('')}
-      </div>
-    `;
-    quizEl.querySelectorAll('[data-ans]').forEach(btn=>{
-      btn.onclick = ()=> onAnswer(q, parseInt(btn.dataset.ans,10));
-    });
-  }else{
-    renderContact();
+  const q = list[currentStep];
+  if(!q){ renderDone(); return; }
+
+  if(q.lead){
+    return renderContact();
   }
+
+  const totalSteps = list.length - 1; // без lead
+  const answersHtml = q.answers.map((a,i)=>`
+    <button class="btn" data-idx="${i}">
+      <span class="icon">${iconSVG(answerIconKey(q.id,i))}</span>
+      <span>${a}</span>
+    </button>
+  `).join('');
+
+  quizEl.innerHTML = `
+    <div class="pill">Чекор ${currentStep+1} од ${totalSteps}</div>
+    <div class="q-title">${q.title}</div>
+    <div class="answers grid-2" id="answers">${answersHtml}</div>
+  `;
+  document.getElementById('answers').addEventListener('click', (e)=>{
+    const btn = e.target.closest('button[data-idx]'); if(!btn) return;
+    onAnswer(q, q.answers[Number(btn.dataset.idx)]);
+    currentStep++;
+    renderStep();
+  });
 }
 
-function onAnswer(q, idx){
-  const a = q.answers[idx]?.text || '';
-  if(q.title.includes('П1') || q.title.includes('Q1')){
+/* ====== СКОРИНГ ====== */
+function onAnswer(q, a){
+  if(q.id===1){
     if(a.includes('Видео игри')){ primaryLane='gaming'; scores.legion+=5; }
     if(a.includes('Факултет') || a.includes('училиште')){ primaryLane='school'; scores.thinkbook14+=5; }
     if(a.includes('Работа')){ primaryLane='work'; scores.thinkpadE16+=3; scores.v15+=3; }
   }
-  if(q.title.includes('П2') || q.title.includes('Q2')){
+  if(q.id===2){
     if(a.includes('брз') || a.includes('моќен')){ scores.legion+=2; scores.thinkpadE16+=1; }
     if(a.includes('комотен')){ scores.thinkbook14+=1; scores.thinkpadE16+=1; }
     if(a.includes('Best value')){ scores.v15+=2; }
   }
-  if(q.title.includes('П3') || q.title.includes('Q3')){
+  if(q.id===3){
     if(a.includes('16')){ scores.legion+=1; scores.thinkpadE16+=1; }
     if(a.includes('Стандарден') || a.includes('15')){ scores.v15+=1; scores.thinkpadE16+=1; }
     if(a.includes('14')){ scores.thinkbook14+=2; }
   }
-  if(q.title.includes('Your day looks')){ // Q4
-    if(a.includes('Long focused')){ scores.legion+=1; scores.thinkpadE16+=1; }
+  if(q.id===4){
+    if(a.startsWith('Long focused')){ scores.legion+=1; scores.thinkpadE16+=1; }
     if(a.includes('classes and cafes')){ scores.thinkbook14+=2; }
     if(a.includes('spreadsheets')){ scores.thinkpadE16+=2; scores.v15+=1; }
   }
-  if(q.title.includes('For work users')){ // Q5
-    if(a.includes('premium build')){ scores.thinkpadE16+=4; }
-    if(a.includes('best value')){ scores.v15+=4; }
+  if(q.id===5){
+    if(a.startsWith('I want premium')){ scores.thinkpadE16+=4; }
+    if(a.startsWith('I want the best value')){ scores.v15+=4; }
   }
-  if(q.title.includes('Q6')){ // Where will you mostly use it
+  if(q.id===6){
     if(a.includes('гејминг')){ scores.legion+=1; }
     if(a.includes('факултет') || a.includes('училница')){ scores.thinkbook14+=1; }
     if(a.includes('канцеларија') || a.includes('состаноци')){ scores.thinkpadE16+=1; scores.v15+=1; }
   }
-  if(q.title.includes('П7') || q.title.includes('Q7')){
+  if(q.id===7){
     if(a.includes('unstoppable')){ scores.legion+=1; }
     if(a.includes('light and reliable')){ scores.thinkbook14+=1; }
     if(a.includes('професионално') || a.includes('стабилно')){ scores.thinkpadE16+=1; }
     if(a.includes('smart value')){ scores.v15+=1; }
   }
-
-  currentStep++;
-  renderStep();
 }
 
+/* ====== RESULT + REDIRECT ====== */
+function decideWinner(){
+  if(primaryLane==='school') scores.thinkbook14+=10;
+  if(primaryLane==='gaming') scores.legion+=10;
+  if(primaryLane==='work'){ scores.thinkpadE16+=1; scores.v15+=1; }
+
+  const order = ["legion","thinkpadE16","v15","thinkbook14"];
+  let winner = order[0];
+  for(const k of order){ if(scores[k] > scores[winner]) winner = k; }
+
+  if(primaryLane==='work' && scores.thinkpadE16===scores.v15) winner='thinkpadE16';
+  return winner;
+}
+function getParam(name){ const p = new URLSearchParams(location.search); return p.get(name) || ""; }
+function buildUTM(outcome, persona){
+  const src = getParam("utm_source") || "meta";
+  const med = getParam("utm_medium") || "paid";
+  return `utm_source=${encodeURIComponent(src)}&utm_medium=${encodeURIComponent(med)}&utm_campaign=quiz&utm_content=outcome_${encodeURIComponent(outcome)}&utm_term=persona_${encodeURIComponent(persona)}`;
+}
 function renderContact(){
   barEl.style.width = '100%';
   const winner = decideWinner();
-  const persona = primaryLane === "gaming" ? "gamer" : (primaryLane === "school" ? "student" : "work");
-
-  const img = PRODUCT_IMAGES()[winner] || '';
-  const nameMap = {
-    legion: "Legion Pro 7 16IAX10H",
-    thinkbook14: "ThinkBook 14 G7 IML",
-    thinkpadE16: "ThinkPad E16 Gen 3",
-    v15: "ThinkBook 16 G7 IML Arctic Grey"
-  };
-  const nice = nameMap[winner] || "Lenovo";
+  const persona = winner==='legion' ? 'gamer' : (winner==='thinkbook14' ? 'student' : 'work');
+  const p = PRODUCT_COPY[winner] || {name:"Lenovo",why:"Вашата препорака е подготвена."};
+  const img = PRODUCT_IMAGES[winner] || "";
 
   quizEl.innerHTML = `
     <div class="pill">Резултат</div>
-    <div class="q-title">Твојот најсоодветен модел е: <strong>${nice}</strong></div>
+    <div class="q-title">Твојот најсоодветен модел е: <strong>${p.name}</strong></div>
     <div class="preview">
-      ${img ? `<img src="${img}" alt="${nice}">` : ``}
-      <div class="meta">
-        <div class="name">${nice}</div>
-        <div class="small">Пополнете контакт за да продолжите кон производот.</div>
-      </div>
+      ${img ? `<img src="${img}" alt="${p.name}">` : ``}
+      <div class="meta"><div class="name">${p.name}</div><div class="why">${p.why}</div></div>
     </div>
-
     <div class="answers" style="margin-top:14px">
       <div class="row">
         <div class="field"><label>Име и презиме</label><input id="q8_name" type="text" placeholder="Име и презиме"></div>
@@ -382,4 +339,51 @@ function renderContact(){
         <div class="field"><label>Телефон <span class="small">(опционално)</span></label><input id="q8_phone" type="tel" placeholder="+389..."></div>
       </div>
       <label class="consent"><input id="q8_consent" type="checkbox"> Се согласувам да бидам контактиран во врска со мојата препорака, цени и понуди.</label>
-      <div class="error" id="err">Внесете вал
+      <div class="error" id="err">Внесете валидно име и email и штиклирајте согласност.</div>
+      <button class="btn primary" id="finishBtn">Продолжи кон препорачан модел</button>
+    </div>
+  `;
+  document.getElementById('finishBtn').onclick = ()=> submitAndRedirect(winner, persona);
+}
+async function submitAndRedirect(winner, persona){
+  const name = document.getElementById('q8_name').value.trim();
+  const email = document.getElementById('q8_email').value.trim();
+  const phone = document.getElementById('q8_phone').value.trim();
+  const consent = document.getElementById('q8_consent').checked;
+
+  const err = document.getElementById('err');
+  if(!name || !email || !consent){
+    err.style.display = 'block'; return;
+  } else { err.style.display = 'none'; }
+
+  // Netlify hidden form
+  document.getElementById('nf_full_name').value = name;
+  document.getElementById('nf_email').value = email;
+  document.getElementById('nf_phone').value = phone;
+  document.getElementById('nf_consent').value = consent ? 'yes' : 'no';
+  document.getElementById('nf_legion').value = String(scores.legion);
+  document.getElementById('nf_thinkbook14').value = String(scores.thinkbook14);
+  document.getElementById('nf_thinkpadE16').value = String(scores.thinkpadE16);
+  document.getElementById('nf_v15').value = String(scores.v15);
+  document.getElementById('nf_lane').value = primaryLane || '';
+  document.getElementById('nf_outcome').value = winner;
+  document.getElementById('nf_persona').value = persona;
+  document.getElementById('nf_page').value = location.href;
+  try{ document.getElementById('nf_submit').click(); }catch(e){}
+
+  const utm = buildUTM(winner, persona);
+  const base = PRODUCT_URLS[winner] || PRODUCT_URLS.fallback;
+  const finalUrl = base + (base.includes("?") ? "&" : "?") + utm;
+
+  const btn = document.getElementById('finishBtn');
+  btn.disabled = true;
+  btn.textContent = "Пренасочување…";
+  setTimeout(()=>{ window.location.href = finalUrl; }, 2000);
+}
+
+function renderDone(){
+  quizEl.innerHTML = `<div class="q-title">Готово</div><p class="sub">Пренасочуваме…</p>`;
+}
+</script>
+</body>
+</html>
