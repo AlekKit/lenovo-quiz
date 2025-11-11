@@ -49,7 +49,7 @@
   .btn.primary{display:inline-flex;align-items:center;justify-content:center;text-align:center;background:var(--lenovo-red);color:#fff;border:0}
   .row{display:flex;gap:12px;flex-wrap:wrap}
   .field{flex:1 1 220px;display:flex;flex-direction:column;gap:6px}
-  input[type="text"],input[type="email"],input[type="tel"]{background:#fff;border:1px solid var(--border);color:#var(--text);border-radius:10px;padding:12px 12px;font-size:15px}
+  input[type="text"],input[type="email"],input[type="tel"]{background:#fff;border:1px solid var(--border);color:#111827;border-radius:10px;padding:12px 12px;font-size:15px}
   label.consent{display:flex;align-items:flex-start;gap:10px;color:#374151;font-size:14px;margin:8px 0 10px}
   input[type="checkbox"]{transform:translateY(2px)}
   .error{color:#dc2626;font-size:13px;margin-top:4px;display:none}
@@ -124,7 +124,7 @@
   </form>
 
 <script>
-/* ====== DEFAULT CONFIG ====== */
+/* ====== DEFAULT CONFIG (all MK) ====== */
 const DEFAULT_CFG = {
   logo: { url: "https://cdn.worldvectorlogo.com/logos/lenovo-2.svg", data: "" },
   hero: {
@@ -148,46 +148,46 @@ const DEFAULT_CFG = {
     v15: "https://via.placeholder.com/300x200?text=ThinkBook+16+G7"
   },
   questions: [
-    { title:"П1. За што ти треба лаптопот?", answers:[
+    { id:"q1", title:"П1. За што ти треба лаптопот?", answers:[
       {text:"Видео игри"},
       {text:"Факултет/училиште"},
       {text:"Работа"}
     ], condition:null },
-    { title:"П2. Што ти е најважно сега?", answers:[
+    { id:"q2", title:"П2. Што ти е најважно сега?", answers:[
       {text:"Да е брз и моќен"},
       {text:"Да ми е комотен за работа цел ден"},
-      {text:"Best value for my budget"}
+      {text:"Најдобра вредност за мојот буџет"}
     ], condition:null },
-    { title:"П3. Каков екран ти одговара?", answers:[
+    { id:"q3", title:"П3. Каков екран ти одговара?", answers:[
       {text:"Голем (16 inch)"},
       {text:"Стандарден (15 inch)"},
       {text:"Компактен и лесен (14 inch)"}
     ], condition:null },
-    { title:"Q4. Your day looks like", answers:[
-      {text:"Long focused sessions at a desk"},
-      {text:"Moving between classes and cafes"},
-      {text:"Back to back calls, docs and spreadsheets"}
+    { id:"q4", title:"П4. Твојот ден најчесто изгледа вака:", answers:[
+      {text:"Долги фокус сесии на биро"},
+      {text:"Се движам меѓу предавања и кафулиња"},
+      {text:"Едно по друго повици, документи и табели"}
     ], condition:null },
-    { title:"Q5. For work users only, which sounds like you", answers:[
-      {text:"I want premium build, keyboard, and power for heavy multitasking"},
-      {text:"I want the best value that gets the job done"}
+    { id:"q5", title:"П5. Само за работа: што повеќе ти одговара?", answers:[
+      {text:"Премиум изработка, тастатура и моќ за тежок мултитаскинг"},
+      {text:"Најдобра вредност што ја завршува работата"}
     ], condition:"work" },
-    { title:"Q6. Where will you mostly use it", answers:[
+    { id:"q6", title:"П6. Каде најчесто ќе го користиш?", answers:[
       {text:"Дома или гејминг-сетап"},
       {text:"На факултет или во училница"},
       {text:"Во канцеларија или на состаноци со клиенти"}
     ], condition:null },
-    { title:"П7. Што ти звучи најблиску до тебе?", answers:[
-      {text:"I want something that feels unstoppable"},
-      {text:"I want something that feels light and reliable"},
+    { id:"q7", title:"П7. Што ти звучи најблиску до тебе?", answers:[
+      {text:"Сакам нешто незапирливо"},
+      {text:"Сакам нешто лесно и сигурно"},
       {text:"Сакам нешто професионално и стабилно"},
-      {text:"I want something that feels smart value"}
+      {text:"Сакам нешто со паметна вредност"}
     ], condition:null },
-    { title:"Остави контакт да дознаеш повеќе за твојот идеален Леново лаптоп.", answers:[], condition:"lead" }
+    { id:"lead", title:"Остави контакт за да ја добиеш препораката и линк до производот.", answers:[], condition:"lead" }
   ]
 };
 
-/* STATE */
+/* ====== STATE & INIT CFG LOAD ====== */
 let CFG = JSON.parse(JSON.stringify(DEFAULT_CFG));
 const PRODUCT_URLS = ()=>CFG.productUrls;
 const PRODUCT_IMAGES = ()=>CFG.productImages;
@@ -227,14 +227,13 @@ function deepMerge(base, patch){
   return patch===undefined ? base : patch;
 }
 
-/* QUIZ */
-const scores = { legion:0, thinkbook14:0, thinkpadE16:0, v15:0 }; // v15 key used for ThinkBook 16 G7 URL
+/* ====== QUIZ RENDER ====== */
+const scores = { legion:0, thinkbook14:0, thinkpadE16:0, v15:0 }; // v15 key = ThinkBook 16 G7 (best value work)
 let primaryLane = null;
 let currentStep = 0;
 const quizEl = document.getElementById('quiz');
 const barEl = document.getElementById('bar');
 const quizCard = document.getElementById('quizCard');
-const startBtn = document.getElementById('startBtn');
 
 function startQuiz(){
   currentStep = 0;
@@ -255,7 +254,7 @@ function visibleQuestions(){
 
 function renderStep(){
   const list = visibleQuestions();
-  const total = list.length + 1; // + contact
+  const total = list.length + 1; // + contact step
   barEl.style.width = Math.min(100, Math.round((currentStep/total)*100)) + '%';
 
   if(currentStep < list.length){
@@ -283,44 +282,46 @@ function renderStep(){
 
 function onAnswer(q, idx){
   const a = q.answers[idx]?.text || '';
-  if(q.title.includes('П1') || q.title.includes('Q1')){
-    if(a.includes('Видео игри')){ primaryLane='gaming'; scores.legion+=5; }
-    if(a.includes('Факултет') || a.includes('училиште')){ primaryLane='school'; scores.thinkbook14+=5; }
-    if(a.includes('Работа')){ primaryLane='work'; scores.thinkpadE16+=3; scores.v15+=3; }
-  }
-  if(q.title.includes('П2') || q.title.includes('Q2')){
-    if(a.includes('брз') || a.includes('моќен')){ scores.legion+=2; scores.thinkpadE16+=1; }
-    if(a.includes('комотен')){ scores.thinkbook14+=1; scores.thinkpadE16+=1; }
-    if(a.includes('Best value')){ scores.v15+=2; }
-  }
-  if(q.title.includes('П3') || q.title.includes('Q3')){
-    if(a.includes('16')){ scores.legion+=1; scores.thinkpadE16+=1; }
-    if(a.includes('Стандарден') || a.includes('15')){ scores.v15+=1; scores.thinkpadE16+=1; }
-    if(a.includes('14')){ scores.thinkbook14+=2; }
-  }
-  if(q.title.includes('Your day looks')){ // Q4
-    if(a.includes('Long focused')){ scores.legion+=1; scores.thinkpadE16+=1; }
-    if(a.includes('classes and cafes')){ scores.thinkbook14+=2; }
-    if(a.includes('spreadsheets')){ scores.thinkpadE16+=2; scores.v15+=1; }
-  }
-  if(q.title.includes('For work users')){ // Q5
-    if(a.includes('premium build')){ scores.thinkpadE16+=4; }
-    if(a.includes('best value')){ scores.v15+=4; }
-  }
-  if(q.title.includes('Q6')){ // Where will you mostly use it
-    if(a.includes('гејминг')){ scores.legion+=1; }
-    if(a.includes('факултет') || a.includes('училница')){ scores.thinkbook14+=1; }
-    if(a.includes('канцеларија') || a.includes('состаноци')){ scores.thinkpadE16+=1; scores.v15+=1; }
-  }
-  if(q.title.includes('П7') || q.title.includes('Q7')){
-    if(a.includes('unstoppable')){ scores.legion+=1; }
-    if(a.includes('light and reliable')){ scores.thinkbook14+=1; }
-    if(a.includes('професионално') || a.includes('стабилно')){ scores.thinkpadE16+=1; }
-    if(a.includes('smart value')){ scores.v15+=1; }
+
+  switch(q.id){
+    case 'q1':
+      if(a.includes('Видео игри')){ primaryLane='gaming'; scores.legion+=5; }
+      if(a.includes('Факултет') || a.includes('училиште')){ primaryLane='school'; scores.thinkbook14+=5; }
+      if(a.includes('Работа')){ primaryLane='work'; scores.thinkpadE16+=3; scores.v15+=3; }
+      break;
+    case 'q2':
+      if(a.includes('брз') || a.includes('моќен')){ scores.legion+=2; scores.thinkpadE16+=1; }
+      if(a.includes('комотен')){ scores.thinkbook14+=1; scores.thinkpadE16+=1; }
+      if(a.includes('вредност')){ scores.v15+=2; }
+      break;
+    case 'q3':
+      if(a.includes('16')){ scores.legion+=1; scores.thinkpadE16+=1; }
+      if(a.includes('Стандарден') || a.includes('15')){ scores.v15+=1; scores.thinkpadE16+=1; }
+      if(a.includes('14')){ scores.thinkbook14+=2; }
+      break;
+    case 'q4':
+      if(a.includes('Долги фокус')){ scores.legion+=1; scores.thinkpadE16+=1; }
+      if(a.includes('предавања') || a.includes('кафулиња')){ scores.thinkbook14+=2; }
+      if(a.includes('табели') || a.includes('повици') || a.includes('документи')){ scores.thinkpadE16+=2; scores.v15+=1; }
+      break;
+    case 'q5':
+      if(a.includes('Премиум')){ scores.thinkpadE16+=4; }
+      if(a.includes('вредност')){ scores.v15+=4; }
+      break;
+    case 'q6':
+      if(a.includes('гејминг')){ scores.legion+=1; }
+      if(a.includes('факултет') || a.includes('училница')){ scores.thinkbook14+=1; }
+      if(a.includes('канцеларија') || a.includes('состаноци')){ scores.thinkpadE16+=1; scores.v15+=1; }
+      break;
+    case 'q7':
+      if(a.includes('незапирливо')){ scores.legion+=1; }
+      if(a.includes('лесно и сигурно')){ scores.thinkbook14+=1; }
+      if(a.includes('професионално') || a.includes('стабилно')){ scores.thinkpadE16+=1; }
+      if(a.includes('паметна вредност')){ scores.v15+=1; }
+      break;
   }
 
-  currentStep++;
-  renderStep();
+  renderStep(++currentStep);
 }
 
 function renderContact(){
@@ -414,7 +415,7 @@ async function submitAndRedirect(winner, persona){
     err.style.display = 'block'; return;
   } else { err.style.display = 'none'; }
 
-  // optional Netlify hidden form (harmless)
+  // (optional) Netlify hidden form
   document.getElementById('nf_full_name').value = name;
   document.getElementById('nf_email').value = email;
   document.getElementById('nf_phone').value = phone;
@@ -428,7 +429,7 @@ async function submitAndRedirect(winner, persona){
   document.getElementById('nf_persona').value = persona;
   document.getElementById('nf_page').value = location.href;
 
-  // Send to Google Sheets (fire-and-forget)
+  // Send to Google Sheets
   const payload = {
     timestamp: new Date().toISOString(),
     full_name: name, email, phone, consent: consent ? 'yes' : 'no',
