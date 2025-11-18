@@ -5,6 +5,32 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Lenovo Квиз — Откриј го идеалниот Lenovo</title>
 <meta name="description" content="Одговори на 8 брзи прашања и добиј директна препорака за идеален Lenovo лаптоп." />
+
+<!-- Google Tag Manager -->
+<script>
+(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WC6S5RZV');
+</script>
+<!-- End Google Tag Manager -->
+
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '4558619690906145');
+fbq('track', 'PageView');
+</script>
+<!-- End Meta Pixel Code -->
+
 <style>
   :root{
     --bg:#ffffff; --text:#111827; --muted:#6b7280; --border:#e5e7eb; --card:#ffffff;
@@ -77,6 +103,21 @@
 </style>
 </head>
 <body>
+
+<!-- Google Tag Manager (noscript) -->
+<noscript>
+  <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WC6S5RZV"
+          height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<!-- Meta Pixel (noscript) -->
+<noscript>
+  <img height="1" width="1" style="display:none"
+       src="https://www.facebook.com/tr?id=4558619690906145&ev=PageView&noscript=1" />
+</noscript>
+<!-- End Meta Pixel (noscript) -->
+
   <div class="topbar">
     <div class="topbar-inner"><img id="logoImg" src="https://cdn.worldvectorlogo.com/logos/lenovo-2.svg" alt="Lenovo" /></div>
   </div>
@@ -279,6 +320,19 @@ function startQuiz(){
   document.getElementById('startCard').classList.add('hidden');
   quizCard.classList.remove('hidden');
   renderStep();
+
+  // Tracking: quiz started
+  if (window.dataLayer) {
+    window.dataLayer.push({
+      event: 'quiz_start',
+      quiz_name: 'lenovo_quiz'
+    });
+  }
+  if (window.fbq) {
+    window.fbq('trackCustom', 'QuizStart', {
+      quiz_name: 'lenovo_quiz'
+    });
+  }
 }
 
 function visibleQuestions(){
@@ -490,6 +544,29 @@ async function submitAndRedirect(winner, persona){
     "https://script.google.com/macros/s/AKfycbx4NG7bgInqluGB2XoymZzVIoyuLs0s8FEfWBpQv0UNHXT7agrums20jfQGk_jdPo9Q/exec",
     payload
   );
+
+  // Tracking: quiz completed / lead submitted
+  if (window.dataLayer) {
+    window.dataLayer.push({
+      event: 'quiz_complete',
+      quiz_name: 'lenovo_quiz',
+      outcome: winner,
+      persona: persona,
+      lane: primaryLane || '',
+      scores_legion: scores.legion,
+      scores_thinkbook14: scores.thinkbook14,
+      scores_thinkpadE16: scores.thinkpadE16,
+      scores_v15: scores.v15
+    });
+  }
+  if (window.fbq) {
+    // Standard "Lead" event is usually ok for this
+    window.fbq('track', 'Lead', {
+      quiz_name: 'lenovo_quiz',
+      outcome: winner,
+      persona: persona
+    });
+  }
 
   // Immediate redirect
   const urlBase = PRODUCT_URLS()[winner] || PRODUCT_URLS().fallback;
