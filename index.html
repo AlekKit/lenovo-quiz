@@ -1,4 +1,485 @@
-async function submitAndRedirect(winner, persona){
+<!doctype html>
+<html lang="mk">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lenovo Квиз — Откриј го идеалниот Lenovo</title>
+<meta name="description" content="Одговори на 8 брзи прашања и добиј директна препорака за идеален Lenovo лаптоп." />
+
+<!-- Google Tag Manager -->
+<script>
+(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WC6S5RZV');
+</script>
+<!-- End Google Tag Manager -->
+
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '4558619690906145');
+fbq('track', 'PageView');
+</script>
+<!-- End Meta Pixel Code -->
+
+<style>
+  :root{
+    --bg:#ffffff; --text:#111827; --muted:#6b7280; --border:#e5e7eb; --card:#ffffff;
+    --lenovo-red:#E2231A; --radius:16px; --shadow:0 10px 30px rgba(0,0,0,.06);
+  }
+  *{box-sizing:border-box} html,body{height:100%} body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+
+  .topbar { position:sticky; top:0; z-index:50; background:#fff; border-bottom:1px solid var(--border);
+            width:100%; display:flex; justify-content:center; align-items:center; padding:12px 0; }
+  .topbar-inner { width:100%; display:flex; justify-content:center; align-items:center; }
+  .topbar-inner img { display:block; margin:0 auto; height:58px; }
+
+  .wrap{max-width:960px;margin:0 auto;padding:20px}
+
+  header.hero{background:#fff;}
+  .hero-inner{
+    display:flex; align-items:center; justify-content:center;
+    min-height:38vh; padding:10px;
+  }
+  .intro-card{
+    background:var(--card); border:1px solid var(--border); border-radius:var(--radius);
+    box-shadow:var(--shadow); width:min(820px,100%); padding:22px;
+    text-align:center; margin:0 auto;  margin-top:400px !important;
+  }
+  @media (max-width: 720px) {
+    .intro-card { margin-top: 260px !important; }
+  }
+  h1{font-size:24px;margin:8px 0 6px}
+  .sub{color:var(--muted);margin:0 0 18px;font-size:14px}
+  .start-btn{display:inline-flex;align-items:center;gap:10px;background:var(--lenovo-red);color:#fff;border:none;padding:12px 18px;border-radius:999px;cursor:pointer;font-weight:700;letter-spacing:.2px;text-transform:uppercase}
+
+  .container{padding:18px 0 36px}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);max-width:780px;margin:0 auto}
+  .progress{height:8px;border-radius:8px;background:#f3f4f6;overflow:hidden;margin:4px 0 16px}
+  .progress>div{height:100%;background:var(--lenovo-red);width:0%}
+  .pill{display:inline-block;background:#f8fafc;border:1px solid var(--border);color:#6b7280;border-radius:999px;padding:6px 10px;font-size:12px;margin-bottom:8px}
+  .q-title{font-size:20px;margin:6px 0 14px}
+  .answers{display:grid;gap:12px}
+  .btn{border:1px solid var(--border);background:#fff;color:var(--text);padding:14px 14px;border-radius:12px;font-weight:600;cursor:pointer;text-align:left;display:flex;align-items:center;gap:12px;transition:transform .03s ease, border-color .15s ease, box-shadow .15s ease, background .15s ease}
+  .btn:hover{border-color:#c9ced6;box-shadow:0 4px 14px rgba(17,24,39,.06)}
+  .btn.primary{display:inline-flex;align-items:center;justify-content:center;text-align:center;background:var(--lenovo-red);color:#fff;border:0}
+  .row{display:flex;gap:12px;flex-wrap:wrap}
+  .field{flex:1 1 220px;display:flex;flex-direction:column;gap:6px}
+  input[type="text"],input[type="email"],input[type="tel"]{background:#fff;border:1px solid var(--border);color:#111827;border-radius:10px;padding:12px 12px;font-size:15px}
+  label.consent{display:flex;align-items:flex-start;gap:10px;color:#374151;font-size:14px;margin:8px 0 10px}
+  input[type="checkbox"]{transform:translateY(2px)}
+  .error{color:#dc2626;font-size:13px;margin-top:4px;display:none}
+  .hidden{display:none !important}
+  .grid-2{grid-template-columns:1fr}
+  @media(min-width:720px){ .grid-2{grid-template-columns:repeat(2,1fr)} }
+
+  .hero-img{
+    width:100%; max-width:780px; margin:0 auto 14px auto;
+    border-radius:14px; overflow:hidden; border:1px solid var(--border);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .hero-img img{ display:block; max-width:100%; height:auto; margin:0 auto; }
+
+  .preview{margin-top:12px; display:flex; gap:12px; align-items:center; border:1px solid var(--border); padding:12px; border-radius:12px; background:#fafafa}
+  .preview img{width:88px;height:88px;object-fit:cover;border-radius:10px;border:1px solid #e5e7eb;background:#fff}
+  .preview .meta{font-size:14px}
+  .preview .meta .name{font-weight:700}
+
+  @media (min-height: 520px) {
+    #startCard, #quizCard { transform: translateY(-180px); }
+  }
+</style>
+</head>
+<body>
+
+<!-- Google Tag Manager (noscript) -->
+<noscript>
+  <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WC6S5RZV"
+          height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<!-- Meta Pixel (noscript) -->
+<noscript>
+  <img height="1" width="1" style="display:none"
+       src="https://www.facebook.com/tr?id=4558619690906145&ev=PageView&noscript=1" />
+</noscript>
+<!-- End Meta Pixel (noscript) -->
+
+  <div class="topbar">
+    <div class="topbar-inner"><img id="logoImg" src="https://cdn.worldvectorlogo.com/logos/lenovo-2.svg" alt="Lenovo" /></div>
+  </div>
+
+  <header class="hero">
+    <div class="wrap hero-inner">
+      <div class="intro-card" id="startCard">
+        <div class="hero-img">
+          <img id="heroImage" src="https://static.beebom.com/wp-content/uploads/2018/04/lenovi-thinkpad-x1.jpg?w=750&quality=75" alt="Lenovo Hero" />
+        </div>
+        <h1 id="heroTitle">Откриј го идеалниот Lenovo за тебе</h1>
+        <p class="sub" id="heroSub">Одговори на неколку брзи прашања за 30 секунди и дознај кој Lenovo е совршен за твоите потреби</p>
+        <button class="start-btn" id="startBtn" aria-label="Почни"><span id="startCta">ПОЧНИ</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M5 12h14M13 5l7 7-7 7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap container">
+    <div class="card hidden" id="quizCard">
+      <div class="progress"><div id="bar"></div></div>
+      <div id="quiz"></div>
+    </div>
+  </main>
+
+  <!-- Netlify Forms (hidden) -->
+  <form name="quiz-lead" method="POST" data-netlify="true" class="hidden" id="netlifyForm">
+    <input type="hidden" name="form-name" value="quiz-lead" />
+    <input type="hidden" name="full_name" id="nf_full_name" />
+    <input type="hidden" name="email" id="nf_email" />
+    <input type="hidden" name="phone" id="nf_phone" />
+    <input type="hidden" name="consent" id="nf_consent" />
+    <input type="hidden" name="scores_legion" id="nf_legion" />
+    <input type="hidden" name="scores_thinkbook14" id="nf_thinkbook14" />
+    <input type="hidden" name="scores_thinkpadE16" id="nf_thinkpadE16" />
+    <input type="hidden" name="scores_v15" id="nf_v15" />
+    <input type="hidden" name="primaryLane" id="nf_lane" />
+    <input type="hidden" name="outcome" id="nf_outcome" />
+    <input type="hidden" name="persona" id="nf_persona" />
+    <input type="hidden" name="page" id="nf_page" />
+    <button type="submit" id="nf_submit">submit</button>
+  </form>
+
+<script>
+/* ====== DEFAULT CONFIG ====== */
+const DEFAULT_CFG = {
+  logo: { url: "https://cdn.worldvectorlogo.com/logos/lenovo-2.svg", data: "" },
+  hero: {
+    title: "Откриј го идеалниот Lenovo за тебе",
+    sub: "Одговори на неколку брзи прашања за 30 секунди и дознај кој Lenovo е совршен за твоите потреби",
+    cta: "ПОЧНИ",
+    image: { url: "https://static.beebom.com/wp-content/uploads/2018/04/lenovi-thinkpad-x1.jpg?w=750&quality=75", data: "" }
+  },
+  finish: { cta: "Продолжи кон препорачан модел" },
+  productUrls: {
+    legion: "https://kupilenovo.mk/categories/_laptops/83F500DJRM-Legion-Legion-Pro-7-16IAX10H-Eclipse-Black---Ultra-9-275HX,-64GB,-2TB-NVMe,-RTX-5080-16GB,-16-,-DOS",
+    thinkbook14: "https://kupilenovo.mk/categories/_laptops/21MR004HRM-Lenovo-ThinkBook-14-G7-IML-Arctic-Grey----Ultra-7-155H,-32GB,-512GB-SSD,-14-,-DOS",
+    thinkpadE16: "https://kupilenovo.mk/categories/_laptops/21SR004GRI-Lenovo-ThinkPad-E16-Gen-3-Black---Ultra-7-255H,-16GB,-1TB,-16-,-DOS",
+    v15: "https://kupilenovo.mk/categories/_laptops/21MS004TRM--Lenovo-ThinkBook-16-G7-IML-Arctic-Grey---Ultra-5-125U,-16GB,-1TB-NVMe,-16-,-DOS",
+    fallback: "https://kupilenovo.mk/_laptops.nspx?priceRange=9750_31137"
+  },
+  productImages: {
+    legion: "https://kupilenovo.mk/2025/07/10/Legion_Pro_7_16IAX10H_CT1_01.jpg",
+    thinkbook14: "https://via.placeholder.com/300x200?text=ThinkBook+14+G7",
+    thinkpadE16: "https://kupilenovo.mk/2024/11/29/ThinkPad_E16_Gen_2_AMD_CT1_01.jpg",
+    v15: "https://via.placeholder.com/300x200?text=ThinkBook+16+G7"
+  },
+  questions: [
+    {
+      id:"q1",
+      title:"За што ти треба лаптопот?",
+      answers:[
+        {text:"За видео игри"},
+        {text:"За факултет / училиште"},
+        {text:"За работа"}
+      ],
+      condition:null
+    },
+    {
+      id:"q2",
+      title:"Што ти е најважно?",
+      answers:[
+        {text:"Да биде брз и моќен"},
+        {text:"Да биде комотен и идеален за мобилна работа по цели денови"},
+        {text:"Да добијам најдобра вредност за моите пари"}
+      ],
+      condition:null
+    },
+    {
+      id:"q3",
+      title:"Каков екран ти одговара?",
+      answers:[
+        {text:"Голем (16 инчи)"},
+        {text:"Стандарден (15 инчи)"},
+        {text:"Компактен и лесен (14 инчи)"}
+      ],
+      condition:null
+    },
+    {
+      id:"q4",
+      title:"Твојот ден изгледа вака:",
+      answers:[
+        {text:"Долги фокусирани часови на биро"},
+        {text:"Се движам помеѓу предавања и кафулиња"},
+        {text:"Еден по друг повици, документи и табели"}
+      ],
+      condition:null
+    },
+    {
+      id:"q5",
+      title:"Само за оние што го користат за работа – што најмногу те опишува?",
+      answers:[
+        {text:"Сакам Премиум изработка, тастатура и моќ за интензивна мултитаскинг работа"},
+        {text:"Сакам најдобра вредност – уред што ја завршува работата"}
+      ],
+      condition:"work"
+    },
+    {
+      id:"q6",
+      title:"Што најмногу те опишува?",
+      answers:[
+        {text:"Сакам нешто што изгледа ексклузивно за дома или мојот гејминг-сетап"},
+        {text:"Сакам нешто лесно и сигурно за факултет или училница"},
+        {text:"Сакам нешто професионално и стабилно за канцеларија и состаноци"}
+      ],
+      condition:null
+    },
+    {
+      id:"q7",
+      title:"Кој е твојот буџет?",
+      answers:[
+        {text:"До 400 еур – сакам нешто со паметна вредност"},
+        {text:"Од 400 – 700 еур – сакам нешто лесно и сигурно"},
+        {text:"Над 700 еур – сакам незапирливо, професионално и стабилно решение"}
+      ],
+      condition:null
+    },
+    {
+      id:"lead",
+      title:"Остави контакт за да ја добиеш препораката и линк до производот.",
+      answers:[],
+      condition:"lead"
+    }
+  ]
+};
+
+let CFG = JSON.parse(JSON.stringify(DEFAULT_CFG));
+const PRODUCT_URLS = ()=>CFG.productUrls;
+const PRODUCT_IMAGES = ()=>CFG.productImages;
+
+function deepMerge(base, patch){
+  if(Array.isArray(base)){
+    return Array.isArray(patch) ? patch : base;
+  }else if(typeof base==='object' && base){
+    const out = {...base};
+    for(const k of Object.keys(patch||{})){
+      if(typeof patch[k]==='object' && patch[k] && !Array.isArray(patch[k])){
+        out[k] = deepMerge(base[k]||{}, patch[k]);
+      }else{
+        out[k] = patch[k];
+      }
+    }
+    return out;
+  }
+  return patch===undefined ? base : patch;
+}
+
+function loadConfigFromLocalStorage(){
+  try{
+    const raw = localStorage.getItem('lenovoQuizConfig');
+    if(!raw) return;
+    const fromLS = JSON.parse(raw);
+    CFG = deepMerge(DEFAULT_CFG, fromLS);
+
+    const logo = (CFG.logo?.data || CFG.logo?.url || '').trim();
+    if(logo) document.getElementById('logoImg').src = logo;
+
+    document.getElementById('heroTitle').textContent = CFG.hero?.title || DEFAULT_CFG.hero.title;
+    document.getElementById('heroSub').textContent = CFG.hero?.sub || DEFAULT_CFG.hero.sub;
+    document.getElementById('startCta').textContent = CFG.hero?.cta || DEFAULT_CFG.hero.cta;
+    const heroImg = (CFG.hero?.image?.data || CFG.hero?.image?.url || '').trim();
+    if(heroImg) document.getElementById('heroImage').src = heroImg;
+  }catch(e){ console.warn('Config read error', e); }
+}
+
+/* ====== QUIZ STATE ====== */
+const scores = { legion:0, thinkbook14:0, thinkpadE16:0, v15:0 };
+let primaryLane = null;
+let currentStep = 0;
+const quizEl = document.getElementById('quiz');
+const barEl = document.getElementById('bar');
+const quizCard = document.getElementById('quizCard');
+
+function startQuiz(){
+  currentStep = 0;
+  document.getElementById('startCard').classList.add('hidden');
+  quizCard.classList.remove('hidden');
+  renderStep();
+}
+
+function visibleQuestions(){
+  const arr = [];
+  for(const q of CFG.questions){
+    if(q.condition === 'lead'){ continue; }
+    if(q.condition === 'work' && primaryLane !== 'work'){ continue; }
+    arr.push(q);
+  }
+  return arr;
+}
+
+function renderStep(){
+  const list = visibleQuestions();
+  const total = list.length + 1;
+  barEl.style.width = Math.min(100, Math.round((currentStep/total)*100)) + '%';
+
+  if(currentStep < list.length){
+    const q = list[currentStep];
+    const stepLabel = `Чекор ${currentStep+1}`;
+    const answersHtml = q.answers.map((a,i)=> `
+      <button class="btn" data-ans="${i}">
+        <span>${a.text}</span>
+      </button>
+    `).join('');
+    quizEl.innerHTML = `
+      <div class="pill">${stepLabel}</div>
+      <div class="q-title">${q.title}</div>
+      <div class="answers">
+        ${answersHtml}
+      </div>
+    `;
+    quizEl.querySelectorAll('[data-ans]').forEach(btn=>{
+      btn.onclick = ()=> onAnswer(q, parseInt(btn.dataset.ans,10));
+    });
+  }else{
+    renderContact();
+  }
+}
+
+function onAnswer(q, idx){
+  const a = q.answers[idx]?.text || '';
+
+  switch(q.id){
+    case 'q1':
+      if(a.includes('Видео игри')){ primaryLane='gaming'; scores.legion+=5; }
+      if(a.includes('Факултет') || a.includes('училиште')){ primaryLane='school'; scores.thinkbook14+=5; }
+      if(a.includes('Работа')){ primaryLane='work'; scores.thinkpadE16+=3; scores.v15+=3; }
+      break;
+    case 'q2':
+      if(a.includes('брз') || a.includes('моќен')){ scores.legion+=2; scores.thinkpadE16+=1; }
+      if(a.includes('комотен')){ scores.thinkbook14+=1; scores.thinkpadE16+=1; }
+      if(a.includes('вредност')){ scores.v15+=2; }
+      break;
+    case 'q3':
+      if(a.includes('16')){ scores.legion+=1; scores.thinkpadE16+=1; }
+      if(a.includes('Стандарден') || a.includes('15')){ scores.v15+=1; scores.thinkpadE16+=1; }
+      if(a.includes('14')){ scores.thinkbook14+=2; }
+      break;
+    case 'q4':
+      if(a.includes('Долги фокус')){ scores.legion+=1; scores.thinkpadE16+=1; }
+      if(a.includes('предавања') || a.includes('кафулиња')){ scores.thinkbook14+=2; }
+      if(a.includes('табели') || a.includes('повици') || a.includes('документи')){ scores.thinkpadE16+=2; scores.v15+=1; }
+      break;
+    case 'q5':
+      if(a.includes('Премиум')){ scores.thinkpadE16+=4; }
+      if(a.includes('вредност')){ scores.v15+=4; }
+      break;
+    case 'q6':
+      if(a.includes('гејминг')){ scores.legion+=1; }
+      if(a.includes('факултет') || a.includes('училница')){ scores.thinkbook14+=1; }
+      if(a.includes('канцеларија') || a.includes('состаноци')){ scores.thinkpadE16+=1; scores.v15+=1; }
+      break;
+    case 'q7':
+      if(a.includes('незапирливо')){ scores.legion+=1; }
+      if(a.includes('лесно и сигурно')){ scores.thinkbook14+=1; }
+      if(a.includes('професионално') || a.includes('стабилно')){ scores.thinkpadE16+=1; }
+      if(a.includes('паметна вредност')){ scores.v15+=1; }
+      break;
+  }
+
+  renderStep(++currentStep);
+}
+
+function renderContact(){
+  barEl.style.width = '100%';
+  const winner = decideWinner();
+  const persona = primaryLane === "gaming" ? "gamer" : (primaryLane === "school" ? "student" : "work");
+
+  const img = PRODUCT_IMAGES()[winner] || '';
+  const nameMap = {
+    legion: "Legion Pro 7 16IAX10H",
+    thinkbook14: "ThinkBook 14 G7 IML",
+    thinkpadE16: "ThinkPad E16 Gen 3",
+    v15: "ThinkBook 16 G7 IML Arctic Grey"
+  };
+  const nice = nameMap[winner] || "Lenovo";
+
+  quizEl.innerHTML = `
+    <div class="pill">Резултат</div>
+    <div class="q-title">Твојот најсоодветен модел е: <strong>${nice}</strong></div>
+    <div class="preview">
+      ${img ? `<img src="${img}" alt="${nice}">` : ``}
+      <div class="meta">
+        <div class="name">${nice}</div>
+        <div class="small">Пополнете контакт за да продолжите кон производот.</div>
+      </div>
+    </div>
+
+    <div class="answers" style="margin-top:14px">
+      <div class="row">
+        <div class="field"><label>Име и презиме</label><input id="q8_name" type="text" placeholder="Име и презиме"></div>
+        <div class="field"><label>Email</label><input id="q8_email" type="email" placeholder="name@example.com"></div>
+      </div>
+      <div class="row">
+        <div class="field"><label>Телефон <span class="small">(опционално)</span></label><input id="q8_phone" type="tel" placeholder="+389..."></div>
+      </div>
+      <label class="consent"><input id="q8_consent" type="checkbox"> Се согласувам да бидам контактиран во врска со мојата препорака, цени и понуди.</label>
+      <div class="error" id="err">Внесете валидно име, валиден email и штиклирајте согласност.</div>
+      <button class="btn primary" id="finishBtn">Продолжи кон препорачан модел</button>
+    </div>
+  `;
+
+  document.getElementById('finishBtn').onclick = ()=> submitAndRedirect(winner, persona);
+}
+
+function decideWinner(){
+  if(primaryLane === "school"){ scores.thinkbook14 += 10; }
+  if(primaryLane === "gaming"){ scores.legion += 10; }
+  if(primaryLane === "work"){ scores.thinkpadE16 += 1; scores.v15 += 1; }
+
+  const order = ["legion","thinkpadE16","v15","thinkbook14"];
+  let winner = order[0];
+  order.forEach(k=>{ if(scores[k] > scores[winner]) winner = k; });
+
+  if(primaryLane === "work" && scores.thinkpadE16 === scores.v15){
+    winner = "thinkpadE16";
+  }
+  return winner;
+}
+
+function getParam(name){ const p = new URLSearchParams(location.search); return p.get(name) || ""; }
+function buildUTM(outcome, persona){
+  const src = getParam("utm_source") || "meta";
+  const med = getParam("utm_medium") || "paid";
+  return `utm_source=${encodeURIComponent(src)}&utm_medium=${encodeURIComponent(med)}&utm_campaign=quiz&utm_content=outcome_${outcome}&utm_term=persona_${persona}`;
+}
+
+function sendToSheetsJSON(webAppUrl, payloadObj){
+  try {
+    const blob = new Blob([JSON.stringify(payloadObj)], { type: 'text/plain;charset=UTF-8' });
+    navigator.sendBeacon(webAppUrl, blob);
+  } catch(e){
+    fetch(webAppUrl, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
+      body: JSON.stringify(payloadObj)
+    }).catch(()=>{});
+  }
+}
+
+/* ====== HERE WE TRIGGER META LEAD + DELAY REDIRECT ====== */
+function submitAndRedirect(winner, persona){
   const name = document.getElementById('q8_name').value.trim();
   const email = document.getElementById('q8_email').value.trim();
   const phone = document.getElementById('q8_phone').value.trim();
@@ -13,7 +494,6 @@ async function submitAndRedirect(winner, persona){
     err.style.display = 'none';
   }
 
-  // (optional) Netlify hidden form
   document.getElementById('nf_full_name').value = name;
   document.getElementById('nf_email').value = email;
   document.getElementById('nf_phone').value = phone;
@@ -27,7 +507,6 @@ async function submitAndRedirect(winner, persona){
   document.getElementById('nf_persona').value = persona;
   document.getElementById('nf_page').value = location.href;
 
-  // Send to Google Sheets
   const payload = {
     timestamp: new Date().toISOString(),
     full_name: name, email, phone, consent: consent ? 'yes' : 'no',
@@ -50,7 +529,7 @@ async function submitAndRedirect(winner, persona){
     payload
   );
 
-  // FIRE META LEAD EVENT HERE
+  // Meta Lead event
   if (typeof fbq === 'function') {
     fbq('track', 'Lead', {
       quiz_name: 'lenovo_quiz',
@@ -59,7 +538,6 @@ async function submitAndRedirect(winner, persona){
     });
   }
 
-  // Prepare redirect URL
   const urlBase = PRODUCT_URLS()[winner] || PRODUCT_URLS().fallback;
   const utm = buildUTM(winner, persona);
   const finalUrl = urlBase + (urlBase.includes("?") ? "&" : "?") + utm;
@@ -68,8 +546,17 @@ async function submitAndRedirect(winner, persona){
   cta.disabled = true;
   cta.textContent = (CFG.finish?.cta || "Продолжи кон препорачан модел");
 
-  // DELAY REDIRECT SO META CAN SEND EVENT
+  // delay so Meta can send the event
   setTimeout(function() {
     window.location.href = finalUrl;
   }, 400);
 }
+
+/* INIT */
+document.addEventListener('DOMContentLoaded', ()=>{
+  loadConfigFromLocalStorage();
+  document.getElementById('startBtn').onclick = startQuiz;
+});
+</script>
+</body>
+</html>
