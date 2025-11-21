@@ -6,14 +6,13 @@
 <title>Lenovo Квиз — Откриј го идеалниот Lenovo</title>
 <meta name="description" content="Одговори на 8 брзи прашања и добиј директна препорака за идеален Lenovo лаптоп." />
 
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-17700545391"></script>
+<!-- Google Tag Manager -->
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'AW-17700545391');
+(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WC6S5RZV');
 </script>
 <!-- End Google Tag Manager -->
 
@@ -70,7 +69,7 @@ fbq('track', 'PageView');
   .pill{display:inline-block;background:#f8fafc;border:1px solid var(--border);color:#6b7280;border-radius:999px;padding:6px 10px;font-size:12px;margin-bottom:8px}
   .q-title{font-size:20px;margin:6px 0 14px}
   .answers{display:grid;gap:12px}
-  .btn{border:1px solid var(--border);background:#fff;color:var(--text);padding:14px 14px;border-radius:12px;font-weight:600;cursor:pointer;text-align:left;display:flex;align-items:center;gap:12px;transition:transform .03s ease, border-color .15s ease, box-shadow .15s ease, background .15s ease}
+  .btn{border:1px solid var(--border);background:#fff;color:#var(--text);padding:14px 14px;border-radius:12px;font-weight:600;cursor:pointer;text-align:left;display:flex;align-items:center;gap:12px;transition:transform .03s ease, border-color .15s ease, box-shadow .15s ease, background .15s ease}
   .btn:hover{border-color:#c9ced6;box-shadow:0 4px 14px rgba(17,24,39,.06)}
   .btn.primary{display:inline-flex;align-items:center;justify-content:center;text-align:center;background:var(--lenovo-red);color:#fff;border:0}
   .row{display:flex;gap:12px;flex-wrap:wrap}
@@ -159,6 +158,8 @@ fbq('track', 'PageView');
     <input type="hidden" name="outcome" id="nf_outcome" />
     <input type="hidden" name="persona" id="nf_persona" />
     <input type="hidden" name="page" id="nf_page" />
+    <!-- UTM capture for Netlify -->
+    <input type="hidden" name="utm_source" id="utm_source" />
     <button type="submit" id="nf_submit">submit</button>
   </form>
 
@@ -458,7 +459,11 @@ function decideWinner(){
   return winner;
 }
 
-function getParam(name){ const p = new URLSearchParams(location.search); return p.get(name) || ""; }
+function getParam(name){
+  const p = new URLSearchParams(location.search);
+  return p.get(name) || "";
+}
+
 function buildUTM(outcome, persona){
   const src = getParam("utm_source") || "meta";
   const med = getParam("utm_medium") || "paid";
@@ -479,7 +484,7 @@ function sendToSheetsJSON(webAppUrl, payloadObj){
   }
 }
 
-/* ====== HERE WE TRIGGER META LEAD + DELAY REDIRECT ====== */
+/* submit + Meta Lead + delay */
 function submitAndRedirect(winner, persona){
   const name = document.getElementById('q8_name').value.trim();
   const email = document.getElementById('q8_email').value.trim();
@@ -516,8 +521,8 @@ function submitAndRedirect(winner, persona){
     scores_thinkbook14: String(scores.thinkbook14),
     scores_thinkpadE16: String(scores.thinkpadE16),
     scores_v15: String(scores.v15),
-    utm_source: (new URLSearchParams(location.search).get("utm_source") || "meta"),
-    utm_medium: (new URLSearchParams(location.search).get("utm_medium") || "paid"),
+    utm_source: getParam("utm_source") || "meta",
+    utm_medium: getParam("utm_medium") || "paid",
     utm_campaign: "quiz",
     utm_content: `outcome_${winner}`,
     utm_term: `persona_${persona}`,
@@ -530,7 +535,6 @@ function submitAndRedirect(winner, persona){
     payload
   );
 
-  // Meta Lead event
   if (typeof fbq === 'function') {
     fbq('track', 'Lead', {
       quiz_name: 'lenovo_quiz',
@@ -547,7 +551,6 @@ function submitAndRedirect(winner, persona){
   cta.disabled = true;
   cta.textContent = (CFG.finish?.cta || "Продолжи кон препорачан модел");
 
-  // delay so Meta can send the event
   setTimeout(function() {
     window.location.href = finalUrl;
   }, 400);
@@ -559,5 +562,17 @@ document.addEventListener('DOMContentLoaded', ()=>{
   document.getElementById('startBtn').onclick = startQuiz;
 });
 </script>
+
+<!-- UTM capture script for hidden input -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  var source = getParam("utm_source");
+  var utmField = document.getElementById("utm_source");
+  if (utmField) {
+    utmField.value = source ? source : "direct";
+  }
+});
+</script>
+
 </body>
 </html>
