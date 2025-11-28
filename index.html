@@ -404,4 +404,664 @@ fbq('track', 'PageView');
     background: #000;
     display: flex; flex-direction: column;
     align-items: center; justify-content: center;
-    text-align: ce
+    text-align: center;
+    border-radius: 2px;
+    position: relative;
+    overflow: hidden;
+  }
+  .laptop-screen-inner::before {
+    content:''; position: absolute;
+    top: -50%; left: -50%; width: 200%; height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.05), transparent);
+    transform: rotate(30deg);
+  }
+  .screen-content-name {
+    font-family: var(--font-head);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    z-index: 2;
+    padding: 0 10px;
+    text-shadow: 0 0 10px rgba(255,255,255,0.5);
+    line-height: 1.2;
+  }
+  .screen-content-logo {
+    font-size: 10px; color: #555; margin-bottom: 5px; font-weight: 700; letter-spacing: 1px;
+  }
+  .laptop-base {
+    width: 260px; height: 14px;
+    background: linear-gradient(to bottom, #2a2a2a, #111);
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.6);
+    position: relative;
+  }
+  .laptop-base::after {
+    content:''; position: absolute;
+    top: 0; left: 50%; transform: translateX(-50%);
+    width: 40px; height: 4px;
+    background: #333;
+    border-radius: 0 0 4px 4px;
+  }
+
+  .error-msg {
+    color: #ff4d4d;
+    font-size: 13px;
+    margin-top: 16px;
+    padding: 12px;
+    border-radius: 10px;
+    background: rgba(255, 77, 77, 0.1);
+    border: 1px solid rgba(255, 77, 77, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .fade-in { animation: fadeIn 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px) scale(0.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  @media (max-width: 480px) {
+    h1 { font-size: 32px; }
+    .glass-card { padding: 24px 20px; }
+    .option-btn { padding: 14px 16px; font-size: 15px; }
+  }
+</style>
+</head>
+<body>
+
+<noscript>
+  <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WC6S5RZV"
+          height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+
+<noscript>
+  <img height="1" width="1" style="display:none"
+       src="https://www.facebook.com/tr?id=4558619690906145&ev=PageView&noscript=1" />
+</noscript>
+
+<div class="bg-gradient-mesh">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+</div>
+
+<div class="logo-bar">
+  <img id="logoImg" src="https://upload.wikimedia.org/wikipedia/commons/b/b8/Lenovo_logo_2015.svg" alt="Lenovo">
+</div>
+
+<main class="container">
+  
+  <div class="glass-card fade-in" id="startCard">
+    <div class="core-wrapper">
+      <div class="core-ring r1"></div>
+      <div class="core-ring r2"></div>
+      <div class="core-center"></div>
+    </div>
+    
+    <div style="text-align: center;">
+      <h1 id="heroTitle">Откриј го идеалниот<br><span class="highlight">Lenovo</span> за тебе.</h1>
+      <p class="sub" id="heroSub">Одговори на неколку брзи прашања за 30 секунди и дознај кој модел е совршен за твоите потреби.</p>
+      
+      <button class="primary-btn" id="startBtn">
+        <span id="startCta">Започни</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="glass-card hidden" id="quizCard">
+    <div class="progress-track"><div class="progress-fill" id="bar"></div></div>
+    <div id="quiz"></div>
+  </div>
+
+</main>
+
+<form name="quiz-lead" method="POST" data-netlify="true" class="hidden" id="netlifyForm">
+  <input type="hidden" name="form-name" value="quiz-lead" />
+  <input type="hidden" name="full_name" id="nf_full_name" />
+  <input type="hidden" name="email" id="nf_email" />
+  <input type="hidden" name="phone" id="nf_phone" />
+  <input type="hidden" name="consent" id="nf_consent" />
+  <input type="hidden" name="scores_legion" id="nf_legion" />
+  <input type="hidden" name="scores_thinkbook14" id="nf_thinkbook14" />
+  <input type="hidden" name="scores_thinkpadE16" id="nf_thinkpadE16" />
+  <input type="hidden" name="scores_v15" id="nf_v15" />
+  <input type="hidden" name="primaryLane" id="nf_lane" />
+  <input type="hidden" name="outcome" id="nf_outcome" />
+  <input type="hidden" name="persona" id="nf_persona" />
+  <input type="hidden" name="page" id="nf_page" />
+  <input type="hidden" name="utm_source" id="utm_source" />
+  <button type="submit" id="nf_submit">submit</button>
+</form>
+
+<script>
+function getIconForText(text) {
+  const t = text.toLowerCase();
+  
+  if (t.includes('игри') || t.includes('гејминг')) return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="6" x2="10" y1="12" y2="12"/><line x1="8" x2="8" y1="10" y2="14"/><line x1="15" x2="15.01" y1="13" y2="13"/><line x1="18" x2="18.01" y1="11" y2="11"/><rect width="20" height="12" x="2" y="6" rx="2"/></svg>`;
+  
+  if (t.includes('факултет') || t.includes('училиште') || t.includes('училница') || t.includes('предавања')) return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>`;
+  
+  if (t.includes('работа') || t.includes('канцеларија') || t.includes('состаноци')) return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>`;
+  
+  if (t.includes('брз') || t.includes('моќен') || t.includes('незапирливо') || t.includes('премиум')) return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>`;
+  
+  if (t.includes('комотен') || t.includes('лесен') || t.includes('мобилна')) return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c2.1-2.46 3-5 3-5h5c5.8 0 8-2.3 8-4.5 0-2.2-2.2-4.5-8-4.5h-5c-5.8 0-8 2.3-8 4.5 0 2.2 2.2 4.5 8 4.5h2s-3 2.54-5 5z"/></svg>`;
+  
+  if (t.includes('вредност') || t.includes('буџет') || t.includes('400')) return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="12" x2="12" y1="2" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>`;
+  
+  if (t.includes('16')) return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg>`;
+  if (t.includes('15') || t.includes('стандарден')) return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="12" x="3" y="4" rx="2"/><line x1="8" x2="16" y1="20" y2="20"/><line x1="12" x2="12" y1="16" y2="20"/></svg>`;
+  if (t.includes('14') || t.includes('компактен')) return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2" ry="2"/><line x1="2" y1="20" x2="22" y2="20"/></svg>`;
+
+  if (t.includes('фокус') || t.includes('биро')) return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>`;
+  if (t.includes('кафулиња') || t.includes('дома')) return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><line x1="6" x2="6" y1="2" y2="4"/><line x1="10" x2="10" y1="2" y2="4"/><line x1="14" x2="14" y1="2" y2="4"/></svg>`;
+  if (t.includes('документи') || t.includes('табели')) return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><line x1="10" x2="8" y1="9" y2="9"/></svg>`;
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>`;
+}
+
+const DEFAULT_CFG = {
+  logo: { url: "https://upload.wikimedia.org/wikipedia/commons/b/b8/Lenovo_logo_2015.svg", data: "" },
+  hero: {
+    title: "Откриј го идеалниот\nLenovo за тебе.",
+    sub: "Одговори на неколку брзи прашања за 30 секунди и дознај кој Lenovo е совршен за твоите потреби",
+    cta: "Започни",
+  },
+  finish: { cta: "Продолжи кон препорачан модел" },
+  productUrls: {
+    legion: "https://kupilenovo.mk/categories/_laptops/83F500DJRM-Legion-Legion-Pro-7-16IAX10H-Eclipse-Black---Ultra-9-275HX,-64GB,-2TB-NVMe,-RTX-5080-16GB,-16-,-DOS",
+    thinkbook14: "https://kupilenovo.mk/categories/_laptops/21MR004HRM-Lenovo-ThinkBook-14-G7-IML-Arctic-Grey----Ultra-7-155H,-32GB,-512GB-SSD,-14-,-DOS",
+    thinkpadE16: "https://kupilenovo.mk/categories/_laptops/21SR004GRI-Lenovo-ThinkPad-E16-Gen-3-Black---Ultra-7-255H,-16GB,-1TB,-16-,-DOS",
+    v15: "https://kupilenovo.mk/categories/_laptops/21MS004TRM--Lenovo-ThinkBook-16-G7-IML-Arctic-Grey---Ultra-5-125U,-16GB,-1TB-NVMe,-16-,-DOS",
+    fallback: "https://kupilenovo.mk/_laptops.nspx?priceRange=9750_31137"
+  },
+  questions: [
+    {
+      id:"q1",
+      title:"За што ти треба лаптопот?",
+      answers:[
+        {text:"За видео игри"},
+        {text:"За факултет / училиште"},
+        {text:"За работа"}
+      ],
+      condition:null
+    },
+    {
+      id:"q2",
+      title:"Што ти е најважно?",
+      answers:[
+        {text:"Да биде брз и моќен"},
+        {text:"Да биде комотен и идеален за мобилна работа по цели денови"},
+        {text:"Да добијам најдобра вредност за моите пари"}
+      ],
+      condition:null
+    },
+    {
+      id:"q3",
+      title:"Каков екран ти одговара?",
+      answers:[
+        {text:"Голем (16 инчи)"},
+        {text:"Стандарден (15 инчи)"},
+        {text:"Компактен и лесен (14 инчи)"}
+      ],
+      condition:null
+    },
+    {
+      id:"q4",
+      title:"Твојот ден изгледа вака:",
+      answers:[
+        {text:"Вечерно опуштање со гејминг или забава на компјутер"},
+        {text:"Помеѓу предавања, учење, обврски и движење низ град"},
+        {text:"Еден по друг повици, документи и табели"}
+      ],
+      condition:null
+    },
+    {
+      id:"q6",
+      title:"Што најмногу те опишува?",
+      answers:[
+        {text:"Сакам нешто што изгледа ексклузивно за дома или мојот гејминг-сетап"},
+        {text:"Сакам нешто лесно и сигурно за факултет или училница"},
+        {text:"Сакам нешто професионално и стабилно за канцеларија и состаноци"}
+      ],
+      condition:null
+    },
+    {
+      id:"q7",
+      title:"Кој е твојот буџет?",
+      answers:[
+        {text:"До 400 еур – сакам нешто со паметна вредност"},
+        {text:"Од 400 – 700 еур – сакам нешто лесно и сигурно"},
+        {text:"Над 700 еур – сакам незапирливо, професионално и стабилно решение"}
+      ],
+      condition:null
+    },
+    {
+      id:"lead",
+      title:"Остави контакт за да ја добиеш препораката и линк до производот.",
+      answers:[],
+      condition:"lead"
+    }
+  ]
+};
+
+let CFG = JSON.parse(JSON.stringify(DEFAULT_CFG));
+const PRODUCT_URLS = ()=>CFG.productUrls;
+
+function deepMerge(base, patch){
+  if(Array.isArray(base)){
+    return Array.isArray(patch) ? patch : base;
+  }else if(typeof base==='object' && base){
+    const out = {...base};
+    for(const k of Object.keys(patch||{})){
+      if(typeof patch[k]==='object' && patch[k] && !Array.isArray(patch[k])){
+        out[k] = deepMerge(base[k]||{}, patch[k]);
+      }else{
+        out[k] = patch[k];
+      }
+    }
+    return out;
+  }
+  return patch===undefined ? base : patch;
+}
+
+function loadConfigFromLocalStorage(){
+  try{
+    const raw = localStorage.getItem('lenovoQuizConfig');
+    if(!raw) return;
+    const fromLS = JSON.parse(raw);
+    CFG = deepMerge(DEFAULT_CFG, fromLS);
+    
+    const logo = (CFG.logo?.data || CFG.logo?.url || '').trim();
+    if(logo) document.getElementById('logoImg').src = logo;
+    
+    const titleText = CFG.hero?.title || DEFAULT_CFG.hero.title;
+    document.getElementById('heroTitle').innerHTML = titleText.replace("Lenovo", `<span class="highlight">Lenovo</span>`);
+
+    document.getElementById('heroSub').textContent = CFG.hero?.sub || DEFAULT_CFG.hero.sub;
+    document.getElementById('startCta').textContent = CFG.hero?.cta || DEFAULT_CFG.hero.cta;
+    
+  }catch(e){ console.warn('Config read error', e); }
+}
+
+const scores = { legion:0, thinkbook14:0, thinkpadE16:0, v15:0 };
+let primaryLane = null;
+let currentStep = 0;
+const quizEl = document.getElementById('quiz');
+const barEl = document.getElementById('bar');
+const quizCard = document.getElementById('quizCard');
+
+function startQuiz(){
+  currentStep = 0;
+  primaryLane = null;
+  resetScores();
+  document.getElementById('startCard').classList.add('hidden');
+  quizCard.classList.remove('hidden');
+  quizCard.classList.add('fade-in');
+  renderStep();
+}
+
+function resetScores(){
+    scores.legion = 0;
+    scores.thinkbook14 = 0;
+    scores.thinkpadE16 = 0;
+    scores.v15 = 0;
+}
+
+function goBack() {
+  if (currentStep > 0) {
+    currentStep--;
+    if (currentStep === 0) {
+        primaryLane = null; 
+        resetScores();
+    }
+    renderStep();
+  }
+}
+
+function visibleQuestions(){
+  const arr = [];
+  for(const q of CFG.questions){
+    if(q.condition === 'lead'){ continue; }
+    if(q.condition === 'work' && primaryLane !== 'work'){ continue; }
+    arr.push(q);
+  }
+  return arr;
+}
+
+function renderStep(){
+  const list = visibleQuestions();
+  const totalSteps = list.length + 1;
+  const currentQIndex = currentStep < list.length ? currentStep : list.length;
+  barEl.style.width = Math.min(100, Math.round((currentQIndex / totalSteps) * 100)) + '%';
+
+  if(currentStep < list.length){
+    const q = list[currentStep];
+    const stepLabel = `Чекор ${currentStep+1} / ${list.length}`;
+    const showBackButton = currentStep > 0;
+    
+    const answersHtml = q.answers.map((a,i)=> `
+      <button class="option-btn" data-ans="${i}">
+        <div class="icon-box">${getIconForText(a.text)}</div>
+        <span>${a.text}</span>
+        <svg class="arrow" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </button>
+    `).join('');
+    
+    quizEl.innerHTML = `
+      <div class="step-pill">${stepLabel}</div>
+      <h2 class="question-title">${q.title}</h2>
+      <div class="fade-in" style="animation-duration:0.3s">
+        ${answersHtml}
+        ${showBackButton ? `
+            <button class="back-btn" id="backBtn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+              Назад
+            </button>` : ''}
+      </div>
+    `;
+    
+    quizEl.querySelectorAll('[data-ans]').forEach(btn=>{
+      btn.onclick = ()=> onAnswer(q, parseInt(btn.dataset.ans,10));
+    });
+
+    if(showBackButton) {
+        document.getElementById('backBtn').onclick = goBack;
+    }
+
+  }else{
+    renderContact();
+  }
+}
+
+function onAnswer(q, idx){
+  const a = q.answers[idx]?.text || '';
+
+  if(q.id === 'q1') {
+      resetScores();
+      if(a.toLowerCase().includes('игри')){ primaryLane='gaming'; scores.legion+=5; }
+      if(a.toLowerCase().includes('факултет') || a.toLowerCase().includes('училиште')){ primaryLane='school'; scores.thinkbook14+=5; }
+      if(a.toLowerCase().includes('работа')){ primaryLane='work'; scores.thinkpadE16+=3; scores.v15+=3; }
+  } else {
+    switch(q.id){
+      case 'q2':
+        if(a.toLowerCase().includes('брз') || a.toLowerCase().includes('моќен')){ scores.legion+=2; scores.thinkpadE16+=1; }
+        if(a.toLowerCase().includes('комотен')){ scores.thinkbook14+=1; scores.thinkpadE16+=1; }
+        if(a.toLowerCase().includes('вредност')){ scores.v15+=2; }
+        break;
+      case 'q3':
+        if(a.includes('16')){ scores.legion+=1; scores.thinkpadE16+=1; }
+        if(a.includes('15')){ scores.v15+=1; scores.thinkpadE16+=1; }
+        if(a.includes('14')){ scores.thinkbook14+=2; }
+        break;
+      case 'q4':
+        if(a.toLowerCase().includes('гејминг') || a.toLowerCase().includes('забава')){ scores.legion+=2; }
+        if(a.toLowerCase().includes('фокус')){ scores.legion+=1; scores.thinkpadE16+=1; }
+        if(a.toLowerCase().includes('предавања') || a.toLowerCase().includes('кафулиња')){ scores.thinkbook14+=2; }
+        if(a.toLowerCase().includes('табели') || a.toLowerCase().includes('повици')){ scores.thinkpadE16+=2; scores.v15+=1; }
+        break;
+      case 'q6':
+        if(a.toLowerCase().includes('гејминг')){ scores.legion+=1; }
+        if(a.toLowerCase().includes('факултет') || a.toLowerCase().includes('училница')){ scores.thinkbook14+=1; }
+        if(a.toLowerCase().includes('канцеларија')){ scores.thinkpadE16+=1; scores.v15+=1; }
+        break;
+      case 'q7':
+        if(a.toLowerCase().includes('незапирливо')){ scores.legion+=1; }
+        if(a.toLowerCase().includes('лесно')){ scores.thinkbook14+=1; }
+        if(a.toLowerCase().includes('професионално')){ scores.thinkpadE16+=1; }
+        if(a.toLowerCase().includes('паметна')){ scores.v15+=1; }
+        break;
+    }
+  }
+
+  renderStep(++currentStep);
+}
+
+function renderContact(){
+  barEl.style.width = '100%';
+  const winner = decideWinner();
+  const persona = primaryLane === "gaming" ? "gamer" : (primaryLane === "school" ? "student" : "work");
+
+  const nameMap = {
+    legion: "Legion Pro 7 16IAX10H",
+    thinkbook14: "ThinkBook 14 G7 IML",
+    thinkpadE16: "ThinkPad E16 Gen 3",
+    v15: "ThinkBook 16 G7 IML"
+  };
+  const nice = nameMap[winner] || "Lenovo";
+
+  quizEl.innerHTML = `
+    <div class="result-title-container fade-in" style="margin-top:0;">
+       Твојот идеален избор
+    </div>
+
+    <div class="laptop-container fade-in" style="animation-delay:0.1s;">
+      <div class="laptop-screen">
+        <div class="laptop-screen-inner">
+           <div class="screen-content-logo">LENOVO</div>
+           <div class="screen-content-name">${nice}</div>
+        </div>
+      </div>
+      <div class="laptop-base"></div>
+    </div>
+    
+    <div class="fade-in" style="animation-delay:0.2s;">
+      <div style="display:grid; grid-template-columns:1fr; gap:16px;">
+        <div class="form-group">
+          <label>Име и презиме</label>
+          <input id="q8_name" type="text" class="glass-input" placeholder="Име и Презиме">
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input id="q8_email" type="email" class="glass-input" placeholder="vashiot@email.com">
+        </div>
+        <div class="form-group">
+          <label>Телефон</label>
+          <input id="q8_phone" type="tel" class="glass-input" placeholder="07x xxx xxx">
+        </div>
+      </div>
+
+      <label class="consent-label" id="lbl_consent">
+        <input id="q8_consent" type="checkbox"> 
+        <span>Се согласувам да бидам контактиран/а во врска со мојата препорака, цени и понуди.</span>
+      </label>
+
+      <div class="error-msg hidden" id="err">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
+        <span id="errText">Проверете ги полињата.</span>
+      </div>
+      
+      <button class="primary-btn" id="finishBtn" style="margin-top:24px;">
+        Продолжи
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </button>
+    </div>
+  `;
+
+  document.getElementById('finishBtn').onclick = ()=> submitAndRedirect(winner, persona);
+  
+  ['q8_name','q8_email','q8_phone'].forEach(id => {
+    document.getElementById(id).addEventListener('input', function(){
+      this.classList.remove('invalid');
+      document.getElementById('err').classList.add('hidden');
+    });
+  });
+  document.getElementById('q8_consent').addEventListener('change', function(){
+    document.getElementById('lbl_consent').classList.remove('invalid');
+  });
+}
+
+function decideWinner(){
+  if(primaryLane === "school"){ scores.thinkbook14 += 10; }
+  if(primaryLane === "gaming"){ scores.legion += 10; }
+  if(primaryLane === "work"){ scores.thinkpadE16 += 1; scores.v15 += 1; } 
+
+  const order = ["legion","thinkpadE16","v15","thinkbook14"];
+  let winner = order[0];
+  order.forEach(k=>{ if(scores[k] > scores[winner]) winner = k; });
+
+  if(primaryLane === "work" && scores.thinkpadE16 === scores.v15 && scores.thinkpadE16 > 0){
+    winner = "thinkpadE16";
+  }
+  return winner;
+}
+
+function getParam(name){
+  const p = new URLSearchParams(location.search);
+  return p.get(name) || "";
+}
+
+function buildUTM(outcome, persona){
+  const src = getParam("utm_source") || "meta";
+  const med = getParam("utm_medium") || "paid";
+  return `utm_source=${encodeURIComponent(src)}&utm_medium=${encodeURIComponent(med)}&utm_campaign=quiz&utm_content=outcome_${outcome}&utm_term=persona_${persona}`;
+}
+
+function sendToSheetsJSON(webAppUrl, payloadObj){
+  try {
+    const blob = new Blob([JSON.stringify(payloadObj)], { type: 'text/plain;charset=UTF-8' });
+    navigator.sendBeacon(webAppUrl, blob);
+  } catch(e){
+    fetch(webAppUrl, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
+      body: JSON.stringify(payloadObj)
+    }).catch(()=>{});
+  }
+}
+
+function submitAndRedirect(winner, persona){
+  const nameEl = document.getElementById('q8_name');
+  const emailEl = document.getElementById('q8_email');
+  const phoneEl = document.getElementById('q8_phone');
+  const consentEl = document.getElementById('q8_consent');
+  const lblConsent = document.getElementById('lbl_consent');
+  const err = document.getElementById('err');
+  const errText = document.getElementById('errText');
+
+  const name = nameEl.value.trim();
+  const email = emailEl.value.trim();
+  const phone = phoneEl.value.trim();
+  const consent = consentEl.checked;
+
+  let isValid = true;
+  let errorMsg = "Внесете валидни податоци.";
+
+  const nameParts = name.split(' ').filter(p => p.length > 1);
+  if(nameParts.length < 2 || name.length < 5){
+    nameEl.classList.add('invalid');
+    errorMsg = "Внесете Име и Презиме.";
+    isValid = false;
+  } else {
+    nameEl.classList.remove('invalid');
+  }
+
+  const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i.test(email);
+  if(!emailOk){
+    emailEl.classList.add('invalid');
+    if(isValid) errorMsg = "Внесете валиден email.";
+    isValid = false;
+  } else {
+    emailEl.classList.remove('invalid');
+  }
+
+  const phoneClean = phone.replace(/[^0-9]/g, '');
+  if(phoneClean.length < 6){
+    phoneEl.classList.add('invalid');
+    if(isValid) errorMsg = "Внесете валиден телефонски број.";
+    isValid = false;
+  } else {
+    phoneEl.classList.remove('invalid');
+  }
+
+  if(!consent){
+    lblConsent.classList.add('invalid');
+    if(isValid) errorMsg = "Мора да се согласите за да продолжите.";
+    isValid = false;
+  } else {
+    lblConsent.classList.remove('invalid');
+  }
+
+  if(!isValid){
+    err.classList.remove('hidden');
+    errText.textContent = errorMsg;
+    return;
+  }
+
+  err.classList.add('hidden');
+
+  document.getElementById('nf_full_name').value = name;
+  document.getElementById('nf_email').value = email;
+  document.getElementById('nf_phone').value = phone;
+  document.getElementById('nf_consent').value = 'yes';
+  document.getElementById('nf_legion').value = String(scores.legion);
+  document.getElementById('nf_thinkbook14').value = String(scores.thinkbook14);
+  document.getElementById('nf_thinkpadE16').value = String(scores.thinkpadE16);
+  document.getElementById('nf_v15').value = String(scores.v15);
+  document.getElementById('nf_lane').value = primaryLane || '';
+  document.getElementById('nf_outcome').value = winner;
+  document.getElementById('nf_persona').value = persona;
+  document.getElementById('nf_page').value = location.href;
+
+  const payload = {
+    timestamp: new Date().toISOString(),
+    full_name: name, email, phone, consent: 'yes',
+    lane: (primaryLane || ''), outcome: winner, persona,
+    scores_legion: String(scores.legion),
+    scores_thinkbook14: String(scores.thinkbook14),
+    scores_thinkpadE16: String(scores.thinkpadE16),
+    scores_v15: String(scores.v15),
+    utm_source: getParam("utm_source") || "meta",
+    utm_medium: getParam("utm_medium") || "paid",
+    utm_campaign: "quiz",
+    utm_content: `outcome_${winner}`,
+    utm_term: `persona_${persona}`,
+    page: location.href,
+    userAgent: navigator.userAgent,
+    referrer: document.referrer || ""
+  };
+  
+  sendToSheetsJSON(
+    "https://script.google.com/macros/s/AKfycbx4NG7bgInqluGB2XoymZzVIoyuLs0s8FEfWBpQv0UNHXT7agrums20jfQGk_jdPo9Q/exec",
+    payload
+  );
+
+  if (typeof fbq === 'function') {
+    fbq('track', 'Lead', {
+      quiz_name: 'lenovo_quiz',
+      outcome: winner,
+      persona: persona
+    });
+  }
+
+  const urlBase = PRODUCT_URLS()[winner] || PRODUCT_URLS().fallback;
+  const utm = buildUTM(winner, persona);
+  const finalUrl = urlBase + (urlBase.includes("?") ? "&" : "?") + utm;
+
+  const cta = document.getElementById('finishBtn');
+  cta.disabled = true;
+  cta.innerHTML = `Се процесира...`;
+  cta.style.opacity = "0.7";
+
+  setTimeout(function() {
+    window.location.href = finalUrl;
+  }, 400);
+}
+
+document.addEventListener('DOMContentLoaded', ()=>{
+  loadConfigFromLocalStorage();
+  document.getElementById('startBtn').onclick = startQuiz;
+  
+  var source = getParam("utm_source");
+  var utmField = document.getElementById("utm_source");
+  if (utmField) {
+    utmField.value = source ? source : "direct";
+  }
+});
+</script>
+</body>
+</html>
