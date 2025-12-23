@@ -1,473 +1,471 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="mk">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-<title>Lenovo Квиз — Откриј го идеалниот Lenovo</title>
-<meta name="description" content="Одговори на 8 брзи прашања и добиј директна препорака за идеален Lenovo лаптоп." />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>Lenovo Квиз — Откриј го идеалниот Lenovo</title>
 
-<!-- Google Fonts: Inter for UI, Space Grotesk for Modern Headers -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <!-- Google Tag Manager -->
+    <script>
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-WC6S5RZV');
+    </script>
+    <!-- End Google Tag Manager -->
 
-<!-- Google Tag Manager -->
-<script>
-(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-WC6S5RZV');
-</script>
-<!-- End Google Tag Manager -->
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '4558619690906145');
+    fbq('track', 'PageView');
+    </script>
+    <!-- End Meta Pixel Code -->
+    
+    <!-- Fonts: Inter (UI) & Space Grotesk (Headers) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-<!-- Meta Pixel Code -->
-<script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '4558619690906145');
-fbq('track', 'PageView');
-</script>
-<!-- End Meta Pixel Code -->
+    <style>
+        :root {
+            --lenovo-red: #E2231A;
+            --lenovo-red-glow: rgba(226, 35, 26, 0.5);
+            --bg-dark: #09090b;
+            --glass-surface: rgba(30, 30, 35, 0.6);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-highlight: rgba(255, 255, 255, 0.05);
+            --text-main: #ffffff;
+            --text-muted: #9ca3af;
+            --radius: 24px;
+            --font-ui: 'Inter', sans-serif;
+            --font-head: 'Space Grotesk', sans-serif;
+        }
 
-<style>
-  :root {
-    --lenovo-red: #E2231A;
-    --lenovo-red-glow: rgba(226, 35, 26, 0.5);
-    --bg-dark: #09090b;
-    --glass-surface: rgba(30, 30, 35, 0.6);
-    --glass-border: rgba(255, 255, 255, 0.08);
-    --glass-highlight: rgba(255, 255, 255, 0.05);
-    --text-main: #ffffff;
-    --text-muted: #9ca3af;
-    --radius: 24px;
-    --font-ui: 'Inter', sans-serif;
-    --font-head: 'Space Grotesk', sans-serif;
-  }
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
 
-  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-  
-  body {
-    margin: 0;
-    padding: 0;
-    font-family: var(--font-ui);
-    background-color: var(--bg-dark);
-    color: var(--text-main);
-    overflow-x: hidden;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-  }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: var(--font-ui);
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
 
-  .bg-gradient-mesh {
-    position: fixed;
-    top: 0; left: 0; width: 100vw; height: 100vh;
-    z-index: -1;
-    overflow: hidden;
-    background: #050505;
-  }
-  .blob {
-    position: absolute;
-    filter: blur(90px);
-    opacity: 0.35;
-    animation: float 25s infinite ease-in-out;
-    border-radius: 50%;
-  }
-  .blob-1 { top: -20%; left: -20%; width: 60vw; height: 60vw; background: var(--lenovo-red); animation-delay: 0s; }
-  .blob-2 { bottom: -20%; right: -20%; width: 70vw; height: 70vw; background: #1a1a1a; animation-delay: -5s; }
-  .blob-3 { top: 30%; left: 30%; width: 40vw; height: 40vw; background: #4a0404; animation-delay: -10s; }
+        /* BG mesh from v1 */
+        .bg-gradient-mesh {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -1;
+            overflow: hidden;
+            background: #050505;
+        }
+        .blob {
+            position: absolute;
+            filter: blur(90px);
+            opacity: 0.35;
+            animation: float 25s infinite ease-in-out;
+            border-radius: 50%;
+        }
+        .blob-1 { top: -20%; left: -20%; width: 60vw; height: 60vw; background: var(--lenovo-red); animation-delay: 0s; }
+        .blob-2 { bottom: -20%; right: -20%; width: 70vw; height: 70vw; background: #1f2937; animation-delay: -5s; }
+        .blob-3 { top: 10%; right: 10%; width: 40vw; height: 40vw; background: #111827; animation-delay: -10s; }
 
-  @keyframes float {
-    0% { transform: translate(0, 0) scale(1); }
-    50% { transform: translate(30px, -30px) scale(1.05); }
-    100% { transform: translate(0, 0) scale(1); }
-  }
+        @keyframes float {
+            0% { transform: translate3d(0,0,0) scale(1); }
+            50% { transform: translate3d(20px, -30px, 0) scale(1.05); }
+            100% { transform: translate3d(-10px, 20px, 0) scale(1); }
+        }
 
-  .logo-bar {
-    padding: 24px;
-    display: flex;
-    justify-content: center;
-    position: relative;
-    z-index: 10;
-  }
-  .logo-bar img { height: 24px; filter: brightness(0) invert(1); opacity: 0.8; }
+        .logo-bar {
+            padding: 24px;
+            display: flex;
+            justify-content: center;
+            position: relative;
+            z-index: 10;
+        }
+        .logo-bar img {
+            height: 24px;
+            filter: brightness(0) invert(1);
+            opacity: 0.8;
+        }
 
-  .container {
-    width: 100%;
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 0 20px 40px 20px;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    position: relative;
-    z-index: 10;
-  }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 0 20px 40px 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            z-index: 10;
+        }
 
-  .glass-card {
-    background: var(--glass-surface);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    border: 1px solid var(--glass-border);
-    border-radius: var(--radius);
-    padding: 32px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05);
-    position: relative;
-    overflow: hidden;
-    transition: transform 0.4s ease;
-  }
+        /* Glass card style */
+        .glass-card {
+            background: var(--glass-surface);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
+            padding: 32px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.4s ease;
+        }
 
-  .hidden { display: none !important; opacity: 0; pointer-events: none; }
-  
-  h1 {
-    font-family: var(--font-head);
-    font-weight: 700;
-    font-size: 38px;
-    line-height: 1.1;
-    margin: 0 0 20px 0;
-    letter-spacing: -0.5px;
-    color: #fff;
-    white-space: pre-line;
-  }
-  .highlight {
-    color: var(--lenovo-red);
-    position: relative;
-    display: inline-block;
-  }
+        .heading-font {
+            font-family: var(--font-head);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
 
-  p.sub {
-    font-size: 16px;
-    line-height: 1.6;
-    color: var(--text-muted);
-    margin: 0 0 32px 0;
-    font-weight: 400;
-  }
+        .text-red {
+            color: var(--lenovo-red);
+            text-shadow: 0 0 10px var(--lenovo-red-glow);
+        }
+        .text-muted {
+            color: var(--text-muted);
+        }
 
-  h2.question-title {
-    font-family: var(--font-head);
-    font-size: 26px;
-    font-weight: 600;
-    margin: 0 0 24px 0;
-    line-height: 1.3;
-  }
+        /* Screens */
+        .screen {
+            padding: 1.5rem 0;
+            flex-grow: 1;
+            display: none;
+            flex-direction: column;
+            animation: fadeIn 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .screen.active { display: flex; }
+        .screen-center { align-items: center; justify-content: center; text-align: center; }
 
-  .primary-btn {
-    background: var(--lenovo-red);
-    color: white;
-    border: none;
-    width: 100%;
-    padding: 18px;
-    font-size: 16px;
-    font-weight: 600;
-    border-radius: 14px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 20px rgba(226, 35, 26, 0.25);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-  }
-  .primary-btn:hover {
-    background: #ff2e24;
-    box-shadow: 0 6px 25px rgba(226, 35, 26, 0.5);
-    transform: translateY(-2px);
-  }
-  .primary-btn:disabled {
-    background: #555;
-    cursor: not-allowed;
-    box-shadow: none;
-    transform: none;
-  }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
 
-  .option-btn {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid var(--glass-border);
-    color: var(--text-main);
-    width: 100%;
-    padding: 16px 20px;
-    margin-bottom: 12px;
-    text-align: left;
-    border-radius: 16px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 500;
-    transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
-    display: grid;
-    grid-template-columns: 32px 1fr auto;
-    align-items: center;
-    gap: 16px;
-    position: relative;
-    overflow: hidden;
-  }
-  .option-btn:hover, .option-btn:active {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(255,255,255,0.2);
-    transform: scale(1.01);
-  }
-  .option-btn .icon-box {
-    width: 32px; height: 32px;
-    display: flex; align-items: center; justify-content: center;
-    background: rgba(255,255,255,0.1);
-    border-radius: 10px;
-    color: #fff;
-  }
-  .option-btn svg {
-    width: 18px; height: 18px; stroke-width: 2.5;
-  }
-  .option-btn .arrow {
-    opacity: 0;
-    transform: translateX(-10px);
-    transition: all 0.2s ease;
-    color: var(--lenovo-red);
-  }
-  .option-btn:hover .arrow {
-    opacity: 1;
-    transform: translateX(0);
-  }
+        /* Buttons */
+        .btn-primary {
+            background: var(--lenovo-red);
+            color: white;
+            border: none;
+            padding: 18px 32px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            width: 100%;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            font-family: var(--font-head);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(226, 35, 26, 0.4);
+        }
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(226, 35, 26, 0.6);
+        }
+        .btn-primary:hover::after { left: 100%; }
+        .btn-primary:disabled { filter: grayscale(1); cursor: not-allowed; }
 
-  .back-btn {
-    background: none;
-    border: 1px solid rgba(255,255,255,0.1);
-    color: var(--text-muted);
-    width: 100%;
-    padding: 16px;
-    font-size: 15px;
-    font-weight: 500;
-    border-radius: 14px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    margin-top: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-  }
-  .back-btn:hover {
-    background: rgba(255,255,255,0.05);
-    border-color: rgba(255,255,255,0.2);
-    color: #fff;
-  }
+        .option-card {
+            display: flex;
+            align-items: center;
+            padding: 18px;
+            margin-bottom: 12px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .option-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateX(5px);
+        }
+        .option-card.selected {
+            background: rgba(226, 35, 26, 0.15);
+            border-color: var(--lenovo-red);
+        }
 
-  .core-wrapper {
-    width: 140px; height: 140px;
-    margin: 0 auto 30px auto;
-    position: relative;
-    display: flex; align-items: center; justify-content: center;
-  }
-  .core-ring {
-    position: absolute;
-    border: 2px solid var(--lenovo-red);
-    border-radius: 50%;
-    animation: coreSpin 10s linear infinite;
-    opacity: 0.3;
-  }
-  .r1 { width: 100%; height: 100%; border-style: dashed; }
-  .r2 { width: 70%; height: 70%; border-style: solid; border-color: #fff; opacity: 0.1; animation-direction: reverse; animation-duration: 7s; }
-  
-  .core-center {
-    width: 40px; height: 40px;
-    background: var(--lenovo-red);
-    border-radius: 8px;
-    transform: rotate(45deg);
-    box-shadow: 0 0 30px var(--lenovo-red);
-    animation: corePulse 3s ease-in-out infinite;
-  }
-  .core-center::after {
-    content:''; position:absolute; inset:5px; background:rgba(255,255,255,0.2);
-  }
+        .radio-circle {
+            width: 22px; height: 22px;
+            border: 2px solid rgba(255,255,255,0.4);
+            border-radius: 50%;
+            margin-right: 16px;
+            position: relative;
+            transition: all 0.2s;
+        }
+        .option-card.selected .radio-circle {
+            border-color: var(--lenovo-red);
+            box-shadow: 0 0 10px rgba(226, 35, 26, 0.5);
+        }
+        .option-card.selected .radio-circle::after {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 10px; height: 10px;
+            background: var(--lenovo-red);
+            border-radius: 50%;
+        }
+        .option-text { font-weight: 500; font-size: 1rem; }
 
-  @keyframes coreSpin { to { transform: rotate(360deg); } }
-  @keyframes corePulse { 
-    0%, 100% { transform: rotate(45deg) scale(1); box-shadow: 0 0 30px var(--lenovo-red); }
-    50% { transform: rotate(45deg) scale(1.2); box-shadow: 0 0 60px var(--lenovo-red); }
-  }
+        /* Progress */
+        .progress-container {
+            padding: 0 0 16px 0;
+            display: none;
+        }
+        .progress-info {
+            display: flex; justify-content: space-between;
+            font-size: 0.75rem; text-transform: uppercase;
+            letter-spacing: 1px; color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+        .progress-track {
+            height: 4px; background: rgba(255,255,255,0.1);
+            border-radius: 2px; overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%; background: var(--lenovo-red);
+            width: 0%; transition: width 0.4s ease;
+            box-shadow: 0 0 10px var(--lenovo-red);
+        }
 
-  .progress-track {
-    width: 100%; height: 4px;
-    background: rgba(255,255,255,0.1);
-    border-radius: 10px;
-    margin-bottom: 25px;
-    overflow: hidden;
-  }
-  .progress-fill {
-    height: 100%;
-    background: var(--lenovo-red);
-    width: 0%;
-    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 0 10px var(--lenovo-red);
-  }
-  .step-pill {
-    display: inline-flex;
-    align-items: center;
-    padding: 4px 12px;
-    border-radius: 20px;
-    background: rgba(226, 35, 26, 0.15);
-    color: #ff5f59;
-    font-size: 12px;
-    font-weight: 600;
-    margin-bottom: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
+        /* Loading */
+        .spinner-container { position: relative; width: 100px; height: 100px; margin: 0 auto 30px; }
+        .spinner-ring {
+            width: 100%; height: 100%;
+            border: 3px solid rgba(255,255,255,0.1);
+            border-top-color: var(--lenovo-red);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        .spinner-icon {
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2rem; color: rgba(255,255,255,0.2);
+        }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
 
-  .form-group { margin-bottom: 16px; position: relative; }
-  .glass-input {
-    width: 100%;
-    background: rgba(0,0,0,0.3);
-    border: 1px solid var(--glass-border);
-    border-radius: 14px;
-    padding: 16px;
-    color: #fff;
-    font-size: 16px;
-    transition: 0.3s;
-    outline: none;
-    font-family: var(--font-ui);
-  }
-  .glass-input:focus {
-    border-color: var(--lenovo-red);
-    box-shadow: 0 0 0 4px rgba(226,35,26,0.1);
-    background: rgba(0,0,0,0.5);
-  }
-  .glass-input.invalid {
-    border-color: #ff4d4d;
-    background: rgba(255, 77, 77, 0.05);
-  }
-  label {
-    display: block;
-    margin-bottom: 8px;
-    font-size: 14px;
-    color: var(--text-muted);
-    font-weight: 500;
-    margin-left: 4px;
-  }
-  .consent-label {
-    display: grid;
-    grid-template-columns: 24px 1fr;
-    gap: 8px;
-    align-items: flex-start;
-    font-size: 14px;
-    color: var(--text-muted);
-    line-height: 1.5;
-    cursor: pointer;
-    margin-top: 16px;
-    padding: 12px;
-    background: rgba(255,255,255,0.02);
-    border-radius: 12px;
-    border: 1px solid transparent;
-    transition: 0.2s;
-  }
-  .consent-label:hover { background: rgba(255,255,255,0.05); }
-  .consent-label.invalid { border-color: #ff4d4d; }
-  input[type="checkbox"] {
-    accent-color: var(--lenovo-red);
-    width: 20px; height: 20px;
-    margin-top: 2px;
-  }
+        /* Blur / lock */
+        .blur-wrapper { position: relative; margin-bottom: 2rem; }
+        .blur-target {
+            filter: blur(15px);
+            opacity: 0.5;
+            transition: all 0.8s ease;
+            mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+        }
+        .blur-target.revealed { filter: blur(0); opacity: 1; }
+        
+        .lock-container {
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+        }
+        .lock-icon {
+            font-size: 3rem; color: var(--lenovo-red);
+            filter: drop-shadow(0 0 15px rgba(226,35,26,0.6));
+            animation: lockDrop 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        @keyframes lockDrop {
+            0% { transform: translateY(-100px) scale(0); opacity: 0; }
+            100% { transform: translateY(0) scale(1); opacity: 1; }
+        }
 
-  .result-title-container {
-    text-align:center; 
-    font-family:var(--font-head); 
-    font-size:18px; 
-    color:var(--text-muted); 
-    margin-bottom:20px;
-    font-weight: 500;
-    line-height: 1.2;
-  }
-  .laptop-container {
-    perspective: 800px;
-    margin: 0 auto 40px auto;
-    width: 240px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  .laptop-screen {
-    width: 220px; height: 140px;
-    background: #1a1a1a;
-    border: 2px solid #333;
-    border-radius: 12px 12px 0 0;
-    position: relative;
-    display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 0 20px rgba(0,0,0,0.4);
-    overflow: hidden;
-  }
-  .laptop-screen-inner {
-    width: 92%; height: 88%;
-    background: #000;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    text-align: center;
-    border-radius: 2px;
-    position: relative;
-    overflow: hidden;
-  }
-  .laptop-screen-inner::before {
-    content:''; position: absolute;
-    top: -50%; left: -50%; width: 200%; height: 200%;
-    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.05), transparent);
-    transform: rotate(30deg);
-  }
-  .screen-content-name {
-    font-family: var(--font-head);
-    color: #fff;
-    font-size: 16px;
-    font-weight: 700;
-    z-index: 2;
-    padding: 0 10px;
-    text-shadow: 0 0 10px rgba(255,255,255,0.5);
-    line-height: 1.2;
-  }
-  .screen-content-logo {
-    font-size: 10px; color: #555; margin-bottom: 5px; font-weight: 700; letter-spacing: 1px;
-  }
-  .laptop-base {
-    width: 260px; height: 14px;
-    background: linear-gradient(to bottom, #2a2a2a, #111);
-    border-radius: 0 0 12px 12px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.6);
-    position: relative;
-  }
-  .laptop-base::after {
-    content:''; position: absolute;
-    top: 0; left: 50%; transform: translateX(-50%);
-    width: 40px; height: 4px;
-    background: #333;
-    border-radius: 0 0 4px 4px;
-  }
+        /* Form */
+        .form-input {
+            width: 100%;
+            padding: 16px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: white;
+            font-family: var(--font-ui);
+            font-size: 1rem;
+            transition: 0.3s;
+            margin-top: 6px;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: var(--lenovo-red);
+            box-shadow: 0 0 15px rgba(226, 35, 26, 0.2);
+            background: rgba(0, 0, 0, 0.5);
+        }
+        .form-label { font-size: 0.9rem; color: var(--text-muted); margin-left: 4px; }
 
-  .error-msg {
-    color: #ff4d4d;
-    font-size: 13px;
-    margin-top: 16px;
-    padding: 12px;
-    border-radius: 10px;
-    background: rgba(255, 77, 77, 0.1);
-    border: 1px solid rgba(255, 77, 77, 0.2);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
+        /* No text selection (for blurred result) */
+        .no-select {
+            user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            pointer-events: none;
+        }
 
-  .fade-in { animation: fadeIn 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(15px) scale(0.98); }
-    to { opacity: 1; transform: translateY(0) scale(1); }
-  }
+        /* Back button */
+        .back-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            padding: 0;
+            margin-bottom: 12px;
+        }
+        .back-btn i {
+            font-size: 0.8rem;
+        }
+        .back-btn.disabled {
+            opacity: 0.3;
+            pointer-events: none;
+        }
 
-  @media (max-width: 480px) {
-    h1 { font-size: 32px; }
-    .glass-card { padding: 24px 20px; }
-    .option-btn { padding: 14px 16px; font-size: 15px; }
-  }
-</style>
+        /* Animated pill above headline (welcome) */
+        .hero-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            border-radius: 999px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            animation: pillFloat 3s ease-in-out infinite;
+        }
+        .hero-dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: var(--lenovo-red);
+            box-shadow: 0 0 10px var(--lenovo-red);
+            animation: pulseDot 1.8s infinite;
+        }
+        @keyframes pillFloat {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+            100% { transform: translateY(0); }
+        }
+        @keyframes pulseDot {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.4); opacity: 0.4; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* ================================
+           START CARD CORE
+           ================================ */
+        .fade-in {
+            animation: fadeInStart 0.8s ease forwards;
+        }
+        @keyframes fadeInStart {
+            from { opacity: 0; transform: translateY(20px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        #screen-welcome.startCard {
+            position: relative;
+        }
+        .core-top {
+            position: relative;
+            width: 100%;
+            height: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+            z-index: 0;
+            margin-bottom: 14px;
+        }
+        .core-ring {
+            position: absolute;
+            border-radius: 50%;
+            border: 1px solid rgba(226, 35, 26, 0.35);
+            animation: pulseRing 4s infinite ease-in-out;
+        }
+        .core-ring.r1 {
+            width: 220px;
+            height: 220px;
+            animation-delay: 0s;
+        }
+        .core-ring.r2 {
+            width: 300px;
+            height: 300px;
+            animation-delay: 1.5s;
+        }
+        .core-center {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(226,35,26,0.9), rgba(226,35,26,0.2));
+            box-shadow: 0 0 60px rgba(226,35,26,0.6);
+            animation: pulseCore 2.5s infinite ease-in-out;
+        }
+        @keyframes pulseRing {
+            0% { transform: scale(0.9); opacity: 0.2; }
+            50% { transform: scale(1.05); opacity: 0.5; }
+            100% { transform: scale(0.9); opacity: 0.2; }
+        }
+        @keyframes pulseCore {
+            0% { transform: scale(1); opacity: 0.9; }
+            50% { transform: scale(1.15); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.9; }
+        }
+        .welcome-content {
+            position: relative;
+            z-index: 1;
+        }
+        /* ================================ */
+
+        @media (max-width: 640px) {
+            .glass-card {
+                padding: 24px;
+            }
+            .core-ring.r1 { width: 200px; height: 200px; }
+            .core-ring.r2 { width: 270px; height: 270px; }
+        }
+    </style>
 </head>
 <body>
 
@@ -488,580 +486,472 @@ fbq('track', 'PageView');
 </div>
 
 <div class="logo-bar">
-  <img id="logoImg" src="https://upload.wikimedia.org/wikipedia/commons/b/b8/Lenovo_logo_2015.svg" alt="Lenovo">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/Lenovo_logo_2015.svg" alt="Lenovo">
 </div>
 
 <main class="container">
-  
-  <div class="glass-card fade-in" id="startCard">
-    <div class="core-wrapper">
-      <div class="core-ring r1"></div>
-      <div class="core-ring r2"></div>
-      <div class="core-center"></div>
-    </div>
+
+  <div id="quiz-wrapper" class="glass-card">
     
-    <div style="text-align: center;">
-      <h1 id="heroTitle">Откриј го идеалниот<br><span class="highlight">Lenovo</span> за тебе.</h1>
-      <p class="sub" id="heroSub">Одговори на неколку брзи прашања за 30 секунди и дознај кој модел е совршен за твоите потреби.</p>
-      
-      <button class="primary-btn" id="startBtn">
-        <span id="startCta">Започни</span>
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </button>
+    <!-- HEADER / PROGRESS -->
+    <div id="progress-header" class="progress-container">
+        <div class="progress-info">
+            <span id="progress-text">Прашање 1/7</span>
+            <span id="progress-percent">14%</span>
+        </div>
+        <div class="progress-track">
+            <div id="progress-bar" class="progress-fill"></div>
+        </div>
     </div>
-  </div>
 
-  <div class="glass-card hidden" id="quizCard">
-    <div class="progress-track"><div class="progress-fill" id="bar"></div></div>
-    <div id="quiz"></div>
-  </div>
+    <!-- SCREEN 0: WELCOME -->
+    <div id="screen-welcome" class="screen screen-center active startCard fade-in">
+        <div class="welcome-content">
 
+            <div class="core-top">
+                <div class="core-ring r1"></div>
+                <div class="core-ring r2"></div>
+                <div class="core-center"></div>
+            </div>
+            
+            <h1 class="heading-font" style="font-size: 2.5rem; margin-bottom: 1rem; text-align:center;">
+                Откриј Кој <span class="text-red">Lenovo</span><br>Е За Тебе
+            </h1>
+            
+            <p class="text-muted" style="font-size: 1.05rem; line-height: 1.6; margin-bottom: 2.5rem; max-width: 90%; text-align:center; margin-left:auto; margin-right:auto;">
+                Одговори на брзи прашања за 30 секунди и дознај кој модел е совршен за твојата игра или работа.
+            </p>
+
+            <button onclick="startQuiz()" class="btn-primary">
+                Започни Квиз <i class="fas fa-gamepad"></i>
+            </button>
+
+            <div style="margin-top: 2rem; display: flex; gap: 20px; font-size: 0.85rem; color: var(--text-muted); justify-content:center;">
+                <span><i class="fas fa-check-circle text-red"></i> Бесплатно</span>
+                <span><i class="fas fa-bolt text-red"></i> 30 секунди</span>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- SCREEN 1: QUESTIONS -->
+    <div id="screen-questions" class="screen">
+        <!-- Back button row -->
+        <button id="back-btn" class="back-btn" onclick="goBack()">
+            <i class="fas fa-chevron-left"></i> Назад
+        </button>
+
+        <div style="flex-grow: 1; display: flex; flex-direction: column; justify-content: center;">
+            <h2 id="q-text" class="heading-font" style="font-size: 1.8rem; margin-bottom: 2rem;"></h2>
+            <div id="a-container"></div>
+        </div>
+    </div>
+
+    <!-- SCREEN 2: LOADING -->
+    <div id="screen-loading" class="screen screen-center">
+        <div class="spinner-container">
+            <div class="spinner-ring"></div>
+            <i class="fas fa-microchip spinner-icon"></i>
+        </div>
+        <h3 id="loading-text" style="font-size: 1.1rem; margin-bottom: 1rem;">
+            Ги споредуваме твоите одговори…
+        </h3>
+        <div style="width: 200px; height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px;">
+            <div id="loading-bar" style="height: 100%; background: var(--lenovo-red); width: 0%; transition: width 0.3s;"></div>
+        </div>
+    </div>
+
+    <!-- SCREEN 3: LOCKED / PARTIAL REVEAL -->
+    <div id="screen-locked" class="screen screen-center">
+        <div class="blur-wrapper">
+            <img src="https://images.unsplash.com/photo-1603302576837-37561b2e2302?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" 
+                 class="blur-target no-select" style="width: 280px;" alt="Laptop">
+            
+            <div class="lock-container">
+                <i class="fas fa-lock lock-icon"></i>
+            </div>
+        </div>
+
+        <div style="animation: fadeIn 0.5s 0.2s forwards; opacity: 0;">
+            <h2 class="heading-font" style="font-size: 1.8rem; margin-bottom: 0.5rem; text-align:center;">Го најдовме твојот идеален Lenovo.</h2>
+            <p class="text-muted" style="text-align:center;">Оптимален според твоите одговори.</p>
+            <p class="text-red" style="font-weight: 700; font-size: 1.2rem; margin-top: 1.5rem; letter-spacing: 1px; text-align:center;">НО ПРВО… ОТКЛУЧИ ГО.</p>
+        </div>
+
+        <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 12px; margin: 25px 0; width: 100%; border: 1px dashed rgba(255,255,255,0.2);">
+            <div style="font-size: 0.7rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 5px;">СТАТУС НА ПРЕПОРАКА</div>
+            <!-- cannot select/copy this text -->
+            <div class="no-select" style="filter: blur(5px); font-family: var(--font-head); font-size: 1.1rem;">
+                Lenovo Legion Pro 7i Gen 8
+            </div>
+        </div>
+
+        <button onclick="goToForm()" class="btn-primary" style="background: white; color: black; box-shadow: none;">
+            Отклучи Резултат <i class="fas fa-unlock-alt"></i>
+        </button>
+    </div>
+
+    <!-- SCREEN 4: FORM / UNLOCK GATE -->
+    <div id="screen-form" class="screen">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 1rem; margin-bottom: 1.5rem;">
+            <div>
+                <h3 class="heading-font" style="margin: 0; font-size: 1.2rem;">Твојот уред е подготвен</h3>
+                <span class="text-red" style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase;">Чекор 8 од 8 — Отклучи 👇</span>
+            </div>
+            <div style="width: 50px; height: 35px; background: rgba(255,255,255,0.1); border-radius: 4px; overflow: hidden;">
+                <img src="https://images.unsplash.com/photo-1603302576837-37561b2e2302?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" style="width: 100%; height: 100%; object-fit: cover; filter: blur(3px);">
+            </div>
+        </div>
+
+        <form id="lead-form" onsubmit="submitForm(event)" style="flex-grow: 1; display: flex; flex-direction: column; gap: 20px;">
+            <div>
+                <label class="form-label">Име и Презиме</label>
+                <input type="text" id="fullname" required class="form-input" placeholder="Внеси име...">
+            </div>
+            
+            <div>
+                <label class="form-label">Email Адреса</label>
+                <input type="email" id="email" required class="form-input" placeholder="Внеси email...">
+            </div>
+
+            <div>
+                <label class="form-label">Телефон (опционално)</label>
+                <input type="tel" id="phone" class="form-input" placeholder="07x xxx xxx">
+            </div>
+
+            <div style="display: flex; align-items: flex-start; margin-top: 5px;">
+                <input id="consent" type="checkbox" required style="margin-top: 5px; accent-color: var(--lenovo-red);">
+                <label for="consent" style="font-size: 0.8rem; color: var(--text-muted); margin-left: 10px; line-height: 1.4;">
+                    Се согласувам да бидам контактиран во врска со мојата Lenovo препорака, цени и понуди.
+                </label>
+            </div>
+
+            <div style="flex-grow: 1;"></div>
+
+            <button type="submit" id="submit-btn" class="btn-primary">
+                Отклучи ја препораката <i class="fas fa-lock-open"></i>
+            </button>
+        </form>
+    </div>
+
+  </div>
 </main>
 
-<form name="quiz-lead" method="POST" data-netlify="true" class="hidden" id="netlifyForm">
-  <input type="hidden" name="form-name" value="quiz-lead" />
-  <input type="hidden" name="full_name" id="nf_full_name" />
-  <input type="hidden" name="email" id="nf_email" />
-  <input type="hidden" name="phone" id="nf_phone" />
-  <input type="hidden" name="consent" id="nf_consent" />
-  <input type="hidden" name="scores_legion" id="nf_legion" />
-  <input type="hidden" name="scores_thinkbook14" id="nf_thinkbook14" />
-  <input type="hidden" name="scores_thinkpadE16" id="nf_thinkpadE16" />
-  <input type="hidden" name="scores_v15" id="nf_v15" />
-  <input type="hidden" name="primaryLane" id="nf_lane" />
-  <input type="hidden" name="outcome" id="nf_outcome" />
-  <input type="hidden" name="persona" id="nf_persona" />
-  <input type="hidden" name="page" id="nf_page" />
-  <input type="hidden" name="utm_source" id="utm_source" />
-  <button type="submit" id="nf_submit">submit</button>
-</form>
-
 <script>
-function getIconForText(text) {
-  const t = text.toLowerCase();
-  
-  if (t.includes('игри') || t.includes('гејминг')) return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="6" x2="10" y1="12" y2="12"/><line x1="8" x2="8" y1="10" y2="14"/><line x1="15" x2="15.01" y1="13" y2="13"/><line x1="18" x2="18.01" y1="11" y2="11"/><rect width="20" height="12" x="2" y="6" rx="2"/></svg>`;
-  
-  if (t.includes('факултет') || t.includes('училиште') || t.includes('училница') || t.includes('предавања')) return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>`;
-  
-  if (t.includes('работа') || t.includes('канцеларија') || t.includes('состаноци')) return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>`;
-  
-  if (t.includes('брз') || t.includes('моќен') || t.includes('незапирливо') || t.includes('премиум')) return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>`;
-  
-  if (t.includes('комотен') || t.includes('лесен') || t.includes('мобилна')) return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c2.1-2.46 3-5 3-5h5c5.8 0 8-2.3 8-4.5 0-2.2-2.2-4.5-8-4.5h-5c-5.8 0-8 2.3-8 4.5 0 2.2 2.2 4.5 8 4.5h2s-3 2.54-5 5z"/></svg>`;
-  
-  if (t.includes('вредност') || t.includes('буџет') || t.includes('400')) return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="12" x2="12" y1="2" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>`;
-  
-  if (t.includes('16')) return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg>`;
-  if (t.includes('15') || t.includes('стандарден')) return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="12" x="3" y="4" rx="2"/><line x1="8" x2="16" y1="20" y2="20"/><line x1="12" x2="12" y1="16" y2="20"/></svg>`;
-  if (t.includes('14') || t.includes('компактен')) return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2" ry="2"/><line x1="2" y1="20" x2="22" y2="20"/></svg>`;
-
-  if (t.includes('фокус') || t.includes('биро')) return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>`;
-  if (t.includes('кафулиња') || t.includes('дома')) return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><line x1="6" x2="6" y1="2" y2="4"/><line x1="10" x2="10" y1="2" y2="4"/><line x1="14" x2="14" y1="2" y2="4"/></svg>`;
-  if (t.includes('документи') || t.includes('табели')) return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><line x1="10" x2="8" y1="9" y2="9"/></svg>`;
-
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>`;
-}
-
-const DEFAULT_CFG = {
-  logo: { url: "https://upload.wikimedia.org/wikipedia/commons/b/b8/Lenovo_logo_2015.svg", data: "" },
-  hero: {
-    title: "Откриј го идеалниот\nLenovo за тебе.",
-    sub: "Одговори на неколку брзи прашања за 30 секунди и дознај кој Lenovo е совршен за твоите потреби",
-    cta: "Започни",
-  },
-  finish: { cta: "Продолжи кон препорачан модел" },
-  productUrls: {
-    legion: "https://kupilenovo.mk/categories/_laptops/83F500DJRM-Legion-Legion-Pro-7-16IAX10H-Eclipse-Black---Ultra-9-275HX,-64GB,-2TB-NVMe,-RTX-5080-16GB,-16-,-DOS",
-    thinkbook14: "https://kupilenovo.mk/categories/_laptops/21MR004HRM-Lenovo-ThinkBook-14-G7-IML-Arctic-Grey----Ultra-7-155H,-32GB,-512GB-SSD,-14-,-DOS",
-    thinkpadE16: "https://kupilenovo.mk/categories/_laptops/21SR004GRI-Lenovo-ThinkPad-E16-Gen-3-Black---Ultra-7-255H,-16GB,-1TB,-16-,-DOS",
-    v15: "https://kupilenovo.mk/categories/_laptops/21MS004TRM--Lenovo-ThinkBook-16-G7-IML-Arctic-Grey---Ultra-5-125U,-16GB,-1TB-NVMe,-16-,-DOS",
-    fallback: "https://kupilenovo.mk/_laptops.nspx?priceRange=9750_31137"
-  },
-  questions: [
-    {
-      id:"q1",
-      title:"За што ти треба лаптопот?",
-      answers:[
-        {text:"За видео игри"},
-        {text:"За факултет / училиште"},
-        {text:"За работа"}
-      ],
-      condition:null
-    },
-    {
-      id:"q2",
-      title:"Што ти е најважно?",
-      answers:[
-        {text:"Да биде брз и моќен"},
-        {text:"Да биде комотен и идеален за мобилна работа по цели денови"},
-        {text:"Да добијам најдобра вредност за моите пари"}
-      ],
-      condition:null
-    },
-    {
-      id:"q3",
-      title:"Каков екран ти одговара?",
-      answers:[
-        {text:"Голем (16 инчи)"},
-        {text:"Стандарден (15 инчи)"},
-        {text:"Компактен и лесен (14 инчи)"}
-      ],
-      condition:null
-    },
-    {
-      id:"q4",
-      title:"Твојот ден изгледа вака:",
-      answers:[
-        {text:"Вечерно опуштање со гејминг или забава на компјутер"},
-        {text:"Помеѓу предавања, учење, обврски и движење низ град"},
-        {text:"Еден по друг повици, документи и табели"}
-      ],
-      condition:null
-    },
-    {
-      id:"q6",
-      title:"Што најмногу те опишува?",
-      answers:[
-        {text:"Сакам нешто што изгледа ексклузивно за дома или мојот гејминг-сетап"},
-        {text:"Сакам нешто лесно и сигурно за факултет или училница"},
-        {text:"Сакам нешто професионално и стабилно за канцеларија и состаноци"}
-      ],
-      condition:null
-    },
-    {
-      id:"q7",
-      title:"Кој е твојот буџет?",
-      answers:[
-        {text:"До 400 еур – сакам нешто со паметна вредност"},
-        {text:"Од 400 – 700 еур – сакам нешто лесно и сигурно"},
-        {text:"Над 700 еур – сакам незапирливо, професионално и стабилно решение"}
-      ],
-      condition:null
-    },
-    {
-      id:"lead",
-      title:"Остави контакт за да ја добиеш препораката и линк до производот.",
-      answers:[],
-      condition:"lead"
-    }
-  ]
-};
-
-let CFG = JSON.parse(JSON.stringify(DEFAULT_CFG));
-const PRODUCT_URLS = ()=>CFG.productUrls;
-
-function deepMerge(base, patch){
-  if(Array.isArray(base)){
-    return Array.isArray(patch) ? patch : base;
-  }else if(typeof base==='object' && base){
-    const out = {...base};
-    for(const k of Object.keys(patch||{})){
-      if(typeof patch[k]==='object' && patch[k] && !Array.isArray(patch[k])){
-        out[k] = deepMerge(base[k]||{}, patch[k]);
-      }else{
-        out[k] = patch[k];
-      }
-    }
-    return out;
-  }
-  return patch===undefined ? base : patch;
-}
-
-function loadConfigFromLocalStorage(){
-  try{
-    const raw = localStorage.getItem('lenovoQuizConfig');
-    if(!raw) return;
-    const fromLS = JSON.parse(raw);
-    CFG = deepMerge(DEFAULT_CFG, fromLS);
+    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx4NG7bgInqluGB2XoymZzVIoyuLs0s8FEfWBpQv0UNHXT7agrums20jfQGk_jdPo9Q/exec";
     
-    const logo = (CFG.logo?.data || CFG.logo?.url || '').trim();
-    if(logo) document.getElementById('logoImg').src = logo;
-    
-    const titleText = CFG.hero?.title || DEFAULT_CFG.hero.title;
-    document.getElementById('heroTitle').innerHTML = titleText.replace("Lenovo", `<span class="highlight">Lenovo</span>`);
+    const questions = [
+        {
+            id: "Q1",
+            text: "За што најмногу ќе го користиш лаптопот?",
+            options: [
+                { text: "Видео игри", value: "A" },
+                { text: "Работа во канцеларија или од дома", value: "B" }
+            ]
+        },
+        {
+            id: "Q2",
+            text: "Што ти е најважно?",
+            options: [
+                { text: "Најдобри перформанси", value: "A" },
+                { text: "Да не ми кочи на работа", value: "B" },
+                { text: "Најдобра вредност за парите", value: "C" }
+            ]
+        },
+        {
+            id: "Q3",
+            text: "Каков екран ти одговара?",
+            options: [
+                { text: "Голем (16 inch)", value: "A" },
+                { text: "Стандарден работен екран (15 inch)", value: "B" },
+                { text: "Компактен и лесен за носење (14 inch)", value: "C" }
+            ]
+        },
+        {
+            id: "Q4",
+            text: "Како изгледа твојот типичен ден?",
+            options: [
+                { text: "Долги фокусирани сесии, гејминг или на работа", value: "A" },
+                { text: "Состаноци, табели, презентации", value: "B" },
+                { text: "Многу движење, работа од кафулиња, coworking, терен", value: "C" }
+            ]
+        },
+        {
+            id: "Q6", 
+            text: "Каде најмногу ќе го користиш лаптопот?",
+            options: [
+                { text: "Дома или биро", value: "A" },
+                { text: "Канцеларија и состаноци со клиенти", value: "B" },
+                { text: "Различни локации, секогаш со мене во ранец", value: "C" }
+            ]
+        },
+        {
+            id: "Q7",
+            text: "Што ти звучи идеално за тебе?",
+            options: [
+                { text: "Сакам лаптоп што е скап но моќен", value: "A" },
+                { text: "Сакам лаптоп што е лесен", value: "B" },
+                { text: "Сакам нешто професионално", value: "C" },
+                { text: "Сакам лаптоп со пониска цена", value: "D" }
+            ]
+        }
+    ];
 
-    document.getElementById('heroSub').textContent = CFG.hero?.sub || DEFAULT_CFG.hero.sub;
-    document.getElementById('startCta').textContent = CFG.hero?.cta || DEFAULT_CFG.hero.cta;
-    
-  }catch(e){ console.warn('Config read error', e); }
-}
+    const products = {
+        legion: {
+            slug: "outcome_legion",
+            persona: "gamer",
+            url: "https://kupilenovo.mk/categories/_laptops/83F500DJRM-Legion-Legion-Pro-7-16IAX10H-Eclipse-Black---Ultra-9-275HX,-64GB,-2TB-NVMe,-RTX-5080-16GB,-16-,-DOS"
+        },
+        thinkbook14: {
+            slug: "outcome_thinkbook14",
+            persona: "work_mobile",
+            url: "https://kupilenovo.mk/categories/_laptops/21MR004HRM-Lenovo-ThinkBook-14-G7-IML-Arctic-Grey----Ultra-7-155H,-32GB,-512GB-SSD,-14-,-DOS"
+        },
+        thinkpadE16: {
+            slug: "outcome_thinkpadE16",
+            persona: "work_premium",
+            url: "https://kupilenovo.mk/categories/_laptops/21SR004GRI-Lenovo-ThinkPad-E16-Gen-3-Black---Ultra-7-255H,-16GB,-1TB,-16-,-DOS"
+        },
+        v15: {
+            slug: "outcome_v15",
+            persona: "work_best_value",
+            url: "https://kupilenovo.mk/categories/_laptops/21MS004TRM--Lenovo-ThinkBook-16-G7-IML-Arctic-Grey---Ultra-5-125U,-16GB,-1TB-NVMe,-16-,-DOS"
+        },
+        fallback: {
+            slug: "fallback_price",
+            persona: "price_hunter",
+            url: "https://kupilenovo.mk/_laptops.nspx?priceRange=9750_31137"
+        }
+    };
 
-const scores = { legion:0, thinkbook14:0, thinkpadE16:0, v15:0 };
-let primaryLane = null;
-let currentStep = 0;
-const quizEl = document.getElementById('quiz');
-const barEl = document.getElementById('bar');
-const quizCard = document.getElementById('quizCard');
+    let currentStep = 0;
+    let answers = {};
+    let scores = { legion: 0, thinkbook14: 0, thinkpadE16: 0, v15: 0 };
 
-function startQuiz(){
-  currentStep = 0;
-  primaryLane = null;
-  resetScores();
-  document.getElementById('startCard').classList.add('hidden');
-  quizCard.classList.remove('hidden');
-  quizCard.classList.add('fade-in');
-  renderStep();
-}
+    const screens = {
+        welcome: document.getElementById('screen-welcome'),
+        questions: document.getElementById('screen-questions'),
+        loading: document.getElementById('screen-loading'),
+        locked: document.getElementById('screen-locked'),
+        form: document.getElementById('screen-form')
+    };
+    const progressHeader = document.getElementById('progress-header');
+    const progressBar = document.getElementById('progress-bar');
+    const progressText = document.getElementById('progress-text');
+    const progressPercent = document.getElementById('progress-percent');
+    const backBtn = document.getElementById('back-btn');
 
-function resetScores(){
-    scores.legion = 0;
-    scores.thinkbook14 = 0;
-    scores.thinkpadE16 = 0;
-    scores.v15 = 0;
-}
-
-function goBack() {
-  if (currentStep > 0) {
-    currentStep--;
-    if (currentStep === 0) {
-        primaryLane = null; 
-        resetScores();
-    }
-    renderStep();
-  }
-}
-
-function visibleQuestions(){
-  const arr = [];
-  for(const q of CFG.questions){
-    if(q.condition === 'lead'){ continue; }
-    if(q.condition === 'work' && primaryLane !== 'work'){ continue; }
-    arr.push(q);
-  }
-  return arr;
-}
-
-function renderStep(){
-  const list = visibleQuestions();
-  const totalSteps = list.length + 1;
-  const currentQIndex = currentStep < list.length ? currentStep : list.length;
-  barEl.style.width = Math.min(100, Math.round((currentQIndex / totalSteps) * 100)) + '%';
-
-  if(currentStep < list.length){
-    const q = list[currentStep];
-    const stepLabel = `Чекор ${currentStep+1} / ${list.length}`;
-    const showBackButton = currentStep > 0;
-    
-    const answersHtml = q.answers.map((a,i)=> `
-      <button class="option-btn" data-ans="${i}">
-        <div class="icon-box">${getIconForText(a.text)}</div>
-        <span>${a.text}</span>
-        <svg class="arrow" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </button>
-    `).join('');
-    
-    quizEl.innerHTML = `
-      <div class="step-pill">${stepLabel}</div>
-      <h2 class="question-title">${q.title}</h2>
-      <div class="fade-in" style="animation-duration:0.3s">
-        ${answersHtml}
-        ${showBackButton ? `
-            <button class="back-btn" id="backBtn">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
-              Назад
-            </button>` : ''}
-      </div>
-    `;
-    
-    quizEl.querySelectorAll('[data-ans]').forEach(btn=>{
-      btn.onclick = ()=> onAnswer(q, parseInt(btn.dataset.ans,10));
-    });
-
-    if(showBackButton) {
-        document.getElementById('backBtn').onclick = goBack;
+    function showScreen(name) {
+        Object.values(screens).forEach(el => {
+            el.classList.remove('active');
+            el.style.display = 'none';
+        });
+        screens[name].style.display = 'flex';
+        requestAnimationFrame(() => screens[name].classList.add('active'));
     }
 
-  }else{
-    renderContact();
-  }
-}
-
-function onAnswer(q, idx){
-  const a = q.answers[idx]?.text || '';
-
-  if(q.id === 'q1') {
-      resetScores();
-      if(a.toLowerCase().includes('игри')){ primaryLane='gaming'; scores.legion+=5; }
-      if(a.toLowerCase().includes('факултет') || a.toLowerCase().includes('училиште')){ primaryLane='school'; scores.thinkbook14+=5; }
-      if(a.toLowerCase().includes('работа')){ primaryLane='work'; scores.thinkpadE16+=3; scores.v15+=3; }
-  } else {
-    switch(q.id){
-      case 'q2':
-        if(a.toLowerCase().includes('брз') || a.toLowerCase().includes('моќен')){ scores.legion+=2; scores.thinkpadE16+=1; }
-        if(a.toLowerCase().includes('комотен')){ scores.thinkbook14+=1; scores.thinkpadE16+=1; }
-        if(a.toLowerCase().includes('вредност')){ scores.v15+=2; }
-        break;
-      case 'q3':
-        if(a.includes('16')){ scores.legion+=1; scores.thinkpadE16+=1; }
-        if(a.includes('15')){ scores.v15+=1; scores.thinkpadE16+=1; }
-        if(a.includes('14')){ scores.thinkbook14+=2; }
-        break;
-      case 'q4':
-        if(a.toLowerCase().includes('гејминг') || a.toLowerCase().includes('забава')){ scores.legion+=2; }
-        if(a.toLowerCase().includes('фокус')){ scores.legion+=1; scores.thinkpadE16+=1; }
-        if(a.toLowerCase().includes('предавања') || a.toLowerCase().includes('кафулиња')){ scores.thinkbook14+=2; }
-        if(a.toLowerCase().includes('табели') || a.toLowerCase().includes('повици')){ scores.thinkpadE16+=2; scores.v15+=1; }
-        break;
-      case 'q6':
-        if(a.toLowerCase().includes('гејминг')){ scores.legion+=1; }
-        if(a.toLowerCase().includes('факултет') || a.toLowerCase().includes('училница')){ scores.thinkbook14+=1; }
-        if(a.toLowerCase().includes('канцеларија')){ scores.thinkpadE16+=1; scores.v15+=1; }
-        break;
-      case 'q7':
-        if(a.toLowerCase().includes('незапирливо')){ scores.legion+=1; }
-        if(a.toLowerCase().includes('лесно')){ scores.thinkbook14+=1; }
-        if(a.toLowerCase().includes('професионално')){ scores.thinkpadE16+=1; }
-        if(a.toLowerCase().includes('паметна')){ scores.v15+=1; }
-        break;
+    function startQuiz() {
+        showScreen('questions');
+        progressHeader.style.display = 'block';
+        renderQuestion();
     }
-  }
 
-  renderStep(++currentStep);
-}
+    function renderQuestion() {
+        const q = questions[currentStep];
+        const pct = Math.round(((currentStep + 1) / questions.length) * 100);
+        progressBar.style.width = `${pct}%`;
+        progressText.innerText = `ПРАШАЊЕ ${currentStep + 1} ОД ${questions.length}`;
+        progressPercent.innerText = `${pct}%`;
 
-function renderContact(){
-  barEl.style.width = '100%';
-  const winner = decideWinner();
-  const persona = primaryLane === "gaming" ? "gamer" : (primaryLane === "school" ? "student" : "work");
+        document.getElementById('q-text').innerText = q.text;
 
-  const nameMap = {
-    legion: "Legion Pro 7 16IAX10H",
-    thinkbook14: "ThinkBook 14 G7 IML",
-    thinkpadE16: "ThinkPad E16 Gen 3",
-    v15: "ThinkBook 16 G7 IML"
-  };
-  const nice = nameMap[winner] || "Lenovo";
+        if (currentStep === 0) {
+            backBtn.classList.add('disabled');
+        } else {
+            backBtn.classList.remove('disabled');
+        }
 
-  quizEl.innerHTML = `
-    <div class="result-title-container fade-in" style="margin-top:0;">
-       Твојот идеален избор
-    </div>
+        const container = document.getElementById('a-container');
+        container.innerHTML = '';
+        
+        q.options.forEach(opt => {
+            const div = document.createElement('div');
+            div.className = 'option-card';
+            div.onclick = () => selectOption(div, q.id, opt.value);
+            div.innerHTML = `
+                <div class="radio-circle"></div>
+                <div class="option-text">${opt.text}</div>
+            `;
+            if (answers[q.id] === opt.value) {
+                div.classList.add('selected');
+            }
+            container.appendChild(div);
+        });
+    }
 
-    <div class="laptop-container fade-in" style="animation-delay:0.1s;">
-      <div class="laptop-screen">
-        <div class="laptop-screen-inner">
-           <div class="screen-content-logo">LENOVO</div>
-           <div class="screen-content-name">${nice}</div>
-        </div>
-      </div>
-      <div class="laptop-base"></div>
-    </div>
-    
-    <div class="fade-in" style="animation-delay:0.2s;">
-      <div style="display:grid; grid-template-columns:1fr; gap:16px;">
-        <div class="form-group">
-          <label>Име и презиме</label>
-          <input id="q8_name" type="text" class="glass-input" placeholder="Име и Презиме">
-        </div>
-        <div class="form-group">
-          <label>Email</label>
-          <input id="q8_email" type="email" class="glass-input" placeholder="vashiot@email.com">
-        </div>
-        <div class="form-group">
-          <label>Телефон</label>
-          <input id="q8_phone" type="tel" class="glass-input" placeholder="07x xxx xxx">
-        </div>
-      </div>
+    function selectOption(el, qId, val) {
+        const siblings = el.parentElement.children;
+        for (let sib of siblings) sib.classList.remove('selected');
+        el.classList.add('selected');
 
-      <label class="consent-label" id="lbl_consent">
-        <input id="q8_consent" type="checkbox"> 
-        <span>Се согласувам да бидам контактиран/а во врска со мојата препорака, цени и понуди.</span>
-      </label>
+        answers[qId] = val;
 
-      <div class="error-msg hidden" id="err">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
-        <span id="errText">Проверете ги полињата.</span>
-      </div>
-      
-      <button class="primary-btn" id="finishBtn" style="margin-top:24px;">
-        Продолжи
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </button>
-    </div>
-  `;
+        if (currentStep < questions.length - 1) {
+            currentStep++;
+            renderQuestion();
+        } else {
+            finishQuiz();
+        }
+    }
 
-  document.getElementById('finishBtn').onclick = ()=> submitAndRedirect(winner, persona);
-  
-  ['q8_name','q8_email','q8_phone'].forEach(id => {
-    document.getElementById(id).addEventListener('input', function(){
-      this.classList.remove('invalid');
-      document.getElementById('err').classList.add('hidden');
-    });
-  });
-  document.getElementById('q8_consent').addEventListener('change', function(){
-    document.getElementById('lbl_consent').classList.remove('invalid');
-  });
-}
+    function goBack() {
+        if (currentStep === 0) return;
+        currentStep--;
+        renderQuestion();
+    }
 
-function decideWinner(){
-  if(primaryLane === "school"){ scores.thinkbook14 += 10; }
-  if(primaryLane === "gaming"){ scores.legion += 10; }
-  if(primaryLane === "work"){ scores.thinkpadE16 += 1; scores.v15 += 1; } 
+    function calculateScores() {
+        scores = { legion: 0, thinkbook14: 0, thinkpadE16: 0, v15: 0 };
 
-  const order = ["legion","thinkpadE16","v15","thinkbook14"];
-  let winner = order[0];
-  order.forEach(k=>{ if(scores[k] > scores[winner]) winner = k; });
+        if (answers['Q1'] === 'A') scores.legion += 5;
+        if (answers['Q1'] === 'B') { scores.thinkpadE16 += 3; scores.v15 += 3; }
 
-  if(primaryLane === "work" && scores.thinkpadE16 === scores.v15 && scores.thinkpadE16 > 0){
-    winner = "thinkpadE16";
-  }
-  return winner;
-}
+        if (answers['Q2'] === 'A') { scores.legion += 2; scores.thinkpadE16 += 1; }
+        if (answers['Q2'] === 'B') { scores.thinkpadE16 += 2; scores.thinkbook14 += 1; }
+        if (answers['Q2'] === 'C') { scores.v15 += 3; }
 
-function getParam(name){
-  const p = new URLSearchParams(location.search);
-  return p.get(name) || "";
-}
+        if (answers['Q3'] === 'A') { scores.legion += 1; scores.thinkpadE16 += 1; scores.v15 += 1; }
+        if (answers['Q3'] === 'B') { scores.thinkpadE16 += 1; scores.v15 += 1; }
+        if (answers['Q3'] === 'C') { scores.thinkbook14 += 2; }
 
-function buildUTM(outcome, persona){
-  const src = getParam("utm_source") || "meta";
-  const med = getParam("utm_medium") || "paid";
-  return `utm_source=${encodeURIComponent(src)}&utm_medium=${encodeURIComponent(med)}&utm_campaign=quiz&utm_content=outcome_${outcome}&utm_term=persona_${persona}`;
-}
+        if (answers['Q4'] === 'A') { scores.legion += 1; scores.thinkpadE16 += 1; }
+        if (answers['Q4'] === 'B') { scores.thinkpadE16 += 2; scores.v15 += 1; }
+        if (answers['Q4'] === 'C') { scores.thinkbook14 += 2; }
 
-function sendToSheetsJSON(webAppUrl, payloadObj){
-  try {
-    const blob = new Blob([JSON.stringify(payloadObj)], { type: 'text/plain;charset=UTF-8' });
-    navigator.sendBeacon(webAppUrl, blob);
-  } catch(e){
-    fetch(webAppUrl, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
-      body: JSON.stringify(payloadObj)
-    }).catch(()=>{});
-  }
-}
+        if (answers['Q6'] === 'A') { scores.legion += 1; }
+        if (answers['Q6'] === 'B') { scores.thinkpadE16 += 1; scores.v15 += 1; }
+        if (answers['Q6'] === 'C') { scores.thinkbook14 += 2; }
 
-function submitAndRedirect(winner, persona){
-  const nameEl = document.getElementById('q8_name');
-  const emailEl = document.getElementById('q8_email');
-  const phoneEl = document.getElementById('q8_phone');
-  const consentEl = document.getElementById('q8_consent');
-  const lblConsent = document.getElementById('lbl_consent');
-  const err = document.getElementById('err');
-  const errText = document.getElementById('errText');
+        if (answers['Q7'] === 'A') { scores.legion += 1; scores.thinkpadE16 += 1; }
+        if (answers['Q7'] === 'B') { scores.thinkbook14 += 1; }
+        if (answers['Q7'] === 'C') { scores.thinkpadE16 += 1; }
+        if (answers['Q7'] === 'D') { scores.v15 += 1; }
 
-  const name = nameEl.value.trim();
-  const email = emailEl.value.trim();
-  const phone = phoneEl.value.trim();
-  const consent = consentEl.checked;
+        return determineWinner();
+    }
 
-  let isValid = true;
-  let errorMsg = "Внесете валидни податоци.";
+    function determineWinner() {
+        let maxScore = -1;
+        let candidates = [];
+        
+        for (const [key, val] of Object.entries(scores)) {
+            if (val > maxScore) {
+                maxScore = val;
+                candidates = [key];
+            } else if (val === maxScore) {
+                candidates.push(key);
+            }
+        }
 
-  const nameParts = name.split(' ').filter(p => p.length > 1);
-  if(nameParts.length < 2 || name.length < 5){
-    nameEl.classList.add('invalid');
-    errorMsg = "Внесете Име и Презиме.";
-    isValid = false;
-  } else {
-    nameEl.classList.remove('invalid');
-  }
+        if (candidates.length === 1) {
+            if (answers['Q7'] === 'D' && candidates[0] !== 'legion' && candidates[0] !== 'v15') {
+                if (maxScore - scores.v15 <= 2) return 'v15';
+            }
+            return candidates[0];
+        }
 
-  const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i.test(email);
-  if(!emailOk){
-    emailEl.classList.add('invalid');
-    if(isValid) errorMsg = "Внесете валиден email.";
-    isValid = false;
-  } else {
-    emailEl.classList.remove('invalid');
-  }
+        if (candidates.includes('legion')) return 'legion';
+        if (candidates.includes('thinkpadE16') && candidates.includes('v15')) return 'thinkpadE16';
 
-  const phoneClean = phone.replace(/[^0-9]/g, '');
-  if(phoneClean.length < 6){
-    phoneEl.classList.add('invalid');
-    if(isValid) errorMsg = "Внесете валиден телефонски број.";
-    isValid = false;
-  } else {
-    phoneEl.classList.remove('invalid');
-  }
+        if (candidates.includes('thinkbook14')) {
+            let mobility = 0;
+            if (answers['Q4'] === 'C') mobility++;
+            if (answers['Q6'] === 'C') mobility++;
+            if (answers['Q2'] === 'B') mobility++;
+            if (mobility >= 2) return 'thinkbook14';
+            const other = candidates.find(c => c !== 'thinkbook14');
+            if (other) return other;
+        }
 
-  if(!consent){
-    lblConsent.classList.add('invalid');
-    if(isValid) errorMsg = "Мора да се согласите за да продолжите.";
-    isValid = false;
-  } else {
-    lblConsent.classList.remove('invalid');
-  }
+        if (answers['Q7'] === 'D' && candidates.includes('v15')) return 'v15';
 
-  if(!isValid){
-    err.classList.remove('hidden');
-    errText.textContent = errorMsg;
-    return;
-  }
+        return candidates[0];
+    }
 
-  err.classList.add('hidden');
+    function finishQuiz() {
+        progressHeader.style.display = 'none';
+        showScreen('loading');
 
-  document.getElementById('nf_full_name').value = name;
-  document.getElementById('nf_email').value = email;
-  document.getElementById('nf_phone').value = phone;
-  document.getElementById('nf_consent').value = 'yes';
-  document.getElementById('nf_legion').value = String(scores.legion);
-  document.getElementById('nf_thinkbook14').value = String(scores.thinkbook14);
-  document.getElementById('nf_thinkpadE16').value = String(scores.thinkpadE16);
-  document.getElementById('nf_v15').value = String(scores.v15);
-  document.getElementById('nf_lane').value = primaryLane || '';
-  document.getElementById('nf_outcome').value = winner;
-  document.getElementById('nf_persona').value = persona;
-  document.getElementById('nf_page').value = location.href;
+        const msgs = [
+            "Ги споредуваме твоите одговори…",
+            "Ги филтрираме моделите…",
+            "Го подготвуваме твојот идеален Lenovo…"
+        ];
+        const loadText = document.getElementById('loading-text');
+        const loadBar = document.getElementById('loading-bar');
+        
+        let step = 0;
+        loadBar.style.width = "10%";
 
-  const payload = {
-    timestamp: new Date().toISOString(),
-    full_name: name, email, phone, consent: 'yes',
-    lane: (primaryLane || ''), outcome: winner, persona,
-    scores_legion: String(scores.legion),
-    scores_thinkbook14: String(scores.thinkbook14),
-    scores_thinkpadE16: String(scores.thinkpadE16),
-    scores_v15: String(scores.v15),
-    utm_source: getParam("utm_source") || "meta",
-    utm_medium: getParam("utm_medium") || "paid",
-    utm_campaign: "quiz",
-    utm_content: `outcome_${winner}`,
-    utm_term: `persona_${persona}`,
-    page: location.href,
-    userAgent: navigator.userAgent,
-    referrer: document.referrer || ""
-  };
-  
-  sendToSheetsJSON(
-    "https://script.google.com/macros/s/AKfycbx4NG7bgInqluGB2XoymZzVIoyuLs0s8FEfWBpQv0UNHXT7agrums20jfQGk_jdPo9Q/exec",
-    payload
-  );
+        const interval = setInterval(() => {
+            step++;
+            if (step === 1) {
+                loadText.innerText = msgs[1];
+                loadBar.style.width = "40%";
+            } else if (step === 2) {
+                loadText.innerText = msgs[2];
+                loadBar.style.width = "80%";
+            } else if (step === 3) {
+                loadBar.style.width = "100%";
+                clearInterval(interval);
+                setTimeout(() => showScreen('locked'), 2500);
+            }
+        }, 700);
+    }
 
-  if (typeof fbq === 'function') {
-    fbq('track', 'Lead', {
-      quiz_name: 'lenovo_quiz',
-      outcome: winner,
-      persona: persona
-    });
-  }
+    function goToForm() {
+        showScreen('form');
+    }
 
-  const urlBase = PRODUCT_URLS()[winner] || PRODUCT_URLS().fallback;
-  const utm = buildUTM(winner, persona);
-  const finalUrl = urlBase + (urlBase.includes("?") ? "&" : "?") + utm;
+    function buildUTM(winnerKey) {
+        const data = products[winnerKey] || products.fallback;
+        const params = new URLSearchParams();
+        params.set('utm_source', 'quiz');
+        params.set('utm_medium', 'paid');
+        params.set('utm_campaign', 'quiz');
+        params.set('utm_content', data.slug);
+        params.set('utm_term', `persona_${data.persona}`);
+        return params.toString();
+    }
 
-  const cta = document.getElementById('finishBtn');
-  cta.disabled = true;
-  cta.innerHTML = `Се процесира...`;
-  cta.style.opacity = "0.7";
+    function submitForm(e) {
+        e.preventDefault();
+        const btn = document.getElementById('submit-btn');
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Се отклучува...';
+        btn.disabled = true;
 
-  setTimeout(function() {
-    window.location.href = finalUrl;
-  }, 400);
-}
+        const winner = calculateScores();
+        const productData = products[winner];
 
-document.addEventListener('DOMContentLoaded', ()=>{
-  loadConfigFromLocalStorage();
-  document.getElementById('startBtn').onclick = startQuiz;
-  
-  var source = getParam("utm_source");
-  var utmField = document.getElementById("utm_source");
-  if (utmField) {
-    utmField.value = source ? source : "direct";
-  }
-});
+        const payload = new FormData();
+        payload.append('fullname', document.getElementById('fullname').value);
+        payload.append('email', document.getElementById('email').value);
+        payload.append('phone', document.getElementById('phone').value);
+        payload.append('winner', winner);
+        payload.append('persona', productData.persona);
+        payload.append('answers', JSON.stringify(answers));
+        
+        fetch(GOOGLE_SCRIPT_URL, { method: 'POST', body: payload, mode: 'no-cors' })
+            .catch(console.error);
+
+        setTimeout(() => {
+            const finalUrl = `${productData.url}${productData.url.includes('?') ? '&' : '?'}${buildUTM(winner)}`;
+            btn.innerHTML = '<i class="fas fa-check"></i> Успешно!';
+            btn.style.background = '#2ecc71';
+            window.location.href = finalUrl;
+        }, 1200);
+    }
 </script>
 </body>
 </html>
