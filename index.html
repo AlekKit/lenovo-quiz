@@ -29,13 +29,10 @@
     fbq('track', 'PageView');
     </script>
     <!-- End Meta Pixel Code -->
-    
-    <!-- Fonts: Inter (UI) & Space Grotesk (Headers) -->
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
-    
-    <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
@@ -45,7 +42,6 @@
             --bg-dark: #09090b;
             --glass-surface: rgba(30, 30, 35, 0.6);
             --glass-border: rgba(255, 255, 255, 0.08);
-            --glass-highlight: rgba(255, 255, 255, 0.05);
             --text-main: #ffffff;
             --text-muted: #9ca3af;
             --radius: 24px;
@@ -53,10 +49,7 @@
             --font-head: 'Space Grotesk', sans-serif;
         }
 
-        * {
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
             margin: 0;
@@ -70,7 +63,6 @@
             flex-direction: column;
         }
 
-        /* BG mesh from v1 */
         .bg-gradient-mesh {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
@@ -121,7 +113,6 @@
             z-index: 10;
         }
 
-        /* Glass card style */
         .glass-card {
             background: var(--glass-surface);
             backdrop-filter: blur(24px);
@@ -132,24 +123,12 @@
             box-shadow: 0 20px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05);
             position: relative;
             overflow: hidden;
-            transition: transform 0.4s ease;
         }
 
-        .heading-font {
-            font-family: var(--font-head);
-            font-weight: 700;
-            letter-spacing: -0.02em;
-        }
+        .heading-font { font-family: var(--font-head); font-weight: 700; letter-spacing: -0.02em; }
+        .text-red { color: var(--lenovo-red); text-shadow: 0 0 10px var(--lenovo-red-glow); }
+        .text-muted { color: var(--text-muted); }
 
-        .text-red {
-            color: var(--lenovo-red);
-            text-shadow: 0 0 10px var(--lenovo-red-glow);
-        }
-        .text-muted {
-            color: var(--text-muted);
-        }
-
-        /* Screens */
         .screen {
             padding: 1.5rem 0;
             flex-grow: 1;
@@ -165,7 +144,6 @@
             to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
-        /* Buttons */
         .btn-primary {
             background: var(--lenovo-red);
             color: white;
@@ -188,19 +166,6 @@
             overflow: hidden;
             box-shadow: 0 0 20px rgba(226, 35, 26, 0.4);
         }
-        .btn-primary::after {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%;
-            width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: 0.5s;
-        }
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 30px rgba(226, 35, 26, 0.6);
-        }
-        .btn-primary:hover::after { left: 100%; }
         .btn-primary:disabled { filter: grayscale(1); cursor: not-allowed; }
 
         .option-card {
@@ -245,30 +210,17 @@
             background: var(--lenovo-red);
             border-radius: 50%;
         }
-        .option-text { font-weight: 500; font-size: 1rem; }
 
-        /* Progress */
-        .progress-container {
-            padding: 0 0 16px 0;
-            display: none;
-        }
+        .progress-container { padding: 0 0 16px 0; display: none; }
         .progress-info {
             display: flex; justify-content: space-between;
             font-size: 0.75rem; text-transform: uppercase;
             letter-spacing: 1px; color: var(--text-muted);
             margin-bottom: 10px;
         }
-        .progress-track {
-            height: 4px; background: rgba(255,255,255,0.1);
-            border-radius: 2px; overflow: hidden;
-        }
-        .progress-fill {
-            height: 100%; background: var(--lenovo-red);
-            width: 0%; transition: width 0.4s ease;
-            box-shadow: 0 0 10px var(--lenovo-red);
-        }
+        .progress-track { height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; overflow: hidden; }
+        .progress-fill { height: 100%; background: var(--lenovo-red); width: 0%; transition: width 0.4s ease; }
 
-        /* Loading */
         .spinner-container { position: relative; width: 100px; height: 100px; margin: 0 auto 30px; }
         .spinner-ring {
             width: 100%; height: 100%;
@@ -284,7 +236,6 @@
         }
         @keyframes spin { 100% { transform: rotate(360deg); } }
 
-        /* Blur / lock */
         .blur-wrapper { position: relative; margin-bottom: 2rem; }
         .blur-target {
             filter: blur(15px);
@@ -293,8 +244,7 @@
             mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
             -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
         }
-        .blur-target.revealed { filter: blur(0); opacity: 1; }
-        
+
         .lock-container {
             position: absolute; top: 50%; left: 50%;
             transform: translate(-50%, -50%);
@@ -310,7 +260,6 @@
             100% { transform: translateY(0) scale(1); opacity: 1; }
         }
 
-        /* Form */
         .form-input {
             width: 100%;
             padding: 16px;
@@ -331,15 +280,8 @@
         }
         .form-label { font-size: 0.9rem; color: var(--text-muted); margin-left: 4px; }
 
-        /* No text selection (for blurred result) */
-        .no-select {
-            user-select: none;
-            -webkit-user-select: none;
-            -ms-user-select: none;
-            pointer-events: none;
-        }
+        .no-select { user-select: none; -webkit-user-select: none; -ms-user-select: none; pointer-events: none; }
 
-        /* Back button */
         .back-btn {
             background: transparent;
             border: none;
@@ -352,61 +294,15 @@
             padding: 0;
             margin-bottom: 12px;
         }
-        .back-btn i {
-            font-size: 0.8rem;
-        }
-        .back-btn.disabled {
-            opacity: 0.3;
-            pointer-events: none;
-        }
+        .back-btn.disabled { opacity: 0.3; pointer-events: none; }
 
-        /* Animated pill above headline (welcome) */
-        .hero-pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 6px 12px;
-            border-radius: 999px;
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            margin-bottom: 12px;
-            animation: pillFloat 3s ease-in-out infinite;
-        }
-        .hero-dot {
-            width: 8px; height: 8px;
-            border-radius: 50%;
-            background: var(--lenovo-red);
-            box-shadow: 0 0 10px var(--lenovo-red);
-            animation: pulseDot 1.8s infinite;
-        }
-        @keyframes pillFloat {
-            0% { transform: translateY(0); }
-            50% { transform: translateY(-4px); }
-            100% { transform: translateY(0); }
-        }
-        @keyframes pulseDot {
-            0% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.4); opacity: 0.4; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-
-        /* ================================
-           START CARD CORE
-           ================================ */
-        .fade-in {
-            animation: fadeInStart 0.8s ease forwards;
-        }
+        .fade-in { animation: fadeInStart 0.8s ease forwards; }
         @keyframes fadeInStart {
             from { opacity: 0; transform: translateY(20px) scale(0.98); }
             to { opacity: 1; transform: translateY(0) scale(1); }
         }
-        #screen-welcome.startCard {
-            position: relative;
-        }
+
+        #screen-welcome.startCard { position: relative; }
         .core-top {
             position: relative;
             width: 100%;
@@ -415,7 +311,6 @@
             align-items: center;
             justify-content: center;
             pointer-events: none;
-            z-index: 0;
             margin-bottom: 14px;
         }
         .core-ring {
@@ -424,16 +319,8 @@
             border: 1px solid rgba(226, 35, 26, 0.35);
             animation: pulseRing 4s infinite ease-in-out;
         }
-        .core-ring.r1 {
-            width: 220px;
-            height: 220px;
-            animation-delay: 0s;
-        }
-        .core-ring.r2 {
-            width: 300px;
-            height: 300px;
-            animation-delay: 1.5s;
-        }
+        .core-ring.r1 { width: 220px; height: 220px; animation-delay: 0s; }
+        .core-ring.r2 { width: 300px; height: 300px; animation-delay: 1.5s; }
         .core-center {
             width: 90px;
             height: 90px;
@@ -452,16 +339,9 @@
             50% { transform: scale(1.15); opacity: 1; }
             100% { transform: scale(1); opacity: 0.9; }
         }
-        .welcome-content {
-            position: relative;
-            z-index: 1;
-        }
-        /* ================================ */
 
         @media (max-width: 640px) {
-            .glass-card {
-                padding: 24px;
-            }
+            .glass-card { padding: 24px; }
             .core-ring.r1 { width: 200px; height: 200px; }
             .core-ring.r2 { width: 270px; height: 270px; }
         }
@@ -492,8 +372,7 @@
 <main class="container">
 
   <div id="quiz-wrapper" class="glass-card">
-    
-    <!-- HEADER / PROGRESS -->
+
     <div id="progress-header" class="progress-container">
         <div class="progress-info">
             <span id="progress-text">Прашање 1/7</span>
@@ -504,20 +383,18 @@
         </div>
     </div>
 
-    <!-- SCREEN 0: WELCOME -->
     <div id="screen-welcome" class="screen screen-center active startCard fade-in">
         <div class="welcome-content">
-
             <div class="core-top">
                 <div class="core-ring r1"></div>
                 <div class="core-ring r2"></div>
                 <div class="core-center"></div>
             </div>
-            
+
             <h1 class="heading-font" style="font-size: 2.5rem; margin-bottom: 1rem; text-align:center;">
                 Откриј Кој <span class="text-red">Lenovo</span><br>Е За Тебе
             </h1>
-            
+
             <p class="text-muted" style="font-size: 1.05rem; line-height: 1.6; margin-bottom: 2.5rem; max-width: 90%; text-align:center; margin-left:auto; margin-right:auto;">
                 Одговори на брзи прашања за 30 секунди и дознај кој модел е совршен за твојата игра или работа.
             </p>
@@ -530,13 +407,10 @@
                 <span><i class="fas fa-check-circle text-red"></i> Бесплатно</span>
                 <span><i class="fas fa-bolt text-red"></i> 30 секунди</span>
             </div>
-
         </div>
     </div>
 
-    <!-- SCREEN 1: QUESTIONS -->
     <div id="screen-questions" class="screen">
-        <!-- Back button row -->
         <button id="back-btn" class="back-btn" onclick="goBack()">
             <i class="fas fa-chevron-left"></i> Назад
         </button>
@@ -547,7 +421,6 @@
         </div>
     </div>
 
-    <!-- SCREEN 2: LOADING -->
     <div id="screen-loading" class="screen screen-center">
         <div class="spinner-container">
             <div class="spinner-ring"></div>
@@ -561,12 +434,10 @@
         </div>
     </div>
 
-    <!-- SCREEN 3: LOCKED / PARTIAL REVEAL -->
     <div id="screen-locked" class="screen screen-center">
         <div class="blur-wrapper">
-            <img src="https://images.unsplash.com/photo-1603302576837-37561b2e2302?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" 
+            <img src="https://images.unsplash.com/photo-1603302576837-37561b2e2302?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
                  class="blur-target no-select" style="width: 280px;" alt="Laptop">
-            
             <div class="lock-container">
                 <i class="fas fa-lock lock-icon"></i>
             </div>
@@ -580,7 +451,6 @@
 
         <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 12px; margin: 25px 0; width: 100%; border: 1px dashed rgba(255,255,255,0.2);">
             <div style="font-size: 0.7rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 5px;">СТАТУС НА ПРЕПОРАКА</div>
-            <!-- cannot select/copy this text -->
             <div class="no-select" style="filter: blur(5px); font-family: var(--font-head); font-size: 1.1rem;">
                 Lenovo Legion Pro 7i Gen 8
             </div>
@@ -591,12 +461,11 @@
         </button>
     </div>
 
-    <!-- SCREEN 4: FORM / UNLOCK GATE -->
     <div id="screen-form" class="screen">
         <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 1rem; margin-bottom: 1.5rem;">
             <div>
                 <h3 class="heading-font" style="margin: 0; font-size: 1.2rem;">Твојот уред е подготвен</h3>
-                <span class="text-red" style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase;">Чекор 8 од 8 — Отклучи 👇</span>
+                <span class="text-red" style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase;">Чекор 8 од 8 Отклучи</span>
             </div>
             <div style="width: 50px; height: 35px; background: rgba(255,255,255,0.1); border-radius: 4px; overflow: hidden;">
                 <img src="https://images.unsplash.com/photo-1603302576837-37561b2e2302?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" style="width: 100%; height: 100%; object-fit: cover; filter: blur(3px);">
@@ -608,7 +477,7 @@
                 <label class="form-label">Име и Презиме</label>
                 <input type="text" id="fullname" required class="form-input" placeholder="Внеси име...">
             </div>
-            
+
             <div>
                 <label class="form-label">Email Адреса</label>
                 <input type="email" id="email" required class="form-input" placeholder="Внеси email...">
@@ -639,7 +508,26 @@
 
 <script>
     const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx4NG7bgInqluGB2XoymZzVIoyuLs0s8FEfWBpQv0UNHXT7agrums20jfQGk_jdPo9Q/exec";
-    
+
+    function getParam(name) {
+        try {
+            return new URLSearchParams(window.location.search).get(name);
+        } catch (e) {
+            return null;
+        }
+    }
+
+    function sendToSheetsJSON(url, payload) {
+        // Apps Script Web App najcesto e ok so JSON + no-cors
+        // Ako imas CORS enable vo Apps Script, moze i mode:"cors"
+        fetch(url, {
+            method: "POST",
+            mode: "no-cors",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+        }).catch(console.error);
+    }
+
     const questions = [
         {
             id: "Q1",
@@ -677,7 +565,7 @@
             ]
         },
         {
-            id: "Q6", 
+            id: "Q6",
             text: "Каде најмногу ќе го користиш лаптопот?",
             options: [
                 { text: "Дома или биро", value: "A" },
@@ -760,32 +648,24 @@
     function renderQuestion() {
         const q = questions[currentStep];
         const pct = Math.round(((currentStep + 1) / questions.length) * 100);
-        progressBar.style.width = `${pct}%`;
-        progressText.innerText = `ПРАШАЊЕ ${currentStep + 1} ОД ${questions.length}`;
-        progressPercent.innerText = `${pct}%`;
+        progressBar.style.width = pct + "%";
+        progressText.innerText = "ПРАШАЊЕ " + (currentStep + 1) + " ОД " + questions.length;
+        progressPercent.innerText = pct + "%";
 
         document.getElementById('q-text').innerText = q.text;
 
-        if (currentStep === 0) {
-            backBtn.classList.add('disabled');
-        } else {
-            backBtn.classList.remove('disabled');
-        }
+        if (currentStep === 0) backBtn.classList.add('disabled');
+        else backBtn.classList.remove('disabled');
 
         const container = document.getElementById('a-container');
-        container.innerHTML = '';
-        
+        container.innerHTML = "";
+
         q.options.forEach(opt => {
             const div = document.createElement('div');
             div.className = 'option-card';
             div.onclick = () => selectOption(div, q.id, opt.value);
-            div.innerHTML = `
-                <div class="radio-circle"></div>
-                <div class="option-text">${opt.text}</div>
-            `;
-            if (answers[q.id] === opt.value) {
-                div.classList.add('selected');
-            }
+            div.innerHTML = '<div class="radio-circle"></div><div class="option-text">' + opt.text + '</div>';
+            if (answers[q.id] === opt.value) div.classList.add('selected');
             container.appendChild(div);
         });
     }
@@ -844,8 +724,9 @@
     function determineWinner() {
         let maxScore = -1;
         let candidates = [];
-        
-        for (const [key, val] of Object.entries(scores)) {
+
+        for (const key in scores) {
+            const val = scores[key];
             if (val > maxScore) {
                 maxScore = val;
                 candidates = [key];
@@ -854,28 +735,11 @@
             }
         }
 
-        if (candidates.length === 1) {
-            if (answers['Q7'] === 'D' && candidates[0] !== 'legion' && candidates[0] !== 'v15') {
-                if (maxScore - scores.v15 <= 2) return 'v15';
-            }
-            return candidates[0];
-        }
-
+        if (candidates.length === 1) return candidates[0];
         if (candidates.includes('legion')) return 'legion';
-        if (candidates.includes('thinkpadE16') && candidates.includes('v15')) return 'thinkpadE16';
-
-        if (candidates.includes('thinkbook14')) {
-            let mobility = 0;
-            if (answers['Q4'] === 'C') mobility++;
-            if (answers['Q6'] === 'C') mobility++;
-            if (answers['Q2'] === 'B') mobility++;
-            if (mobility >= 2) return 'thinkbook14';
-            const other = candidates.find(c => c !== 'thinkbook14');
-            if (other) return other;
-        }
-
-        if (answers['Q7'] === 'D' && candidates.includes('v15')) return 'v15';
-
+        if (candidates.includes('thinkpadE16')) return 'thinkpadE16';
+        if (candidates.includes('thinkbook14')) return 'thinkbook14';
+        if (candidates.includes('v15')) return 'v15';
         return candidates[0];
     }
 
@@ -890,19 +754,15 @@
         ];
         const loadText = document.getElementById('loading-text');
         const loadBar = document.getElementById('loading-bar');
-        
+
         let step = 0;
         loadBar.style.width = "10%";
 
         const interval = setInterval(() => {
             step++;
-            if (step === 1) {
-                loadText.innerText = msgs[1];
-                loadBar.style.width = "40%";
-            } else if (step === 2) {
-                loadText.innerText = msgs[2];
-                loadBar.style.width = "80%";
-            } else if (step === 3) {
+            if (step === 1) { loadText.innerText = msgs[1]; loadBar.style.width = "40%"; }
+            else if (step === 2) { loadText.innerText = msgs[2]; loadBar.style.width = "80%"; }
+            else if (step === 3) {
                 loadBar.style.width = "100%";
                 clearInterval(interval);
                 setTimeout(() => showScreen('locked'), 2500);
@@ -910,9 +770,7 @@
         }, 700);
     }
 
-    function goToForm() {
-        showScreen('form');
-    }
+    function goToForm() { showScreen('form'); }
 
     function buildUTM(winnerKey) {
         const data = products[winnerKey] || products.fallback;
@@ -921,7 +779,7 @@
         params.set('utm_medium', 'paid');
         params.set('utm_campaign', 'quiz');
         params.set('utm_content', data.slug);
-        params.set('utm_term', `persona_${data.persona}`);
+        params.set('utm_term', 'persona_' + data.persona);
         return params.toString();
     }
 
@@ -932,25 +790,52 @@
         btn.disabled = true;
 
         const winner = calculateScores();
-        const productData = products[winner];
+        const productData = products[winner] || products.fallback;
 
-        const payload = new FormData();
-        payload.append('fullname', document.getElementById('fullname').value);
-        payload.append('email', document.getElementById('email').value);
-        payload.append('phone', document.getElementById('phone').value);
-        payload.append('winner', winner);
-        payload.append('persona', productData.persona);
-        payload.append('answers', JSON.stringify(answers));
-        
-        fetch(GOOGLE_SCRIPT_URL, { method: 'POST', body: payload, mode: 'no-cors' })
-            .catch(console.error);
+        const name = document.getElementById('fullname').value || "";
+        const email = document.getElementById('email').value || "";
+        const phone = document.getElementById('phone').value || "";
+        const consent = document.getElementById('consent').checked ? "yes" : "no";
+        const persona = productData.persona;
+
+        const payload = {
+            timestamp: new Date().toISOString(),
+            full_name: name,
+            email: email,
+            phone: phone,
+            consent: consent,
+            outcome: winner,
+            persona: persona,
+            scores_legion: String(scores.legion),
+            scores_thinkbook14: String(scores.thinkbook14),
+            scores_thinkpadE16: String(scores.thinkpadE16),
+            scores_v15: String(scores.v15),
+            utm_source: getParam("utm_source") || "direct",
+            utm_medium: getParam("utm_medium") || "paid",
+            utm_campaign: getParam("utm_campaign") || "quiz",
+            utm_content: "outcome_" + winner,
+            utm_term: "persona_" + persona,
+            page: location.href,
+            userAgent: navigator.userAgent,
+            referrer: document.referrer || ""
+        };
+
+        sendToSheetsJSON(GOOGLE_SCRIPT_URL, payload);
+
+        if (typeof fbq === 'function') {
+            fbq('track', 'Lead', {
+                quiz_name: 'lenovo_quiz',
+                outcome: winner,
+                persona: persona
+            });
+        }
 
         setTimeout(() => {
-            const finalUrl = `${productData.url}${productData.url.includes('?') ? '&' : '?'}${buildUTM(winner)}`;
+            const finalUrl = productData.url + (productData.url.includes('?') ? '&' : '?') + buildUTM(winner);
             btn.innerHTML = '<i class="fas fa-check"></i> Успешно!';
             btn.style.background = '#2ecc71';
             window.location.href = finalUrl;
-        }, 1200);
+        }, 600);
     }
 </script>
 </body>
