@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <title>Lenovo Квиз — Откриј го идеалниот Lenovo</title>
+    <title>Lenovo Квиз — Отклучи Ваучер</title>
 
     <!-- Google Tag Manager -->
     <script>
@@ -40,7 +40,7 @@
             --lenovo-red: #E2231A;
             --lenovo-red-glow: rgba(226, 35, 26, 0.5);
             --bg-dark: #09090b;
-            --glass-surface: rgba(30, 30, 35, 0.6);
+            --glass-surface: rgba(30, 30, 35, 0.85); /* Slightly darker for better contrast */
             --glass-border: rgba(255, 255, 255, 0.08);
             --text-main: #ffffff;
             --text-muted: #9ca3af;
@@ -129,6 +129,123 @@
         .text-red { color: var(--lenovo-red); text-shadow: 0 0 10px var(--lenovo-red-glow); }
         .text-muted { color: var(--text-muted); }
 
+        /* --- COUPON STYLES --- */
+        .coupon-container {
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 20px;
+            margin: 20px 0;
+            position: relative;
+            text-align: center;
+        }
+        
+        /* The Welcome Screen Coupon */
+        .coupon-ticket {
+            border: 2px dashed var(--lenovo-red);
+            background: rgba(226, 35, 26, 0.05);
+            border-radius: 12px;
+            padding: 16px;
+            margin: 1.5rem auto;
+            max-width: 90%;
+            position: relative;
+        }
+        .coupon-ticket::before, .coupon-ticket::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 20px; height: 20px;
+            background: var(--bg-dark); /* Matches background to simulate punch hole */
+            border-radius: 50%;
+            transform: translateY(-50%);
+        }
+        .coupon-ticket::before { left: -11px; }
+        .coupon-ticket::after { right: -11px; }
+        
+        .coupon-title {
+            font-family: var(--font-head);
+            color: var(--lenovo-red);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 1rem;
+            margin-bottom: 4px;
+            display: block;
+        }
+        .coupon-sub { font-size: 0.9rem; color: #fff; margin-bottom: 4px; display: block; }
+        .coupon-meta { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+
+        /* The In-Quiz Micro Coupon */
+        .micro-coupon {
+            border: 1px dashed var(--text-muted);
+            background: rgba(255,255,255,0.03);
+            border-radius: 8px;
+            padding: 10px 15px;
+            margin-bottom: 20px;
+            text-align: center;
+            display: none; /* Hidden by default */
+            animation: fadeIn 0.5s ease;
+        }
+        .micro-coupon i { color: var(--lenovo-red); margin-right: 6px; }
+
+        /* The Pop-up / Final Form Coupon */
+        .popup-coupon {
+            background: #fff; /* Off-white contrast as requested */
+            color: #1a1a1a;
+            border: 3px dashed var(--lenovo-red);
+            border-radius: 20px;
+            padding: 25px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .popup-coupon .scissor-icon {
+            position: absolute;
+            top: -15px;
+            right: 20px;
+            background: var(--bg-dark);
+            color: #fff;
+            width: 30px; height: 30px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.9rem;
+            border: 2px solid var(--lenovo-red);
+        }
+        
+        .popup-coupon h3 { color: #000; font-family: var(--font-head); font-size: 1.5rem; margin: 0 0 10px 0; }
+        .popup-coupon p { color: #555; font-size: 0.95rem; line-height: 1.5; margin-bottom: 15px; }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 15px 0;
+        }
+        .social-btn {
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            background: #eee;
+            display: flex; align-items: center; justify-content: center;
+            color: #333;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: all 0.2s;
+        }
+        .social-btn:hover { background: var(--lenovo-red); color: white; transform: translateY(-3px); }
+
+        /* Adapting input for Light Coupon background */
+        .popup-coupon .form-input {
+            background: #f0f0f0;
+            border: 1px solid #ddd;
+            color: #333;
+        }
+        .popup-coupon .form-input:focus {
+            background: #fff;
+            border-color: var(--lenovo-red);
+        }
+        .popup-coupon .form-label { color: #666; }
+        .popup-coupon label[for="consent"] { color: #555; }
+
+        /* --- END COUPON STYLES --- */
+
         .screen {
             padding: 1.5rem 0;
             flex-grow: 1;
@@ -167,6 +284,7 @@
             box-shadow: 0 0 20px rgba(226, 35, 26, 0.4);
         }
         .btn-primary:disabled { filter: grayscale(1); cursor: not-allowed; }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 5px 25px rgba(226, 35, 26, 0.6); }
 
         .option-card {
             display: flex;
@@ -196,6 +314,7 @@
             margin-right: 16px;
             position: relative;
             transition: all 0.2s;
+            flex-shrink: 0;
         }
         .option-card.selected .radio-circle {
             border-color: var(--lenovo-red);
@@ -235,30 +354,6 @@
             font-size: 2rem; color: rgba(255,255,255,0.2);
         }
         @keyframes spin { 100% { transform: rotate(360deg); } }
-
-        .blur-wrapper { position: relative; margin-bottom: 2rem; }
-        .blur-target {
-            filter: blur(15px);
-            opacity: 0.5;
-            transition: all 0.8s ease;
-            mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
-            -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
-        }
-
-        .lock-container {
-            position: absolute; top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 10;
-        }
-        .lock-icon {
-            font-size: 3rem; color: var(--lenovo-red);
-            filter: drop-shadow(0 0 15px rgba(226,35,26,0.6));
-            animation: lockDrop 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-        }
-        @keyframes lockDrop {
-            0% { transform: translateY(-100px) scale(0); opacity: 0; }
-            100% { transform: translateY(0) scale(1); opacity: 1; }
-        }
 
         .form-input {
             width: 100%;
@@ -302,48 +397,9 @@
             to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
-        #screen-welcome.startCard { position: relative; }
-        .core-top {
-            position: relative;
-            width: 100%;
-            height: 140px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            pointer-events: none;
-            margin-bottom: 14px;
-        }
-        .core-ring {
-            position: absolute;
-            border-radius: 50%;
-            border: 1px solid rgba(226, 35, 26, 0.35);
-            animation: pulseRing 4s infinite ease-in-out;
-        }
-        .core-ring.r1 { width: 220px; height: 220px; animation-delay: 0s; }
-        .core-ring.r2 { width: 300px; height: 300px; animation-delay: 1.5s; }
-        .core-center {
-            width: 90px;
-            height: 90px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(226,35,26,0.9), rgba(226,35,26,0.2));
-            box-shadow: 0 0 60px rgba(226,35,26,0.6);
-            animation: pulseCore 2.5s infinite ease-in-out;
-        }
-        @keyframes pulseRing {
-            0% { transform: scale(0.9); opacity: 0.2; }
-            50% { transform: scale(1.05); opacity: 0.5; }
-            100% { transform: scale(0.9); opacity: 0.2; }
-        }
-        @keyframes pulseCore {
-            0% { transform: scale(1); opacity: 0.9; }
-            50% { transform: scale(1.15); opacity: 1; }
-            100% { transform: scale(1); opacity: 0.9; }
-        }
-
         @media (max-width: 640px) {
             .glass-card { padding: 24px; }
-            .core-ring.r1 { width: 200px; height: 200px; }
-            .core-ring.r2 { width: 270px; height: 270px; }
+            .heading-font { font-size: 1.8rem; }
         }
     </style>
 </head>
@@ -375,45 +431,51 @@
 
     <div id="progress-header" class="progress-container">
         <div class="progress-info">
-            <span id="progress-text">Прашање 1/7</span>
-            <span id="progress-percent">14%</span>
+            <span id="progress-text">Прашање 1/4</span>
+            <span id="progress-percent">0%</span>
         </div>
         <div class="progress-track">
             <div id="progress-bar" class="progress-fill"></div>
         </div>
     </div>
 
+    <!-- WELCOME SCREEN WITH COUPON -->
     <div id="screen-welcome" class="screen screen-center active startCard fade-in">
         <div class="welcome-content">
-            <div class="core-top">
-                <div class="core-ring r1"></div>
-                <div class="core-ring r2"></div>
-                <div class="core-center"></div>
-            </div>
-
-            <h1 class="heading-font" style="font-size: 2.5rem; margin-bottom: 1rem; text-align:center;">
-                Откриј Кој <span class="text-red">Lenovo</span><br>Е За Тебе
+            
+            <h1 class="heading-font" style="font-size: 2.5rem; margin-bottom: 0.5rem; text-align:center;">
+                Откриј кој <span class="text-red">Lenovo</span> е за вас и добиј купон попуст
             </h1>
 
-            <p class="text-muted" style="font-size: 1.05rem; line-height: 1.6; margin-bottom: 2.5rem; max-width: 90%; text-align:center; margin-left:auto; margin-right:auto;">
-                Одговори на брзи прашања за 30 секунди и дознај кој модел е совршен за твојата игра или работа.
-            </p>
-
-            <button onclick="startQuiz()" class="btn-primary">
-                Започни Квиз <i class="fas fa-gamepad"></i>
-            </button>
-
-            <div style="margin-top: 2rem; display: flex; gap: 20px; font-size: 0.85rem; color: var(--text-muted); justify-content:center;">
-                <span><i class="fas fa-check-circle text-red"></i> Бесплатно</span>
-                <span><i class="fas fa-bolt text-red"></i> 30 секунди</span>
+            <div class="coupon-ticket">
+                <span class="coupon-title"><i class="fas fa-ticket-alt"></i> Специјален Lenovo Ваучер</span>
+                <span class="coupon-sub">Одговори на квизот и отклучи понуда</span>
+                <span class="coupon-meta">Валиден само за ограничен период</span>
             </div>
+
+            <!-- Removed text paragraph as requested -->
+
+            <button onclick="startQuiz()" class="btn-primary" style="margin-top: 1.5rem;">
+                Започни Квиз <i class="fas fa-arrow-right"></i>
+            </button>
         </div>
     </div>
 
+    <!-- QUESTIONS SCREEN -->
     <div id="screen-questions" class="screen">
         <button id="back-btn" class="back-btn" onclick="goBack()">
             <i class="fas fa-chevron-left"></i> Назад
         </button>
+        
+        <!-- Micro Coupon Widget (Appears after Q2) -->
+        <div id="coupon-progress-widget" class="micro-coupon">
+            <div style="font-weight: 700; color: #fff; font-size: 0.9rem;">
+                <i class="fas fa-ticket-alt"></i> ВАУЧЕР ВО ПОДГОТОВКА
+            </div>
+            <div style="font-size: 0.8rem; color: var(--text-muted);">
+                Уште неколку прашања до понудата
+            </div>
+        </div>
 
         <div style="flex-grow: 1; display: flex; flex-direction: column; justify-content: center;">
             <h2 id="q-text" class="heading-font" style="font-size: 1.8rem; margin-bottom: 2rem;"></h2>
@@ -421,93 +483,82 @@
         </div>
     </div>
 
+    <!-- LOADING SCREEN -->
     <div id="screen-loading" class="screen screen-center">
         <div class="spinner-container">
             <div class="spinner-ring"></div>
-            <i class="fas fa-microchip spinner-icon"></i>
+            <i class="fas fa-tags spinner-icon"></i>
         </div>
         <h3 id="loading-text" style="font-size: 1.1rem; margin-bottom: 1rem;">
-            Ги споредуваме твоите одговори…
+            Го генерираме вашиот ваучер...
         </h3>
         <div style="width: 200px; height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px;">
             <div id="loading-bar" style="height: 100%; background: var(--lenovo-red); width: 0%; transition: width 0.3s;"></div>
         </div>
     </div>
 
-    <div id="screen-locked" class="screen screen-center">
-        <div class="blur-wrapper">
-            <img src="https://images.unsplash.com/photo-1603302576837-37561b2e2302?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
-                 class="blur-target no-select" style="width: 280px;" alt="Laptop">
-            <div class="lock-container">
-                <i class="fas fa-lock lock-icon"></i>
-            </div>
-        </div>
-
-        <div style="animation: fadeIn 0.5s 0.2s forwards; opacity: 0;">
-            <h2 class="heading-font" style="font-size: 1.8rem; margin-bottom: 0.5rem; text-align:center;">Го најдовме твојот идеален Lenovo.</h2>
-            <p class="text-muted" style="text-align:center;">Оптимален според твоите одговори.</p>
-            <p class="text-red" style="font-weight: 700; font-size: 1.2rem; margin-top: 1.5rem; letter-spacing: 1px; text-align:center;">НО ПРВО… ОТКЛУЧИ ГО.</p>
-        </div>
-
-        <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 12px; margin: 25px 0; width: 100%; border: 1px dashed rgba(255,255,255,0.2);">
-            <div style="font-size: 0.7rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 5px;">СТАТУС НА ПРЕПОРАКА</div>
-            <div class="no-select" style="filter: blur(5px); font-family: var(--font-head); font-size: 1.1rem;">
-                Lenovo Legion Pro 7i Gen 8
-            </div>
-        </div>
-
-        <button onclick="goToForm()" class="btn-primary" style="background: white; color: black; box-shadow: none;">
-            Отклучи Резултат <i class="fas fa-unlock-alt"></i>
-        </button>
-    </div>
-
+    <!-- COUPON POPUP / FORM SCREEN -->
     <div id="screen-form" class="screen">
-        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 1rem; margin-bottom: 1.5rem;">
-            <div>
-                <h3 class="heading-font" style="margin: 0; font-size: 1.2rem;">Твојот уред е подготвен</h3>
-                <span class="text-red" style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase;">Чекор 8 од 8 Отклучи</span>
+        
+        <div class="popup-coupon">
+            <div class="scissor-icon"><i class="fas fa-cut"></i></div>
+            
+            <div style="text-align: center;">
+                <h3>Вашиот Lenovo ваучер е подготвен</h3>
+                <p>Овој ваучер ви овозможува персонализирана понуда според вашите одговори. Достапен е само за корисници што го завршиле квизот.</p>
+                
+                <p style="font-size: 0.85rem; font-weight: 600; text-transform: uppercase; color: var(--lenovo-red);">
+                    Следете нè за да го отклучите:
+                </p>
+                <div class="social-links">
+                    <a href="https://www.instagram.com/kupilenovo.mk/reels/" target="_blank" class="social-btn"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.facebook.com/KupiLenovo.mk/" target="_blank" class="social-btn"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.tiktok.com/@kupilenovo.mk?lang=en" target="_blank" class="social-btn"><i class="fab fa-tiktok"></i></a>
+                </div>
             </div>
-            <div style="width: 50px; height: 35px; background: rgba(255,255,255,0.1); border-radius: 4px; overflow: hidden;">
-                <img src="https://images.unsplash.com/photo-1603302576837-37561b2e2302?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" style="width: 100%; height: 100%; object-fit: cover; filter: blur(3px);">
+
+            <form id="lead-form" onsubmit="submitForm(event)" style="display: flex; flex-direction: column; gap: 15px; margin-top: 20px;">
+                <div>
+                    <label class="form-label">Име</label>
+                    <input type="text" id="fullname" required class="form-input" placeholder="Вашето име...">
+                </div>
+
+                <div>
+                    <label class="form-label">Email</label>
+                    <input type="email" id="email" required class="form-input" placeholder="example@email.com">
+                </div>
+
+                <div>
+                    <label class="form-label">Телефон (опционално)</label>
+                    <input type="tel" id="phone" class="form-input" placeholder="07x xxx xxx">
+                </div>
+
+                <div style="display: flex; align-items: flex-start; margin-top: 5px;">
+                    <input id="consent" type="checkbox" required style="margin-top: 5px; accent-color: var(--lenovo-red);">
+                    <label for="consent" style="font-size: 0.8rem; margin-left: 10px; line-height: 1.4;">
+                        Се согласувам да бидам контактиран со персонализирана Lenovo понуда.
+                    </label>
+                </div>
+
+                <button type="submit" id="submit-btn" class="btn-primary" style="margin-top: 10px; box-shadow: none;">
+                    Отклучи Ваучер
+                </button>
+            </form>
+            
+            <div id="success-message" style="display:none; text-align: center; margin-top: 20px;">
+                <div style="font-size: 3rem; margin-bottom: 10px;">🎉</div>
+                <h3 style="color: #27ae60;">Вашиот ваучер е активиран!</h3>
+                <p>Нашиот тим ќе ве контактира со персонализирана понуда според вашите одговори.<br>Ваучерот ќе се примени при контакт.</p>
             </div>
         </div>
-
-        <form id="lead-form" onsubmit="submitForm(event)" style="flex-grow: 1; display: flex; flex-direction: column; gap: 20px;">
-            <div>
-                <label class="form-label">Име и Презиме</label>
-                <input type="text" id="fullname" required class="form-input" placeholder="Внеси име...">
-            </div>
-
-            <div>
-                <label class="form-label">Email Адреса</label>
-                <input type="email" id="email" required class="form-input" placeholder="Внеси email...">
-            </div>
-
-            <div>
-                <label class="form-label">Телефон (опционално)</label>
-                <input type="tel" id="phone" class="form-input" placeholder="07x xxx xxx">
-            </div>
-
-            <div style="display: flex; align-items: flex-start; margin-top: 5px;">
-                <input id="consent" type="checkbox" required style="margin-top: 5px; accent-color: var(--lenovo-red);">
-                <label for="consent" style="font-size: 0.8rem; color: var(--text-muted); margin-left: 10px; line-height: 1.4;">
-                    Се согласувам да бидам контактиран во врска со мојата Lenovo препорака, цени и понуди.
-                </label>
-            </div>
-
-            <div style="flex-grow: 1;"></div>
-
-            <button type="submit" id="submit-btn" class="btn-primary">
-                Отклучи ја препораката <i class="fas fa-lock-open"></i>
-            </button>
-        </form>
+        
     </div>
 
   </div>
 </main>
 
 <script>
-    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx4NG7bgInqluGB2XoymZzVIoyuLs0s8FEfWBpQv0UNHXT7agrums20jfQGk_jdPo9Q/exec";
+    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwMk8v9t3aSRMjhTCb5ki1IeKrCmV4t6yEJysEOzt0AZzUhm6Lu3Wsd1gbezNwoDSM/exec";
 
     function getParam(name) {
         try {
@@ -518,110 +569,91 @@
     }
 
     function sendToSheetsJSON(url, payload) {
-        // Apps Script Web App najcesto e ok so JSON + no-cors
-        // Ako imas CORS enable vo Apps Script, moze i mode:"cors"
         fetch(url, {
             method: "POST",
             mode: "no-cors",
-            headers: { "Content-Type": "application/json" },
+            headers: { "Content-Type": "text/plain;charset=utf-8" },
             body: JSON.stringify(payload)
         }).catch(console.error);
     }
 
+    // UPDATED QUESTIONS FROM DOCX
     const questions = [
         {
             id: "Q1",
-            text: "За што најмногу ќе го користиш лаптопот?",
+            text: "За која намена ви е потребен лаптоп?",
             options: [
-                { text: "Видео игри", value: "A" },
-                { text: "Работа во канцеларија или од дома", value: "B" }
+                { text: "Работа / Бизнис", value: "A" },
+                { text: "Секојдневна употреба", value: "B" },
+                { text: "Креативна работа", value: "C" }
             ]
         },
         {
             id: "Q2",
-            text: "Што ти е најважно?",
+            text: "Дали купувате за:",
             options: [
-                { text: "Најдобри перформанси", value: "A" },
-                { text: "Да не ми кочи на работа", value: "B" },
-                { text: "Најдобра вредност за парите", value: "C" }
+                { text: "Бизнис (фирма, фриленс)", value: "A" },
+                { text: "Лични цели", value: "B" }
             ]
         },
         {
             id: "Q3",
-            text: "Каков екран ти одговара?",
+            text: "Која големина на екран ја преферирате?",
             options: [
-                { text: "Голем (16 inch)", value: "A" },
-                { text: "Стандарден работен екран (15 inch)", value: "B" },
-                { text: "Компактен и лесен за носење (14 inch)", value: "C" }
+                { text: "14 inch – лесен и мобилен", value: "A" },
+                { text: "15–16 inch – поголем екран за работа", value: "B" }
             ]
         },
         {
             id: "Q4",
-            text: "Како изгледа твојот типичен ден?",
+            text: "Кој е вашиот буџет?",
             options: [
-                { text: "Долги фокусирани сесии, гејминг или на работа", value: "A" },
-                { text: "Состаноци, табели, презентации", value: "B" },
-                { text: "Многу движење, работа од кафулиња, coworking, терен", value: "C" }
-            ]
-        },
-        {
-            id: "Q6",
-            text: "Каде најмногу ќе го користиш лаптопот?",
-            options: [
-                { text: "Дома или биро", value: "A" },
-                { text: "Канцеларија и состаноци со клиенти", value: "B" },
-                { text: "Различни локации, секогаш со мене во ранец", value: "C" }
-            ]
-        },
-        {
-            id: "Q7",
-            text: "Што ти звучи идеално за тебе?",
-            options: [
-                { text: "Сакам лаптоп што е скап но моќен", value: "A" },
-                { text: "Сакам лаптоп што е лесен", value: "B" },
-                { text: "Сакам нешто професионално", value: "C" },
-                { text: "Сакам лаптоп со пониска цена", value: "D" }
+                { text: "До 1.000 €", value: "A" },
+                { text: "1.000 – 1.500 €", value: "B" },
+                { text: "Над 1.500 €", value: "C" }
             ]
         }
     ];
 
+    // Helper: map A/B/C to the option text (FULL answer)
+    function getAnswerText(questionId, answerValue) {
+        const q = questions.find(q => q.id === questionId);
+        if (!q) return "";
+        const opt = q.options.find(o => o.value === answerValue);
+        return opt ? opt.text : "";
+    }
+
     const products = {
         legion: {
             slug: "outcome_legion",
-            persona: "gamer",
-            url: "https://kupilenovo.mk/categories/_laptops/83F500DJRM-Legion-Legion-Pro-7-16IAX10H-Eclipse-Black---Ultra-9-275HX,-64GB,-2TB-NVMe,-RTX-5080-16GB,-16-,-DOS"
+            persona: "creative_gamer",
+            url: "https://kupilenovo.mk/categories/_laptops"
         },
-        thinkbook14: {
-            slug: "outcome_thinkbook14",
-            persona: "work_mobile",
-            url: "https://kupilenovo.mk/categories/_laptops/21MR004HRM-Lenovo-ThinkBook-14-G7-IML-Arctic-Grey----Ultra-7-155H,-32GB,-512GB-SSD,-14-,-DOS"
+        thinkbook: {
+            slug: "outcome_thinkbook",
+            persona: "business_pro",
+            url: "https://kupilenovo.mk/categories/_laptops"
         },
-        thinkpadE16: {
-            slug: "outcome_thinkpadE16",
-            persona: "work_premium",
-            url: "https://kupilenovo.mk/categories/_laptops/21SR004GRI-Lenovo-ThinkPad-E16-Gen-3-Black---Ultra-7-255H,-16GB,-1TB,-16-,-DOS"
-        },
-        v15: {
-            slug: "outcome_v15",
-            persona: "work_best_value",
-            url: "https://kupilenovo.mk/categories/_laptops/21MS004TRM--Lenovo-ThinkBook-16-G7-IML-Arctic-Grey---Ultra-5-125U,-16GB,-1TB-NVMe,-16-,-DOS"
+        ideapad: {
+            slug: "outcome_ideapad",
+            persona: "daily_user",
+            url: "https://kupilenovo.mk/categories/_laptops"
         },
         fallback: {
-            slug: "fallback_price",
-            persona: "price_hunter",
-            url: "https://kupilenovo.mk/_laptops.nspx?priceRange=9750_31137"
+            slug: "fallback_offer",
+            persona: "general",
+            url: "https://kupilenovo.mk/categories/_laptops"
         }
     };
 
     let currentStep = 0;
     let answers = {};
-    let scores = { legion: 0, thinkbook14: 0, thinkpadE16: 0, v15: 0 };
+    let scores = { legion: 0, thinkbook: 0, ideapad: 0 };
 
     const screens = {
         welcome: document.getElementById('screen-welcome'),
         questions: document.getElementById('screen-questions'),
         loading: document.getElementById('screen-loading'),
-        locked: document.getElementById('screen-locked'),
         form: document.getElementById('screen-form')
     };
     const progressHeader = document.getElementById('progress-header');
@@ -629,6 +661,7 @@
     const progressText = document.getElementById('progress-text');
     const progressPercent = document.getElementById('progress-percent');
     const backBtn = document.getElementById('back-btn');
+    const couponWidget = document.getElementById('coupon-progress-widget');
 
     function showScreen(name) {
         Object.values(screens).forEach(el => {
@@ -647,7 +680,7 @@
 
     function renderQuestion() {
         const q = questions[currentStep];
-        const pct = Math.round(((currentStep + 1) / questions.length) * 100);
+        const pct = Math.round(((currentStep) / questions.length) * 100); // Progress bar logic
         progressBar.style.width = pct + "%";
         progressText.innerText = "ПРАШАЊЕ " + (currentStep + 1) + " ОД " + questions.length;
         progressPercent.innerText = pct + "%";
@@ -656,6 +689,13 @@
 
         if (currentStep === 0) backBtn.classList.add('disabled');
         else backBtn.classList.remove('disabled');
+
+        // COUPON LOGIC: Show "Voucher in Progress" after Q2 (index 1)
+        if (currentStep >= 2) {
+            couponWidget.style.display = "block";
+        } else {
+            couponWidget.style.display = "none";
+        }
 
         const container = document.getElementById('a-container');
         container.innerHTML = "";
@@ -677,12 +717,14 @@
 
         answers[qId] = val;
 
-        if (currentStep < questions.length - 1) {
-            currentStep++;
-            renderQuestion();
-        } else {
-            finishQuiz();
-        }
+        setTimeout(() => {
+             if (currentStep < questions.length - 1) {
+                currentStep++;
+                renderQuestion();
+            } else {
+                finishQuiz();
+            }
+        }, 300);
     }
 
     function goBack() {
@@ -692,31 +734,26 @@
     }
 
     function calculateScores() {
-        scores = { legion: 0, thinkbook14: 0, thinkpadE16: 0, v15: 0 };
+        scores = { legion: 0, thinkbook: 0, ideapad: 0 };
 
-        if (answers['Q1'] === 'A') scores.legion += 5;
-        if (answers['Q1'] === 'B') { scores.thinkpadE16 += 3; scores.v15 += 3; }
+        // Q1: Purpose
+        if (answers['Q1'] === 'A') scores.thinkbook += 5; // Work -> ThinkBook
+        if (answers['Q1'] === 'B') scores.ideapad += 5;   // Daily -> IdeaPad
+        if (answers['Q1'] === 'C') scores.legion += 5;    // Creative -> Legion (High Perf)
 
-        if (answers['Q2'] === 'A') { scores.legion += 2; scores.thinkpadE16 += 1; }
-        if (answers['Q2'] === 'B') { scores.thinkpadE16 += 2; scores.thinkbook14 += 1; }
-        if (answers['Q2'] === 'C') { scores.v15 += 3; }
+        // Q2: Buyer Type
+        if (answers['Q2'] === 'A') scores.thinkbook += 3; // Business
+        if (answers['Q2'] === 'B') scores.ideapad += 2;   // Personal
 
-        if (answers['Q3'] === 'A') { scores.legion += 1; scores.thinkpadE16 += 1; scores.v15 += 1; }
-        if (answers['Q3'] === 'B') { scores.thinkpadE16 += 1; scores.v15 += 1; }
-        if (answers['Q3'] === 'C') { scores.thinkbook14 += 2; }
+        // Q3: Size
+        // Just influences model, mostly prefer ThinkBook for 14, Legion for bigger usually, keeping simple mapping
+        if (answers['Q3'] === 'A') scores.thinkbook += 2;
+        if (answers['Q3'] === 'B') scores.legion += 2;
 
-        if (answers['Q4'] === 'A') { scores.legion += 1; scores.thinkpadE16 += 1; }
-        if (answers['Q4'] === 'B') { scores.thinkpadE16 += 2; scores.v15 += 1; }
-        if (answers['Q4'] === 'C') { scores.thinkbook14 += 2; }
-
-        if (answers['Q6'] === 'A') { scores.legion += 1; }
-        if (answers['Q6'] === 'B') { scores.thinkpadE16 += 1; scores.v15 += 1; }
-        if (answers['Q6'] === 'C') { scores.thinkbook14 += 2; }
-
-        if (answers['Q7'] === 'A') { scores.legion += 1; scores.thinkpadE16 += 1; }
-        if (answers['Q7'] === 'B') { scores.thinkbook14 += 1; }
-        if (answers['Q7'] === 'C') { scores.thinkpadE16 += 1; }
-        if (answers['Q7'] === 'D') { scores.v15 += 1; }
+        // Q4: Budget
+        if (answers['Q4'] === 'A') scores.ideapad += 3;   // < 1000
+        if (answers['Q4'] === 'B') scores.thinkbook += 2; // 1000-1500
+        if (answers['Q4'] === 'C') scores.legion += 3;    // > 1500
 
         return determineWinner();
     }
@@ -734,13 +771,7 @@
                 candidates.push(key);
             }
         }
-
-        if (candidates.length === 1) return candidates[0];
-        if (candidates.includes('legion')) return 'legion';
-        if (candidates.includes('thinkpadE16')) return 'thinkpadE16';
-        if (candidates.includes('thinkbook14')) return 'thinkbook14';
-        if (candidates.includes('v15')) return 'v15';
-        return candidates[0];
+        return candidates[0] || 'fallback';
     }
 
     function finishQuiz() {
@@ -748,9 +779,9 @@
         showScreen('loading');
 
         const msgs = [
-            "Ги споредуваме твоите одговори…",
-            "Ги филтрираме моделите…",
-            "Го подготвуваме твојот идеален Lenovo…"
+            "Ги анализираме одговорите…",
+            "Го подготвуваме ваучерот…",
+            "Уште малку…"
         ];
         const loadText = document.getElementById('loading-text');
         const loadBar = document.getElementById('loading-bar');
@@ -760,33 +791,33 @@
 
         const interval = setInterval(() => {
             step++;
-            if (step === 1) { loadText.innerText = msgs[1]; loadBar.style.width = "40%"; }
-            else if (step === 2) { loadText.innerText = msgs[2]; loadBar.style.width = "80%"; }
+            if (step === 1) { loadText.innerText = msgs[1]; loadBar.style.width = "50%"; }
+            else if (step === 2) { loadText.innerText = msgs[2]; loadBar.style.width = "85%"; }
             else if (step === 3) {
                 loadBar.style.width = "100%";
                 clearInterval(interval);
-                setTimeout(() => showScreen('locked'), 2500);
+                setTimeout(() => showScreen('form'), 500);
             }
-        }, 700);
+        }, 800);
     }
-
-    function goToForm() { showScreen('form'); }
 
     function buildUTM(winnerKey) {
         const data = products[winnerKey] || products.fallback;
         const params = new URLSearchParams();
-        params.set('utm_source', 'quiz');
+        params.set('utm_source', 'quiz_coupon');
         params.set('utm_medium', 'paid');
-        params.set('utm_campaign', 'quiz');
+        params.set('utm_campaign', 'coupon_activation');
         params.set('utm_content', data.slug);
-        params.set('utm_term', 'persona_' + data.persona);
         return params.toString();
     }
 
     function submitForm(e) {
         e.preventDefault();
         const btn = document.getElementById('submit-btn');
-        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Се отклучува...';
+        const form = document.getElementById('lead-form');
+        const successMsg = document.getElementById('success-message');
+        
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Се процесира...';
         btn.disabled = true;
 
         const winner = calculateScores();
@@ -796,8 +827,8 @@
         const email = document.getElementById('email').value || "";
         const phone = document.getElementById('phone').value || "";
         const consent = document.getElementById('consent').checked ? "yes" : "no";
-        const persona = productData.persona;
 
+        // Send FULL answer text to Sheets (instead of A/B/C)
         const payload = {
             timestamp: new Date().toISOString(),
             full_name: name,
@@ -805,37 +836,30 @@
             phone: phone,
             consent: consent,
             outcome: winner,
-            persona: persona,
-            scores_legion: String(scores.legion),
-            scores_thinkbook14: String(scores.thinkbook14),
-            scores_thinkpadE16: String(scores.thinkpadE16),
-            scores_v15: String(scores.v15),
+            q1: getAnswerText("Q1", answers['Q1']),
+            q2: getAnswerText("Q2", answers['Q2']),
+            q3: getAnswerText("Q3", answers['Q3']),
+            q4: getAnswerText("Q4", answers['Q4']),
             utm_source: getParam("utm_source") || "direct",
-            utm_medium: getParam("utm_medium") || "paid",
-            utm_campaign: getParam("utm_campaign") || "quiz",
-            utm_content: "outcome_" + winner,
-            utm_term: "persona_" + persona,
-            page: location.href,
-            userAgent: navigator.userAgent,
-            referrer: document.referrer || ""
+            page: location.href
         };
 
         sendToSheetsJSON(GOOGLE_SCRIPT_URL, payload);
 
         if (typeof fbq === 'function') {
             fbq('track', 'Lead', {
-                quiz_name: 'lenovo_quiz',
-                outcome: winner,
-                persona: persona
+                quiz_name: 'lenovo_coupon_quiz',
+                outcome: winner
             });
         }
 
         setTimeout(() => {
-            const finalUrl = productData.url + (productData.url.includes('?') ? '&' : '?') + buildUTM(winner);
-            btn.innerHTML = '<i class="fas fa-check"></i> Успешно!';
-            btn.style.background = '#2ecc71';
-            window.location.href = finalUrl;
-        }, 600);
+            // Success State Logic
+            form.style.display = 'none';
+            successMsg.style.display = 'block';
+            
+            // Redirect REMOVED. User stays on success message.
+        }, 1000);
     }
 </script>
 </body>
